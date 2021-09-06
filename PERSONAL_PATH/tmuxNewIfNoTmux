@@ -1,0 +1,17 @@
+#!/bin/env bash
+
+oneStInstance() {
+        return $(pgrep st | wc -w | awk '{print $1>=2}')
+}
+
+tmuxNewIfNoTmuxFn() {
+	if oneStInstance; then
+			# if there is one instance of st
+			tmux new -As0 "$@"
+	else
+			# if there is more than one instance of st
+			tmux "$@"
+	fi
+}
+
+tmuxNewIfNoTmuxFn

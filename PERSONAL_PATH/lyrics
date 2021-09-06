@@ -1,0 +1,41 @@
+#!/bin/env python3
+
+import os
+from pathlib import Path
+import sys
+from typing import List
+from spotifyIntergration import SpotifyIntergration
+from lyrics import Lyrics
+
+try:
+	from dotenv import load_dotenv
+
+	envPath = str(Path.joinpath(Path.home(), "~/.config/lyrical_cache/env"))
+	load_dotenv(envPath)
+except ModuleNotFoundError:
+	pass
+
+
+class Main:
+	def __init__(self):
+		self.spotifyIntergration = SpotifyIntergration()
+		self.lyrics = Lyrics(verbose=True)
+
+	def main(self, argv: List[str]):
+		print(self.getCurrentlyPlayingLyrics())
+
+	def getCurrentlyPlayingLyrics(self) -> str:
+		while True:
+			try:
+				songName = self.spotifyIntergration.getCurrentlyPlaying()
+				lyrics = self.lyrics.getLyrics(songName)
+
+				return lyrics
+			except Exception as e:
+				raise e
+				print(f"❌ Fail {e}, Trying again")
+
+
+if __name__ == "__main__":
+	mainInstance = Main()
+	mainInstance.main(sys.argv[1:])

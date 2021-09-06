@@ -1,0 +1,2 @@
+#!/bin/sh
+exec java -jar "$HOME/dotfiles/extras/tika.jar" "$@" 2>/dev/null

@@ -1,0 +1,5 @@
+#!/bin/env bash
+
+while true; do
+    dwm $@ >~/log/.dwm.log
+done

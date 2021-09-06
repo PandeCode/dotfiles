@@ -1,0 +1,4 @@
+#!/bin/bash
+pwdx $1
+ps -Flww -p $1
+cat /proc/$1/status

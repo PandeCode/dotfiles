@@ -1,0 +1,24 @@
+[submodule "tmux-config"]
+	path = tmux-config
+	url = https://github.com/PandeCode/tmux-config/
+[submodule "config/nvim"]
+	path = config/nvim
+	url = https://github.com/PandeCode/nvim-config/
+[submodule "dwm"]
+	path = dwm
+	url = https://github.com/PandeCode/dwm
+[submodule "dwmblocks"]
+	path = dwmblocks
+	url = https://github.com/PandeCode/dwmblocks
+[submodule "dwm-flexipatch"]
+	path = dwm-flexipatch
+	url = https://github.com/PandeCode/dwm-flexipatch/
+[submodule "st"]
+	path = st
+	url = https://github.com/PandeCode/st
+[submodule "st-flexipatch"]
+	path = st-flexipatch
+	url = https://github.com/PandeCode/st-flexipatch/
+[submodule "config/rofi"]
+	path = config/rofi
+	url = https://github.com/PandeCode/rofi

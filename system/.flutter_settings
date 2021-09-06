@@ -1,0 +1,7 @@
+{
+  "enable-linux-desktop": true,
+  "enable-web": false,
+  "android-studio-dir": "/usr/local/android-studio",
+  "enable-windows-desktop": true,
+  "enable-macos-desktop": true
+}
