@@ -1,2 +1,2 @@
 #!/bin/env bash
-st -T 'stfloat' -g 85x25+550+300 -e ranger
+st -T 'stfloat' -g 85x25+550+300 -e ranger --choosefiles
