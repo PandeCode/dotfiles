@@ -22,3 +22,6 @@
 [submodule "config/rofi"]
 	path = config/rofi
 	url = https://github.com/PandeCode/rofi
+[submodule "dsblocks"]
+	path = dsblocks
+	url = https://github.com/PandeCode/dsblocks/

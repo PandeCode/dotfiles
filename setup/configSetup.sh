@@ -14,7 +14,8 @@ rm -fr ~/.config/clangd \
         ~/.config/i3blocks \
         ~/.config/nvim \
         ~/.config/picom \
-        ~/.config/rofi
+        ~/.config/rofi \
+        ~/.config/ranger
 
 ln -s ~/dotfiles/config/kitty ~/.config/kitty
 ln -s ~/dotfiles/config/bat ~/.config/bat
@@ -31,3 +32,4 @@ ln -s ~/dotfiles/config/i3blocks ~/.config/i3blocks
 ln -s ~/dotfiles/config/nvim ~/.config/nvim
 ln -s ~/dotfiles/config/picom ~/.config/picom
 ln -s ~/dotfiles/config/rofi ~/.config/rofi
+ln -s ~/dotfiles/config/ranger ~/.config/ranger
