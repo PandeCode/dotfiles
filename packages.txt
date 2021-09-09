@@ -110,7 +110,6 @@ gparted
 graphviz
 grep
 grub
-grub-theme-manjaro
 gst-libav
 gst-plugins-bad
 gst-plugins-base
@@ -157,7 +156,6 @@ lib32-vulkan-intel
 lib32-vulkan-radeon
 libdvdcss
 libgsf
-libguestfs
 libopenraw
 libreoffice-fresh
 libva-intel-driver

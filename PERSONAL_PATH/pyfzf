@@ -1,0 +1,231 @@
+#!/bin/bash
+
+# title of menu items
+clr="Clear uninstalled packages from cache (paccache)"
+insg="Install package group(s) from official repository"
+insp="Install package(s) from official repository"
+nws="Show news from Archlinux homepage"
+pdif="Resolve pacnew and pacsave files (pacdiff)"
+rmia="Remove installed AUR package(s)"
+rmig="Remove installed package group(s)"
+rmio="Remove installed official package(s)"
+rmip="Remove installed package(s)"
+rmra="Remove recently installed AUR package(s)"
+rmro="Remove recently installed official package(s)"
+rmrp="Remove recently installed package(s)"
+rmud="Remove unneeded dependencies (orphans)"
+sh="Start shell"
+upg="Upgrade system"
+
+# fzf command for "to be installed" packages
+fzfip() {
+    SHELL=sh fzf --layout=reverse --multi --preview-window=right:60%:wrap \
+                 --preview='pacman --color always -Si {}'
+}
+
+# fzf command for "to be removed" packages
+fzfrp() {
+    SHELL=sh fzf --layout=reverse --multi --preview-window=right:60%:wrap \
+                 --preview='pacman --color always -Qi {}'
+}
+
+# fzf command for "to be installed" groups
+fzfig() {
+    SHELL=bash fzf --layout=reverse --multi --preview-window=right:60%:wrap --preview='
+        installed="$(pacman -Qqg {} 2>/dev/null)"
+        pr -mt -s" " <(pacman -Sqg {} | grep -Fxvf <(echo "$installed")) <(echo "$installed") | awk '\''
+            BEGIN {printf "%-24.24s  %.24s\n\n", "Not installed", "Installed";
+                   fmt="\033[32m%-24.24s\033[0m  %.24s\n"}
+            /^ /  {printf fmt, "", $1; nex}
+            / $/  {printf fmt, $1, ""; next}
+                  {printf fmt, $1, $2}
+    '\'
+}
+
+# fzf command for "to be removed" groups
+fzfrg() {
+    SHELL=bash fzf --layout=reverse --multi --preview-window=right:60%:wrap --preview='
+        installed="$(pacman -Qqg {} 2>/dev/null)"
+        pr -mt -s" " <(echo "$installed") <(pacman -Sqg {} | grep -Fxvf <(echo "$installed")) | awk '\''
+            BEGIN {printf "%-24.24s  %.24s\n\n", "Installed", "Not installed";
+                   fmt="\033[31m%-24.24s\033[0m  %.24s\n"}
+            /^ /  {printf fmt, "", $1; next}
+            / $/  {printf fmt, $1, ""; next}
+                  {printf fmt, $1, $2}
+    '\'
+}
+
+
+# grep extended regexp of packages to ignore when listing installed packages to remove
+pacstoign="^(base|efibootmgr|grub|linux|linux-firmware|linux-lts|man-db|man-pages)$"
+
+# list of package groups to ignore while listing installed packages to remove
+grpstoign=(base-devel)
+
+# menu items to show
+menu="$insp\n$insg\n$upg\n$rmrp\n$rmro\n$rmra\n$rmip\n$rmio\n$rmia\n$rmig\n$pdif\n$clr\n$rmud\n$nws\n$sh"
+
+
+filter () {
+    grep -Fxvf <(pacman -Qqg "${grpstoign[@]}") | grep -Ev "$pacstoign"
+}
+
+keyprompt() {
+    read -s -n1 -p $'\n Press any key to continue or ^C to exit...'
+}
+
+echo -en '\e[22;0t' # save title
+echo -en '\e]0;pyfzf\e\\' # set title
+
+while true ; do
+    clear
+    case "$(echo -e "$menu" | fzf --layout=reverse)" in
+        "$clr")
+            trap : INT
+            paccache -ruk0
+            trap - INT
+            keyprompt
+            ;;
+        "$insg")
+            mapfile -t grpstoins < <(pacman -Sqg | fzfig)
+            if (( ${#grpstoins[@]} )) ; then
+                clear
+                trap : INT
+                yay -S "${grpstoins[@]}"
+                trap - INT
+                keyprompt
+            fi
+            ;;
+        "$insp")
+            mapfile -t pacstoins < <(pacman -Sql | fzfip)
+            if (( ${#pacstoins[@]} )) ; then
+                clear
+                trap : INT
+                yay -S "${pacstoins[@]}"
+                trap - INT
+                keyprompt
+            fi
+            ;;
+        "$nws")
+            yay -Pw | less -R
+            ;;
+        "$pdif")
+            trap : INT
+            sudo pacdiff
+            trap - INT
+            keyprompt
+            ;;
+        "$rmia")
+            mapfile -t pacstorem < <(
+                tac /var/log/pacman.log | grep -aF "[ALPM] installed" |
+                 awk '!x[$4] {x[$4]=1; print $4}' |
+                  grep -Fxf <(pacman -Qqem) |
+                   fzfrp)
+            if (( ${#pacstorem[@]} )) ; then
+                clear
+                trap : INT
+                yay -Rns "${pacstorem[@]}"
+                trap - INT
+                keyprompt
+            fi
+            ;;
+        "$rmig")
+            mapfile -t grpstorem < <(
+                pacman -Qg | cut -d' ' -f1 | uniq |
+                 grep -Fxvf <(printf "%s\n" "${grpstoign[@]}") |
+                  fzfrg)
+            if (( ${#grpstorem[@]} )) ; then
+                clear
+                trap : INT
+                yay -Rns "${grpstorem[@]}"
+                trap - INT
+                keyprompt
+            fi
+            ;;
+        "$rmio")
+            mapfile -t pacstorem < <(pacman -Qqen | filter | fzfrp)
+            if (( ${#pacstorem[@]} )) ; then
+                clear
+                trap : INT
+                yay -Rns "${pacstorem[@]}"
+                trap - INT
+                keyprompt
+            fi
+            ;;
+        "$rmip")
+            mapfile -t pacstorem < <(pacman -Qqe | filter | fzfrp)
+            if (( ${#pacstorem[@]} )) ; then
+                clear
+                trap : INT
+                yay -Rns "${pacstorem[@]}"
+                trap - INT
+                keyprompt
+            fi
+            ;;
+        "$rmra")
+            mapfile -t pacstorem < <(pacman -Qqem | fzfrp)
+            if (( ${#pacstorem[@]} )) ; then
+                clear
+                trap : INT
+                yay -Rns "${pacstorem[@]}"
+                trap - INT
+                keyprompt
+            fi
+            ;;
+        "$rmro")
+            mapfile -t pacstorem < <(
+                tac /var/log/pacman.log | grep -aF "[ALPM] installed" |
+                 awk '!x[$4] {x[$4]=1; print $4}' |
+                  grep -Fxf <(pacman -Qqen | filter) |
+                   fzfrp)
+            if (( ${#pacstorem[@]} )) ; then
+                clear
+                trap : INT
+                yay -Rns "${pacstorem[@]}"
+                trap - INT
+                keyprompt
+            fi
+            ;;
+        "$rmrp")
+            mapfile -t pacstorem < <(
+                tac /var/log/pacman.log | grep -aF "[ALPM] installed" |
+                 awk '!x[$4] {x[$4]=1; print $4}' |
+                  grep -Fxf <(pacman -Qqe | filter) |
+                   fzfrp)
+            if (( ${#pacstorem[@]} )) ; then
+                clear
+                trap : INT
+                yay -Rns "${pacstorem[@]}"
+                trap - INT
+                keyprompt
+            fi
+            ;;
+        "$rmud")
+            mapfile -t orpstorem < <(pacman -Qqdt)
+            if (( ${#orpstorem[@]} )) ; then
+                trap : INT
+                yay -Rns "${orpstorem[@]}"
+                trap - INT
+            else
+                echo -e '\e[1;32m==> \e[1;37mNo unneeded dependencies (orphans) found for removing\e[0m'
+            fi
+            keyprompt
+            ;;
+        "$sh")
+            "$SHELL"
+            echo -en '\e]0;pyfzf\e\\' # set title
+            ;;
+        "$upg")
+            trap : INT
+            yay -Syu
+            trap - INT
+            keyprompt
+            ;;
+        *)
+            break
+            ;;
+    esac
+done
+
+clear
+echo -en '\e[23;0t' # restore titlet

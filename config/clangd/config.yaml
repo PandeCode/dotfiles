@@ -1,40 +1,9 @@
 If:
-    PathMatch: [.*\.h]
-CompileFlags:
-        Add: [
-                -xc-header
-                -std=c99,
-                -g,
-                -pthread,
-                -Wall,
-                -Wextra,
-                -pedantic,
-                -ferror-limit=0,
-                -ftemplate-backtrace-limit=0,
-            ]
--------
-If:
-    PathMatch: [.*\.c]
-CompileFlags:
-        Add: [
-                -xc
-                -std=c99,
-                -g,
-                -pthread,
-                -Wall,
-                -Wextra,
-                -pedantic,
-                -ferror-limit=0,
-                -ftemplate-backtrace-limit=0,
-            ]
-------
-If:
-    PathMatch: [.*\.hpp, .*\.cpp]
+    PathMatch: [.*\.cpp]
 CompileFlags:
             Add: [
                     -xc++,
                     -std=c++17,
-                    -g,
                     -pthread,
                     -Wall,
                     -Wextra,
@@ -42,3 +11,48 @@ CompileFlags:
                     -ferror-limit=0,
                     -ftemplate-backtrace-limit=0,
                 ]
+------
+If:
+    PathMatch: [.*\.hpp]
+CompileFlags:
+            Add: [
+                    -xc++-header,
+                    -std=c++17,
+                    -pthread,
+                    -Wall,
+                    -Wextra,
+                    -pedantic,
+                    -ferror-limit=0,
+                    -ftemplate-backtrace-limit=0,
+                    -Wno-unused-variable,
+                ]
+------
+If:
+    PathMatch: [.*\.h]
+CompileFlags:
+        Add: [
+                -xc-header
+                -std=c17,
+                -pthread,
+                -Wall,
+                -Wextra,
+                -pedantic,
+                -ferror-limit=0,
+                -ftemplate-backtrace-limit=0,
+                -Wno-unused-variable,
+            ]
+-------
+If:
+    PathMatch: [.*\.c]
+CompileFlags:
+        Add: [
+                -xc
+                -std=c17,
+                -g,
+                -pthread,
+                -Wall,
+                -Wextra,
+                -pedantic,
+                -ferror-limit=0,
+                -ftemplate-backtrace-limit=0,
+            ]
