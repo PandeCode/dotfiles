@@ -4,19 +4,13 @@
 
 #!/bin/env bash
 
-oneStInstance() {
-    return $(pgrep st | wc -w | awk '{print $1>=2}')
-}
-
-tmuxNewIfNoTmuxFn() {
-    if oneStInstance; then
-        tmux new -As0
+if [ "$TERM" == "st-256color" ]; then
+    if [ "$(pidof st | wc -w | tr '\n' '\0')" == "1" ]; then
+        tmux new -As0 && exit
     else
-        tmux new
+        tmux new && exit;
     fi
-}
-
-if [ "$TERM" == "st-256color" ]; then tmuxNewIfNoTmuxFn && exit; fi
+fi
 
 [[ $- != *i* ]] && return
 
