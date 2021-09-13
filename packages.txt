@@ -157,6 +157,7 @@ lib32-vulkan-radeon
 libdvdcss
 libgsf
 libopenraw
+libqtshadowsocks
 libreoffice-fresh
 libva-intel-driver
 libva-mesa-driver
@@ -271,8 +272,11 @@ pulseaudio-bluetooth
 pulseaudio-ctl
 pulseaudio-zeroconf
 python-pip
+python2
+python2-pip
 qemu
 qpdfview
+qrencode
 qt5-charts
 qt5ct
 ranger
@@ -289,10 +293,12 @@ sed
 sfml
 shadow
 shfmt
+skippy-xd
 spectre-meltdown-checker
 spicetify-cli-git
 spotify-adblock
 squashfs-tools
+sslh
 starship
 steam-manjaro
 subversion
@@ -327,6 +333,7 @@ ttf-inconsolata
 ttf-indic-otf
 ttf-joypixels
 ttf-liberation
+ttf-sazanami
 ttf-symbola-free
 ttf-symbols-adf
 udiskie
@@ -355,6 +362,7 @@ windscribe-cli
 wine
 wmctrl
 wpa_supplicant
+wscat
 xbacklight-ctl-git
 xbindkeys
 xclip
