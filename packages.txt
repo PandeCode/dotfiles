@@ -44,6 +44,7 @@ cryptsetup
 ctags
 dbus-x11
 device-mapper
+dex
 dhclient
 dhcpcd
 diffutils
@@ -156,6 +157,7 @@ lib32-vulkan-intel
 lib32-vulkan-radeon
 libdvdcss
 libgsf
+libguestfs
 libopenraw
 libqtshadowsocks
 libreoffice-fresh
@@ -167,10 +169,10 @@ licenses
 light
 light-locker
 linux-firmware
-linux512
-linux512-headers
 linux513
 linux513-headers
+linux514
+linux514-headers
 lld
 lldb
 logrotate
@@ -210,7 +212,6 @@ modemmanager
 mokutil-git
 mopidy
 mopidy-mpd
-mousepad
 mtpfs
 mugshot
 nano
@@ -251,6 +252,7 @@ p7zip
 pacman
 pamac-gtk
 pamixer
+paru-bin
 patch
 pavucontrol
 pciutils
@@ -345,7 +347,10 @@ unrar
 usb_modeswitch
 usbutils
 util-linux
+v4l2loopback-dkms
 vagrant
+valgrind
+vifm
 virtualbox-bin
 vis
 visual-studio-code-insiders-bin
@@ -396,9 +401,9 @@ xorg-twm
 xorg-xev
 xorg-xinit
 xorg-xkill
+xorg-xsetroot
 xorg-xwininfo
 yarn
-yay
 ytfzf
 zeal
 zensu
