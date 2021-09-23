@@ -4,6 +4,7 @@ RED=#ff5555
 GREEN=#50fa7b
 YELLOW=#f1fa8c
 WHITE=#f8f8f2
+DEFAULT_COLOR=#ffffff
 
 is_number() {
     [[ $1 =~ ^[0-9]+$ ]]
@@ -101,7 +102,12 @@ main() {
     fi
 
     ping_result="$(format_ping_value $ping_result)"
-    echo "#[fg=$(colorize_ping_value $ping_result)]$ping_result#[default]"
+
+    if test "${SB+x}"; then
+        echo "^c$(colorize_ping_value $ping_result)^$ping_result ms^c$DEFAULT_COLOR^"
+    else
+        echo "#[fg=$(colorize_ping_value $ping_result)]$ping_result#[default]"
+    fi
 }
 
 main
