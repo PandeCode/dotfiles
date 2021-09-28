@@ -1,7 +1,12 @@
 #!/bin/bash
 # Source: http://www.onlamp.com/pub/a/linux/2000/11/16/LinuxAdmin.html
 
-source ~/dotfiles/config/i3blocks/colors
+
+RED=#ff5555
+GREEN=#50fa7b
+YELLOW=#f1fa8c
+WHITE=#f8f8f2
+DEFAULT_COLOR=#8F93A2
 
 
 INSTANCE="${BLOCK_INSTANCE}"

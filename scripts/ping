@@ -4,7 +4,7 @@ RED=#ff5555
 GREEN=#50fa7b
 YELLOW=#f1fa8c
 WHITE=#f8f8f2
-DEFAULT_COLOR=#ffffff
+DEFAULT_COLOR=#8F93A2
 
 is_number() {
     [[ $1 =~ ^[0-9]+$ ]]
