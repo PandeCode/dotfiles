@@ -1,5 +1,5 @@
 #!/bin/env bash
 
 while true; do
-    dwm $@ >~/log/.dwm.log
+    dwm $@ 1> ~/log/dwm.log 2> ~/log/dwm.err.log
 done

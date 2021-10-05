@@ -8,7 +8,6 @@ adobe-source-sans-fonts
 alacritty
 alsa-firmware
 alsa-utils
-alttab-git
 amdapp-sdk
 android-tools
 android-udev
@@ -30,6 +29,7 @@ btrfs-progs
 bzip2
 cava
 ccls
+cgdb
 clang
 clipit
 cmake
@@ -65,7 +65,6 @@ emacs
 engrampa
 espeak
 ethtool
-eww-git
 exa
 exfat-utils
 f2fs-tools
@@ -81,7 +80,6 @@ findutils
 fish
 flameshot
 flex
-fmui-git
 fontpreview
 fortune-mod
 freetype2
@@ -95,6 +93,7 @@ gdb
 gettext
 git-filter-repo
 github-cli
+gitkraken
 glfw-doc
 glfw-x11
 glibc
@@ -142,6 +141,7 @@ ipw2200-fw
 jdk
 jfsutils
 jre
+komikku
 komorebi-bin
 leagueoflegends-git
 legendary
@@ -164,6 +164,7 @@ libreoffice-fresh
 libva-intel-driver
 libva-mesa-driver
 libva-vdpau-driver
+libwebsockets
 libxft-bgra
 licenses
 light
@@ -178,8 +179,10 @@ lldb
 logrotate
 lolcat
 lsb-release
+lshw
 lua
 lua-language-server
+lua51
 luarocks
 lutris
 lvm2
@@ -295,6 +298,7 @@ sed
 sfml
 shadow
 shfmt
+sidekick-browser-stable-bin
 skippy-xd
 spectre-meltdown-checker
 spicetify-cli-git
@@ -303,6 +307,7 @@ squashfs-tools
 sslh
 starship
 steam-manjaro
+stylua
 subversion
 sudo
 sysfsutils
@@ -351,11 +356,12 @@ v4l2loopback-dkms
 vagrant
 valgrind
 vifm
-virtualbox-bin
+virtualbox
 vis
 visual-studio-code-insiders-bin
 vkd3d
 vlc
+volumeicon
 vtk
 vulkan-intel
 vulkan-radeon
@@ -394,6 +400,7 @@ xf86-video-vmware
 xf86-video-voodoo
 xflux
 xfsprogs
+xfwm4
 xiccd
 xorg-mkfontscale
 xorg-server
@@ -403,6 +410,7 @@ xorg-xinit
 xorg-xkill
 xorg-xsetroot
 xorg-xwininfo
+xseticon
 yarn
 ytfzf
 zeal
