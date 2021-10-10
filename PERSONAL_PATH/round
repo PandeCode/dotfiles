@@ -1,0 +1,40 @@
+#!/bin/env bash
+
+pushd . >/dev/null
+
+cd ~/dotfiles/dwm-flexipatch
+
+state=$(cat patches.h | grep -e 'ROUNDED_CORNERS_PATCH' | grep -Eo '.{1}$')
+
+if [ "$1" == "off" ]; then
+	if [ "$state" == "1" ]; then
+		sed -i 's/#define ROUNDED_CORNERS_PATCH 1/#define ROUNDED_CORNERS_PATCH 0/' patches.h
+	else
+		echo "State Already is :$state"
+		exit 1
+	fi
+
+elif [ "$1" == "on" ]; then
+	if [ "$state" == "0" ]; then
+		sed -i 's/#define ROUNDED_CORNERS_PATCH 0/#define ROUNDED_CORNERS_PATCH 1/' patches.h
+	else
+		echo "State Already is :$state"
+		exit 1
+	fi
+else
+	if [ "$state" == "0" ]; then
+		sed -i 's/#define ROUNDED_CORNERS_PATCH 0/#define ROUNDED_CORNERS_PATCH 1/' patches.h
+		echo "State is :$state"
+	elif [ "$state" == "1" ]; then
+		sed -i 's/#define ROUNDED_CORNERS_PATCH 1/#define ROUNDED_CORNERS_PATCH 0/' patches.h
+		echo "State is :$state"
+	else
+		echo err
+		exit 1
+	fi
+fi
+
+sudo make install
+pkill dwm
+
+popd
