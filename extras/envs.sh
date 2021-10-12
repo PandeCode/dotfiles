@@ -1,4 +1,5 @@
-export TERMINAL=/usr/bin/kitty
+export SHELL=/bin/bash
+export TERMINAL=/usr/bin/st
 export CC=/usr/bin/clang
 export CXX=/usr/bin/clang++
 export EDITOR=/usr/bin/nvim
@@ -50,7 +51,7 @@ export FZF_DEFAULT_OPTS="
 --bind 'ctrl-r:reload(ps aux)' 
 "
 
-export FZF_DEFAULT_COMMAND="fdfind --follow --hidden --exclude .git --exclude 'node_modules' --color=always"
+export FZF_DEFAULT_COMMAND="SHELL=/bin/bash fdfind --follow --hidden --exclude .git --exclude 'node_modules' --color=always"
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 export FZF_ALT_C_COMMAND="$FZF_DEFAULT_COMMAND --type d"
 

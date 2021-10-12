@@ -91,6 +91,7 @@ gcc-libs
 gcolor2
 gdb
 gettext
+gimp
 git-filter-repo
 github-cli
 gitkraken
@@ -130,6 +131,7 @@ heroic-games-launcher-bin
 htop
 imgui-sfml
 inetutils
+inkscape
 intel-gpu-tools
 intel-ucode
 inxi
@@ -366,6 +368,7 @@ vtk
 vulkan-intel
 vulkan-radeon
 w3m
+websocat
 wget
 which
 whois
