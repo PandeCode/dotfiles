@@ -52,8 +52,8 @@ SETUVAR _fish_abbr_idea:nvim\x20/home/shawn/dev/ideas\x2etxt
 SETUVAR _fish_abbr_initgit:git\x20init\x3bgit\x20branch\x20\x2dM\x20main\x20\x3bgit\x20add\x20\x2e\x3b\x20git\x20commit\x20\x2dm\x20\x22Init\x22
 SETUVAR _fish_abbr_l:ls\x20\x2dlatr
 SETUVAR _fish_abbr_md:mkdir
-SETUVAR _fish_abbr_mdwm:sudo\x20make\x20install\x20\x26\x26\x20pkill\x20dwm
-SETUVAR _fish_abbr_mdwmblocks:sudo\x20make\x20install\x20\x26\x26\x20pkill\x20dwmblocks\x20\x26\x26\x20dwmblocks\x201\x3e\x20\x7e/log/dwmblocks\x2elog\x202\x3e\x20\x7e/log/dwmblocks\x2eerr\x2elog\x20\x26\x20disown
+SETUVAR _fish_abbr_mdwm:sudo\x20clean\x20make\x20install\x20\x26\x26\x20pkill\x20dwm
+SETUVAR _fish_abbr_mdwmblocks:sudo\x20make\x20clean\x20install\x20\x26\x26\x20pkill\x20dwmblocks\x20\x26\x26\x20dwmblocks\x201\x3e\x20\x7e/log/dwmblocks\x2elog\x202\x3e\x20\x7e/log/dwmblocks\x2eerr\x2elog\x20\x26\x20disown
 SETUVAR _fish_abbr_neovide:neovide\x20\x26\x20disown
 SETUVAR _fish_abbr_pacman:sudo\x20pacman
 SETUVAR _fish_abbr_pamac:sudo\x20pamac
