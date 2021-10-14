@@ -24,7 +24,7 @@ wirelessStrength(){
 }
 
 case $BUTTON in
-	1) notify-send "Ping" "$(echo  "$(netTraf)\n$(wirelessStrength)")" ;;
+	1) notify-send "Ping" "$(echo  "$(iwgetid)\n$(netTraf)\n$(wirelessStrength)")" ;;
 	2) notify-send "Ping" "$BUTTON" ;;
 	3) notify-send "Ping" "$BUTTON" ;;
 esac
