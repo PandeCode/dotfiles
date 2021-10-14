@@ -1,7 +1,9 @@
 #!/bin/env bash
 
 while true; do
-	echo "================$(date)=================" >> ~/log/dwmblocks.log
-	echo "================$(date)=================" >> ~/log/dwmblocks.err.log
-	dwmblocks $@ 1>> ~/log/dwmblocks.log 2>> ~/log/dwmblocks.err.log
+	if [ "" == "$(pidof dwmblocks)" ]; then
+		echo "================$(date)=================" >> ~/log/dwmblocks.log
+		echo "================$(date)=================" >> ~/log/dwmblocks.err.log
+		dwmblocks $@ 1>> ~/log/dwmblocks.log 2>> ~/log/dwmblocks.err.log
+	else exit 0; fi
 done
