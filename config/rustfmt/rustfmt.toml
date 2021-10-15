@@ -1,0 +1,67 @@
+# https://rust-lang.github.io/rustfmt/
+#ignore #https://rust-lang.github.io/rustfmt/?version=v1.4.36&search=#ignore
+#license_template_path #https://rust-lang.github.io/rustfmt/?version=v1.4.36&search=#license_template_path
+#required_version #https://rust-lang.github.io/rustfmt/?version=v1.4.36&search=#required_version
+
+binop_separator              = "Back"
+blank_lines_lower_bound      = 0
+blank_lines_upper_bound      = 1
+brace_style                  = "PreferSameLine"
+color                        = "Always"
+combine_control_expr         = true
+comment_width                = 80
+condense_wildcard_suffixes   = false      # Until I learn more about the language
+control_brace_style          = "AlwaysSameLine"
+disable_all_formatting       = false
+edition                      = "2021"
+empty_item_single_line       = true
+enum_discrim_align_threshold = 80
+error_on_line_overflow       = false
+fn_args_layout               = "Tall"
+fn_single_line               = true
+force_explicit_abi           = true
+force_multiline_blocks       = false
+format_code_in_doc_comments  = true
+format_macro_bodies          = true
+format_macro_matchers        = true
+format_strings               = true
+hard_tabs                    = true
+hide_parse_errors            = false
+imports_granularity          = "Preserve" # Until I learn more about the language
+imports_indent               = "Visual"
+imports_layout               = "HorizontalVertical"
+indent_style                 = "Block"
+inline_attribute_width       = 0
+match_arm_blocks             = true
+match_arm_leading_pipes      = "Preserve"
+match_block_trailing_comma   = true
+max_width                    = 100
+merge_derives                = false      # Until I learn more about the language
+merge_imports                = false      # Until I learn more about the language
+newline_style                = "Unix"
+normalize_comments           = true
+normalize_doc_attributes     = false      # Until I learn more about the language
+overflow_delimited_expr      = false      # Until I learn more about the language
+remove_nested_parens         = true
+reorder_impl_items           = false      # Until I learn more about the language
+reorder_imports              = true
+group_imports                = "StdExternalCrate"
+reorder_modules              = true
+report_fixme                 = "Never"
+report_todo                  = "Never"
+skip_children                = false
+space_after_colon            = true
+spaces_around_ranges         = false
+struct_field_align_threshold = 80
+struct_lit_single_line       = false
+tab_spaces                   = 4
+trailing_comma               = "Vertical"
+trailing_semicolon           = true
+type_punctuation_density     = "Wide"
+unstable_features            = true
+use_field_init_shorthand     = false      # Until I learn more about the language
+use_small_heuristics         = "Default"
+use_try_shorthand            = false      # Until I learn more about the language
+version                      = "Two"
+where_single_line            = false      # Until I learn more about the language
+wrap_comments                = false
