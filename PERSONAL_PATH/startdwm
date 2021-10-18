@@ -1,4 +1,4 @@
-#!/bin/env bash
+#!/bin/env sh
 
 while true; do
 	echo "================$(date)=================" >> ~/log/dwm.log

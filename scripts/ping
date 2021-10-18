@@ -101,12 +101,13 @@ main() {
         ping_result=$(read_cached_result)
     fi
 
+    ping_value=$ping_result
     ping_result="$(format_ping_value $ping_result)"
 
     if test "${SB+x}"; then
-        echo "^c$(colorize_ping_value $ping_result)^$ping_result ms^c$DEFAULT_COLOR^"
+        echo "^c$(colorize_ping_value $ping_value)^$ping_result ms^c$DEFAULT_COLOR^"
     else
-        echo "#[fg=$(colorize_ping_value $ping_result)]$ping_result#[default]"
+        echo "#[fg=$(colorize_ping_value $ping_value)]$ping_result#[default]"
     fi
 }
 

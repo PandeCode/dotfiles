@@ -3,7 +3,10 @@
 pushd .
 
 cd ~/Games/epicgames-freebies-claimer
-npm start 1> freebies.log 2> freebies.err.log
+git pull
+echo "==============$(date)============" >> freebies.log
+echo "==============$(date)============" >> freebies.err.log
+npm start 1>> freebies.log 2>> freebies.err.log
 
 echo Log
 cat ./freebies.log
