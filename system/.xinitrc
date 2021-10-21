@@ -10,6 +10,7 @@ sysresources=/etc/X11/xinit/.Xresources
 sysmodmap=/etc/X11/xinit/.Xmodmap
 
 DEFAULT_SESSION=~/dotfiles/PERSONAL_PATH/startdwm
+#DEFAULT_SESSION=~/dotfiles/PERSONAL_PATH/startxmonand
 
 # merge in defaults and keymaps
 
