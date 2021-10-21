@@ -58,7 +58,7 @@ colorize_ping_value() {
     local ping=$1
     local result
 
-    if [ $ping == "N/A" ] || [ $ping -ge 1000 ]; then
+    if [ $ping -lt 1 ] || [ $ping -ge 1000 ]; then
         result=$RED
     elif [ $ping -lt 100 ]; then
         result=$GREEN
