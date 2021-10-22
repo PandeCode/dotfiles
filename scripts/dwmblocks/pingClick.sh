@@ -19,12 +19,16 @@ netTraf() {
 	echo "🔻$(numfmt --to=iec $rx)B 🔺$(numfmt --to=iec $tx)B"
 }
 
-wirelessStrength(){
+wirelessStrength() {
 	echo $(awk '/^\s*w/ { print "📶", int($3 * 100 / 70) "% " }' /proc/net/wireless)
 }
 
 case $BUTTON in
-	1) notify-send "Ping" "$(echo  "$(iwgetid)\n$(netTraf)\n$(wirelessStrength)")" ;;
-	2) notify-send "Ping" "$BUTTON" ;;
+	1)
+		notify-send "Ping" "$(echo "$(iwgetid)\n$(netTraf)\n$(wirelessStrength)")"
+		;;
+	2)
+		notify-send "Ping" xdg-open "http://$(ip route | grep default | grep -Eo '[0-9]+.[0-9]+.[0-9]+.[0-9]+')"
+		;;
 	3) notify-send "Ping" "$BUTTON" ;;
 esac

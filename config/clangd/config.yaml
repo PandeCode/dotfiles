@@ -17,7 +17,7 @@ If:
 CompileFlags:
             Add: [
                     -xc++-header,
-                    -std=c++17,
+                    -std=c++20,
                     -pthread,
                     -Wall,
                     -Wextra,
