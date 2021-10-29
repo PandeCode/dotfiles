@@ -1,7 +1,8 @@
 #!/bin/bash
 
-rm -fr ~/.config/clangd \
-	~/.config/bat \
+rm -fr ~/.config/bat \
+	~/.config/clangd \
+	~/.config/conky \
 	~/.config/dunst \
 	~/.config/eww \
 	~/.config/fish \
@@ -17,9 +18,10 @@ rm -fr ~/.config/clangd \
 	~/.config/ranger \
 	~/.config/rofi \
 	~/.config/rustfmt
-
+	
 ln -s ~/dotfiles/config/bat ~/.config/bat
 ln -s ~/dotfiles/config/clangd ~/.config/clangd
+ln -s ~/dotfiles/config/conky ~/.config/conky
 ln -s ~/dotfiles/config/dunst ~/.config/dunst
 ln -s ~/dotfiles/config/eww ~/.config/eww
 ln -s ~/dotfiles/config/fish ~/.config/fish
