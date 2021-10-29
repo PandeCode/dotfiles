@@ -25,3 +25,18 @@
 [submodule "dsblocks"]
 	path = dsblocks
 	url = https://github.com/PandeCode/dsblocks/
+[submodule "xmenu"]
+	path = xmenu
+	url = https://github.com/PandeCode/xmenu
+[submodule "build/dwmblocks"]
+	path = build/dwmblocks
+	url = https://github.com/PandeCode/dwmblocks
+[submodule "build/dwm-flexipatch"]
+	path = build/dwm-flexipatch
+	url = https://github.com/PandeCode/dwm-flexipatch
+[submodule "build/st-flexipatch"]
+	path = build/st-flexipatch
+	url = https://github.com/PandeCode/st-flexipatch
+[submodule "build/xmenu"]
+	path = build/xmenu
+	url = https://github.com/PandeCode/xmenu

@@ -1,5 +1,5 @@
-#!/bin/env /bin/bash
-SHELL=/bin/bash
+#!/bin/env sh
+SHELL=/bin/sh
 
 GNU_ENV='CC=gcc CXX=g++'
 CLANG_ENV='CC=clang CXX=clang++'

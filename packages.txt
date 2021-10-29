@@ -23,12 +23,12 @@ bison
 blender
 blueman
 boost
+bpython
 brasero
 breeze-icons
 btrfs-progs
 bzip2
 cava
-ccls
 cgdb
 clang
 clipit
@@ -43,6 +43,7 @@ cronie
 cryptsetup
 ctags
 dbus-x11
+deadd-notification-center-bin
 device-mapper
 dex
 dhclient
@@ -56,7 +57,6 @@ dnsmasq
 docker
 dosfstools
 dotnet-sdk
-dunst
 e2fsprogs
 ecryptfs-utils
 efibootmgr
@@ -128,7 +128,7 @@ gzip
 hakuneko-desktop
 haveged
 heroic-games-launcher-bin
-htop
+htop-vim
 imgui-sfml
 inetutils
 inkscape
@@ -143,9 +143,9 @@ ipw2200-fw
 jdk
 jfsutils
 jre
+kid3
 komikku
 komorebi-bin
-leagueoflegends-git
 legendary
 less
 lesspipe
@@ -154,6 +154,7 @@ lib32-libva-mesa-driver
 lib32-libva-vdpau-driver
 lib32-mesa-demos
 lib32-mesa-vdpau
+lib32-openal
 lib32-vkd3d
 lib32-vulkan-intel
 lib32-vulkan-radeon
@@ -269,6 +270,7 @@ pkgconf
 pkgfile
 pktstat
 playerctl
+plymouth
 polybar
 poppler-glib
 powertop
@@ -278,6 +280,7 @@ psmisc
 pulseaudio-bluetooth
 pulseaudio-ctl
 pulseaudio-zeroconf
+pv
 python-pip
 python2
 python2-pip
@@ -286,13 +289,16 @@ qpdfview
 qrencode
 qt5-charts
 qt5ct
+qt6-tools
+qtcreator
 ranger
 reiserfsprogs
 ripgrep
+rlwrap
 rofi
 rsync
 runescape-launcher
-rust
+rustup
 s-nail
 samba
 screenfetch
@@ -300,8 +306,9 @@ sed
 sfml
 shadow
 shfmt
-sidekick-browser-stable-bin
 skippy-xd
+slop
+sox
 spectre-meltdown-checker
 spicetify-cli-git
 spotify-adblock
@@ -326,6 +333,7 @@ tesseract-data-jpn
 texinfo
 tgui
 thefuck
+thunderbird-beta-bin
 tk
 tlp
 tmux
@@ -358,11 +366,13 @@ v4l2loopback-dkms
 vagrant
 valgrind
 vifm
+vimb
 virtualbox
 vis
 visual-studio-code-insiders-bin
 vkd3d
 vlc
+vokoscreen
 volumeicon
 vtk
 vulkan-intel
@@ -373,7 +383,7 @@ wget
 which
 whois
 windscribe-cli
-wine
+wine-staging
 wmctrl
 wpa_supplicant
 wscat
@@ -403,7 +413,6 @@ xf86-video-vmware
 xf86-video-voodoo
 xflux
 xfsprogs
-xfwm4
 xiccd
 xorg-mkfontscale
 xorg-server

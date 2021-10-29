@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/env sh
 clang++ "$@" -o "$1.out" -std=c++2a -g -pthread -Wall -Wextra -pedantic -Werror
 ./"$1.out"
 rm ./"$1.out"

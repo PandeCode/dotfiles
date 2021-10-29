@@ -1,17 +1,5 @@
-#!/bin/python3
-import sys
-import os
-import typing
+#!/bin/env sh
 
 
-class fileinfo:
-    @staticmethod
-    def main(argv: typing.List[str]) -> None:
-        os.system(f"file { argv[1 ]}")
-        os.system(f"stat { argv [1]}")
-        print(argv)
-
-
-if __name__ == "__main__":
-    fileinfoInstance = fileinfo()
-    fileinfoInstance.main(sys.argv)
+file $1
+stat $1

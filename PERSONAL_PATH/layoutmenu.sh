@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/env sh
 
 cat << EOF |xmenu
 []= flextile(SPLIT_VERTICAL|TOP_TO_BOTTOM |TOP_TO_BOTTOM)                           	0

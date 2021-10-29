@@ -1,4 +1,4 @@
-#!/bin/env bash
+#!/bin/env sh
 
 oneStInstance() {
         return $(pgrep st | wc -w | awk '{print $1>=2}')

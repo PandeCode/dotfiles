@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/bin/env sh
 # This is just an example how ueberzug can be used with fzf.
 # Copyright (C) 2019  Nico Bäurer
 

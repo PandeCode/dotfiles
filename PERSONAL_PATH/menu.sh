@@ -1,15 +1,33 @@
-!/bin/sh
+#!/bin/env sh
 
 COLORSCRIPTSDIR=$HOME/Programs/color-scripts/color-scripts
 CONFIGDIR=$HOME/dotfiles/dotfiles/config/
 TERMINAL=st
 
 cat << EOF | xmenu -i -p 0x25:1 | sh &
+ Notifications
+	Notifications Center	kill -s USR1 \$(pidof deadd-notification-center)
+	Highlight On	notify-send.py a --hint boolean:deadd-notification-center:true int:id:0 boolean:state:true type:string:buttons
+	Highlight Off	notify-send.py a --hint boolean:deadd-notification-center:true int:id:0 boolean:state:false type:string:buttons
+	Clear Center	notify-send.py a --hint boolean:deadd-notification-center:true string:type:clearInCenter
+	Clear Popups	notify-send.py a --hint boolean:deadd-notification-center:true string:type:clearPopups
+	Pause       	notify-send.py a --hint boolean:deadd-notification-center:true string:type:pausePopups
+	Unpause     	notify-send.py a --hint boolean:deadd-notification-center:true string:type:unpausePopups
+	Reload Style	notify-send.py a --hint boolean:deadd-notification-center:true string:type:reloadStyle
+	Tests
+		Gtk icon     	notify-send.py "Icons are" "COOL"  --hint string:image-path:face-cool
+		Image file 	notify-send.py "Images" "COOL"  --hint string:image-path:file://$HOME/Pictures/Wallpapers/minecraft_swamp.jpeg
+		Notification Center Only	notify-send.py "Does pop up" -t 1
+		Action buttons gtk icons	notify-send.py "1" "2"  --hint boolean:action-icons:true  --action yes:face-cool no:face-sick  
+		with progress bar	notify-send.py "This notification has a progressbar" "33%"  --hint int:has-percentage:33
+		with progress bar	notify-send.py "This notification has a progressbar" "33%"  --hint int:value:33
+		with slider	notify-send.py "This notification has a slider" "33%"  --hint int:has-percentage:33 --action changeValue:abc
+	
  Applications
 	 Chrome	chrome
 	 Terminal	$TERMINAL
 	 Files	natu
-	 Keys	vimb ~/dev/python/CLIProjeccts/Keys/keys.html
+	 Keys	vimb ~/dev/Keys/keys.html
 	
 	 School
 		 canvas-tui 		$TERMINAL -e canvas-tui

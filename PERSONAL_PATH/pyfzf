@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/env sh
 
 # title of menu items
 clr="Clear uninstalled packages from cache (paccache)"

@@ -1,3 +1,4 @@
+export DOOMDIR=$HOME/.doom.d
 export SHELL=/bin/bash
 export TERMINAL=/usr/bin/st
 export CC=/usr/bin/clang
@@ -7,6 +8,7 @@ export QT_QPA_PLATFORMTHEME="qt5ct"
 export QT_AUTO_SCREEN_SCALE_FACTOR=0
 export GTK2_RC_FILES="$HOME/.gtkrc-2.0"
 
+export XDG_CONFIG_HOME=$HOME/.config
 export XDG_CACHE_HOME=$HOME/.cache
 export PYTHONPYCACHEPREFIX=$HOME/.cache/cpython/
 export PYTHONSTARTUP=$HOME/.pythonrc
@@ -20,7 +22,7 @@ export RUBY_GEM_BIN_PATH=$HOME/.local/share/gem/ruby/3.0.0/bin
 
 export GOPATH=$HOME/go
 
-export PATH=$PERSONAL_PATH:$PATH:$GOROOT/bin:$GOPATH/bin:$HOME/bin:$YARN_BIN:$PATH:$RUBY_GEM_BIN_PATH
+export PATH=$PERSONAL_PATH:$PATH:$GOROOT/bin:$GOPATH/bin:$HOME/bin:$YARN_BIN:$PATH:$RUBY_GEM_BIN_PATH:$HOME/.emacs.d/bin
 
 unset FZF_DEFAULT_COMMAND
 unset FZF_DEFAULT_OPTS
