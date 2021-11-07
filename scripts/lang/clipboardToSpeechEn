@@ -1,0 +1,15 @@
+#!/bin/env sh
+
+if ! command -v xclip &> /dev/null; then
+    echo "'xclip' could not be found. Install xclip";
+    exit 1;
+fi
+
+if ! command -v trans &> /dev/null; then
+    echo "'trans' could not be found. Install translate-shell (https://github.com/soimort/translate-shell)";
+    exit 1;
+fi
+
+t=$(xclip -selection clipboard -o | trans -b -p)
+id=$(notify-send.py "Translation:" "$t")
+echo $t

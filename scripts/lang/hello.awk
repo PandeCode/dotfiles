@@ -1,0 +1,1 @@
+flag{ if (/PAT2/){printf "%s", buf; flag=0; buf=""} else buf = buf $0 ORS}; /PAT1/{flag=1}'

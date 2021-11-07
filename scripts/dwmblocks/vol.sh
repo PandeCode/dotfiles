@@ -10,31 +10,37 @@ isMuted() {
 	pacmd list-sinks | awk '/muted/ { print $2 }'
 }
 
-volup() { amixer -q sset Master 5%+; }
-voldown() { amixer -q sset Master 5%-; }
-volmute() { amixer -q sset Master toggle; }
-volnotiy() {
-	NOTI_ID=$(notify-send.py "Volume" "$(getvol)/100" \
-		--hint string:image-path:$ICON boolean:transient:true \
-		int:has-percentage:$(getVol) \
-		--replaces-process "volume-popup")
-	retrun $NOTI_ID
+volNotify() {
+        notify-send 'Vol' -h int:value:$(pamixer --get-volume)
+}
+
+volMute() {
+        pactl set-sink-mute @DEFAULT_SINK@ toggle
+}
+
+volUp() {
+        pactl set-sink-volume @DEFAULT_SINK@ +10%
+}
+
+volDown() {
+        pactl set-sink-volume @DEFAULT_SINK@ -10%
 }
 
 case $BUTTON in
 	1)
-		volup
+		volUp
 		kill -$index $(pidof dwmblocks)
 		exit 0
 		;;
 
 	2)
+		killall -$index $(pidof dwmblocks)
 		pavucontrol
 		exit 0
 		;;
 
 	3)
-		voldown
+		volDown
 		kill -$index $(pidof dwmblocks)
 		exit 0
 		;;
@@ -47,13 +53,13 @@ echo $(getVol) $(isMuted) | awk '{
 END {
 	if(mute == "yes")
 		printf(" ")
-	if(volint > 90)
+	else if(volint > 80)
 		printf(" ")
 	else if(volint > 50)
 		printf(" ")
 	else if(volint > 30)
 		printf(" ")
-	else if(volint > 5)
+	else if(volint > 10)
 		printf(" ")
 
 	printf("%s%", volint);

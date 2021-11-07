@@ -1,10 +1,21 @@
 #!/bin/env sh
 
-COLORSCRIPTSDIR=$HOME/Programs/color-scripts/color-scripts
 CONFIGDIR=$HOME/dotfiles/dotfiles/config/
 TERMINAL=st
 
 cat << EOF | xmenu -i -p 0x25:1 | sh &
+Media
+	Play	playerctl play
+	Pause	playerctl pause
+	
+Lang
+	Clipboard To English	~/dotfiles/scripts/lang/clipboardToEnglish
+	Clipboard To Speech	~/dotfiles/scripts/lang/clipboardToSpeech
+	Clipboard To Speech English	~/dotfiles/scripts/lang/clipboardToSpeechEn
+	Picture To English	~/dotfiles/scripts/lang/pictureToEnglish
+	Picture To Clipboard	~/dotfiles/scripts/lang/pictureToClipboard
+	QR Code	~/dotfiles/scripts/lang/qrCodeToClipboard
+	
  Notifications
 	Notifications Center	kill -s USR1 \$(pidof deadd-notification-center)
 	Highlight On	notify-send.py a --hint boolean:deadd-notification-center:true int:id:0 boolean:state:true type:string:buttons

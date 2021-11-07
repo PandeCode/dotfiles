@@ -2,7 +2,7 @@
 
 pushd . >/dev/null
 
-cd ~/dotfiles/dwm-flexipatch
+cd ~/dotfiles/build/dwm-flexipatch
 
 state=$(cat patches.h | grep -e 'ROUNDED_CORNERS_PATCH' | grep -Eo '.{1}$')
 

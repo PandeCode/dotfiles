@@ -1,0 +1,15 @@
+#!/bin/env sh
+
+source ~/dotfiles/scripts/lang/check.sh
+
+check 'maim' 'maim'
+check 'xclip' 'xclip'
+check 'trans' '<a href="https://github.com/soimort/translate-shell">translate-shell</a>'
+check 'pytesseract' '(<a href="https://pypi.org/project/pytesseract/">pytesseract</a>)'
+
+maim -s /tmp/pic.png 
+t=$(pytesseract /tmp/pic.png | trans -b)
+
+echo $t
+echo $t | xclip -sel c -r
+notify-send "Translation:" "$t" -h string:image-path:file:///tmp/pic.png

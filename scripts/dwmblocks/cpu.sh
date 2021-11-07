@@ -1,7 +1,10 @@
 #!/bin/env sh
 
+index=33 # 34+3
+
 case $BUTTON in
 	1)
+		killall -$index $(pidof dwmblocks)
 		cpuper="$(top -bn1 | grep "Cpu(s)" | sed "s/.*, *\([0-9.]*\)%* id.*/\1/" | awk '{printf 100 - $1""}')"
 		topps=$(
 			ps axch -o cmd,%cpu --sort=%cpu |
@@ -16,11 +19,13 @@ case $BUTTON in
 		;;
 
 	2)
+		killall -$index $(pidof dwmblocks)
 		st -e htop
 		exit 0
 		;;
 
 	3)
+		killall -$index $(pidof dwmblocks)
 		topps=$(
 			ps axch -o cmd,%cpu --sort=%cpu |
 				awk '{ps[$1]+=1;cpu[$1]+=$2;} END {for (i in cpu){printf("%s %d %.2f%% \n", i,ps[i],cpu[i])}}' |

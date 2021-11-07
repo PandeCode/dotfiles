@@ -1,5 +1,8 @@
 #!/bin/env sh
 
+index=35 # 34+1
+killall -$index $(pidof dwmblocks)
+
 __netUpdate() {
 	sum=0
 	for arg; do
@@ -25,10 +28,20 @@ wirelessStrength() {
 
 case $BUTTON in
 	1)
+		killall -$index $(pidof dwmblocks)
 		notify-send "Ping" "$(echo "$(iwgetid)\n$(netTraf)\n$(wirelessStrength)")"
+		exit 0;
 		;;
 	2)
-		notify-send "Ping" xdg-open "http://$(ip route | grep default | grep -Eo '[0-9]+.[0-9]+.[0-9]+.[0-9]+')"
+		killall -$index $(pidof dwmblocks)
+		xdg-open "http://$(ip route | grep default | grep -Eo '[0-9]+.[0-9]+.[0-9]+.[0-9]+')"
+		exit 0;
 		;;
-	3) notify-send "Ping" "$BUTTON" ;;
+	3)
+		killall -$index $(pidof dwmblocks)
+		notify-send "Ping" "$BUTTON" 
+		exit 0;
+		;;
 esac
+
+SB=1 ~/dotfiles/scripts/ping

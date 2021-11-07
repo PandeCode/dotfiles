@@ -1,8 +1,11 @@
 #!/bin/env sh
 
+index=36 # 34+2
+
 LC_ALL=en_US.UTF-8
 case $BUTTON in
 	1)
+		killall -$index $(pidof dwmblocks)
 		notify-send "$(
 			free -m |
 				awk '
@@ -34,11 +37,13 @@ case $BUTTON in
 		;;
 
 	2)
+		killall -$index $(pidof dwmblocks)
 		st -e htop
 		exit 0
 		;;
 
 	3)
+		killall -$index $(pidof dwmblocks)
 		topps=$(
 			ps axch -o cmd,%mem,rss |
 				awk '{

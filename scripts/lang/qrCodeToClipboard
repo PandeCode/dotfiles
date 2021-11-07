@@ -1,0 +1,15 @@
+#!/bin/env sh
+
+source ~/dotfiles/scripts/lang/check.sh
+
+check 'maim' 'maim'
+check 'xclip' 'xclip'
+check 'zbarimg' 'zbar'
+
+maim -s /tmp/qr.png 
+qrc=$(zbarimg -q --raw /tmp/qr.png)
+
+echo "$qrc"
+echo "$qrc" | xclip -sel c -r
+notify-send "QR Code:" "<a href='$qrc'>$qrc</a>" -h string:image-path:file:///tmp/qr.png
+
