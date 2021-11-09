@@ -25,22 +25,44 @@ netTraf() {
 wirelessStrength() {
 	echo $(awk '/^\s*w/ { print "📶", int($3 * 100 / 70) "% " }' /proc/net/wireless)
 }
+host() {
+	echo $(cat ~/dotfiles/extras/ping.host)
+}
+uploaded() {
+	echo Uploaded: $(~/dotfiles/scripts/upload_bytes.sh)
+}
+downloaded() {
+	echo Downloaded: $(~/dotfiles/scripts/download_bytes.sh)
+}
 
 case $BUTTON in
 	1)
 		killall -$index $(pidof dwmblocks)
-		notify-send "Ping" "$(echo "$(iwgetid)\n$(netTraf)\n$(wirelessStrength)")"
-		exit 0;
+		notify-send "Ping" "$(echo "$(iwgetid)\n$(netTraf)\n$(wirelessStrength)\n$(host)\n$(uploaded)\n$(downloaded)")"
+		exit 0
 		;;
 	2)
 		killall -$index $(pidof dwmblocks)
 		xdg-open "http://$(ip route | grep default | grep -Eo '[0-9]+.[0-9]+.[0-9]+.[0-9]+')"
-		exit 0;
+		exit 0
 		;;
 	3)
+
+		cmd="$(
+			cat << EOF | xmenu
+9.9.9.9	9.9.9.9
+8.8.8.8	8.8.8.8
+LOL EUW1	dynamodb.eu-west-2.amazonaws.com
+EOF
+		)"
+		if [ -z "$cmd" ]; then exit 0; fi
+		echo -n $cmd > ~/dotfiles/extras/ping.host
+		killall -KILL $(pidof ping)
+		rm -fr /tmp/ping_result /tmp/ping.log /tmp/ping.pid
+
 		killall -$index $(pidof dwmblocks)
-		notify-send "Ping" "$BUTTON" 
-		exit 0;
+
+		exit 0
 		;;
 esac
 
