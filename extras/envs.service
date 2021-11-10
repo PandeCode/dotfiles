@@ -1,0 +1,9 @@
+[Unit]
+Description=Load Environment Variables
+
+[Service]
+Type=simple
+ExecStart=/bin/sh /usr/bin/envs.sh
+
+[Install]
+WantedBy=multi-user.target

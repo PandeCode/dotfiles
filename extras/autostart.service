@@ -1,9 +1,9 @@
 [Unit]
-Description=Example systemd service.
+Description=Run sudo autostart commands
 
 [Service]
 Type=simple
-ExecStart=/bin/bash /usr/bin/autostart.sh
+ExecStart=/bin/sh /usr/bin/autostart.sh
 
 [Install]
 WantedBy=multi-user.target

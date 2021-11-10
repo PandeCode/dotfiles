@@ -1,3 +1,5 @@
+HOME=/home/shawn
+
 export DOOMDIR=$HOME/.doom.d
 export SHELL=/bin/bash
 export TERMINAL=/usr/bin/st
@@ -23,10 +25,6 @@ export RUBY_GEM_BIN_PATH=$HOME/.local/share/gem/ruby/3.0.0/bin
 export GOPATH=$HOME/go
 
 export PATH=$PERSONAL_PATH:$PATH:$GOROOT/bin:$GOPATH/bin:$HOME/bin:$YARN_BIN:$PATH:$RUBY_GEM_BIN_PATH:$HOME/.emacs.d/bin
-
-unset FZF_DEFAULT_COMMAND
-unset FZF_DEFAULT_OPTS
-unset FZF_CTRL_T_COMMAND
 
 preview="([[ -f {} ]] && (bat --style=numbers --color=always {} || cat {})) || ([[ -d {} ]] && (tree -C {} | less)) || echo {} 2> /dev/null | head -200"
 export FZF_DEFAULT_OPTS="
