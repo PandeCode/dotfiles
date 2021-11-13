@@ -1,15 +1,20 @@
 HOME=/home/shawn
 
-export DOOMDIR=$HOME/.doom.d
-export SHELL=/bin/bash
 export TERMINAL=/usr/bin/st
 export CC=/usr/bin/clang
 export CXX=/usr/bin/clang++
+export SHELL=/bin/bash
 export EDITOR=/usr/bin/nvim
+
+export GHCUP_BIN=$HOME/.ghcup/bin
+
 export QT_QPA_PLATFORMTHEME="qt5ct"
 export QT_AUTO_SCREEN_SCALE_FACTOR=0
 export GTK2_RC_FILES="$HOME/.gtkrc-2.0"
 
+export XMONAD_CONFIG_DIR=$HOME/.config/xmonad
+export XMOBAR_CONFIG_DIR=$HOME/.config/xmobar
+export DOOMDIR=$HOME/.doom.d
 export XDG_CONFIG_HOME=$HOME/.config
 export XDG_CACHE_HOME=$HOME/.cache
 export PYTHONPYCACHEPREFIX=$HOME/.cache/cpython/
@@ -24,9 +29,9 @@ export RUBY_GEM_BIN_PATH=$HOME/.local/share/gem/ruby/3.0.0/bin
 
 export GOPATH=$HOME/go
 
-export PATH=$PERSONAL_PATH:$PATH:$GOROOT/bin:$GOPATH/bin:$HOME/bin:$YARN_BIN:$PATH:$RUBY_GEM_BIN_PATH:$HOME/.emacs.d/bin
+export PATH=$PERSONAL_PATH:$GHCUP_BIN:$PATH:$GOROOT/bin:$GOPATH/bin:$HOME/bin:$YARN_BIN:$RUBY_GEM_BIN_PATH:$HOME/.emacs.d/bin
 
-preview="([[ -f {} ]] && (bat --style=numbers --color=always {} || cat {})) || ([[ -d {} ]] && (tree -C {} | less)) || echo {} 2> /dev/null | head -200"
+preview="fzfPreview.sh {}"
 export FZF_DEFAULT_OPTS="
 --color=fg:#f8f8f2,bg:#282a36,hl:#bd93f9
 --color=fg+:#f8f8f2,bg+:#44475a,hl+:#bd93f9
@@ -51,7 +56,7 @@ export FZF_DEFAULT_OPTS="
 --bind 'ctrl-r:reload(ps aux)' 
 "
 
-export FZF_DEFAULT_COMMAND="SHELL=/bin/bash fdfind --follow --hidden --exclude .git --exclude 'node_modules' --color=always"
+export FZF_DEFAULT_COMMAND="fdfind --follow --hidden --exclude .git --exclude 'node_modules' --color=always"
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 export FZF_ALT_C_COMMAND="$FZF_DEFAULT_COMMAND --type d"
 

@@ -15,6 +15,7 @@ appimagelauncher
 autoconf
 automake
 avahi
+awesome
 b43-fwcutter
 bash-completion
 bat
@@ -26,6 +27,7 @@ boost
 bpython
 brasero
 breeze-icons
+bspwm
 btrfs-progs
 bzip2
 cava
@@ -42,6 +44,7 @@ crda
 cronie
 cryptsetup
 ctags
+cutter
 dbus-x11
 deadd-notification-center-bin
 device-mapper
@@ -67,6 +70,7 @@ espeak
 ethtool
 exa
 exfat-utils
+expect
 f2fs-tools
 fakeroot
 fd
@@ -91,6 +95,7 @@ gcc-libs
 gcolor2
 gdb
 gettext
+ghcup-hs-bin
 gimp
 git-filter-repo
 github-cli
@@ -129,6 +134,8 @@ hakuneko-desktop
 haveged
 heroic-games-launcher-bin
 htop-vim
+i3-gaps
+i3blocks
 imgui-sfml
 inetutils
 inkscape
@@ -191,6 +198,7 @@ lutris
 lvm2
 lxappearance-gtk3
 m4
+maim
 make
 man-db
 man-pages
@@ -204,6 +212,7 @@ manjaro-release
 manjaro-settings-manager
 manjaro-settings-manager-notifier
 manjaro-system
+manjaro-xdg-menu
 mdadm
 memtest86+
 menulibre
@@ -223,10 +232,9 @@ mugshot
 nano
 nasm
 nautilus
-ncurses5-compat-libs
 neofetch
 neovide-bin
-neovim
+neovim-nightly-bin
 neovim-symlinks
 net-tools
 nethogs
@@ -238,6 +246,7 @@ networkmanager-pptp
 networkmanager-vpnc
 nfs-utils
 ninja
+nitrogen
 nmap
 nodejs
 noto-color-emoji-fontconfig
@@ -252,12 +261,14 @@ opencl-headers
 opencv
 openresolv
 openssh
+ormolu-bin
 os-prober
 otf-font-awesome
 p7zip
 pacman
 pamac-gtk
 pamixer
+paperview-git
 paru-bin
 patch
 pavucontrol
@@ -291,7 +302,10 @@ qt5-charts
 qt5ct
 qt6-tools
 qtcreator
+radare2
 ranger
+raylib
+regextester
 reiserfsprogs
 ripgrep
 rlwrap
@@ -302,6 +316,11 @@ rustup
 s-nail
 samba
 screenfetch
+scrot
+sddm
+sddm-archlinux-theme-git
+sddm-sugar-candy-git
+sddm-sugar-dark
 sed
 sfml
 shadow
@@ -338,6 +357,7 @@ tk
 tlp
 tmux
 traceroute
+translate-shell
 tree
 ttf-bitstream-vera
 ttf-dejavu
@@ -374,6 +394,7 @@ vkd3d
 vlc
 vokoscreen
 volumeicon
+vscode-codicons-git
 vtk
 vulkan-intel
 vulkan-radeon
@@ -389,11 +410,13 @@ wpa_supplicant
 wscat
 xbacklight-ctl-git
 xbindkeys
+xbindkeys_config-gtk2
 xclip
 xcursor-simpleandsoft
 xcursor-vanilla-dmz-aa
 xdg-user-dirs
 xdg-utils
+xdo
 xf86-input-elographics
 xf86-input-evdev
 xf86-input-libinput
@@ -414,6 +437,9 @@ xf86-video-voodoo
 xflux
 xfsprogs
 xiccd
+xmobar
+xmonad
+xmonad-contrib
 xorg-mkfontscale
 xorg-server
 xorg-twm
@@ -422,7 +448,9 @@ xorg-xinit
 xorg-xkill
 xorg-xsetroot
 xorg-xwininfo
+xscreensaver
 xseticon
+xtoolwait-git
 yarn
 ytfzf
 zeal
