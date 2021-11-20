@@ -1,0 +1,151 @@
+Positions of Object and Image in Concave Mirror
+╭─────────────────────────────────────────────────────────────────────────────────────────────────╮
+│ Position of Object     │ Position of Image │ Size of Image                  │ Nature of Image   │
+│─────────────────────────────────────────────────────────────────────────────────────────────────│
+│ At infinity            │ At focus          │ Point sized, highly diminished │ Real and inverted │
+│ Between infinity and C │ Between F and C   │ Dminished                      │ Real and inverted │
+│ At C                   │ At C              │ Same size                      │ Real and inverted │
+│ Between C and F        │ Beyond C          │ Enlarged                       │ Real and inverted │
+│ At F                   │ At infinity       │ Highly enlarged                │ Real and inverted │
+│ Between F and P        │ Behind mirror     │ Enlarged                       │ Virtual and erect │
+╰─────────────────────────────────────────────────────────────────────────────────────────────────╯
+%
+Concave infinity
+Object at infinity:
+	Since parallel rays coming from the object converge at principal focus, F of a concave mirror; after reflection. 
+		Hence, when the object is at infinity the image will form at F.
+Properties of image:
+	Point sized
+	Highly diminished
+	Real and inverted
+                ╭
+               /│                        /
+               /│──────←───────←──────←──────←──────
+               /│\                     /
+               /│ ↘                   / 
+               /│  \                 /
+               /│   \               ↗
+               /│    \             /
+               /│     ↘           /
+               /│      \         ↗
+               /│       \       /
+               /│        \     /
+               /│         \   /
+               /│          \ / 
+<───────────────(───────────│───────────│───────────>
+                P          /F\           C
+               /│         /   ↘
+               /│        /     \
+               /│       /       \
+               /│      ↗         \
+               /│     /           ↘
+               /│    /             \
+               /│   ↗               \
+               /│  /                 \
+               /│ /                   \
+               /│/                     \
+               /│──────←───────←──────←──────←──────
+               /│                        \
+                ╰
+%
+Concave Mirror O
+Object between infinity and Centre of Curvature:
+	When object is placed between infinity and centre of curvature of a concave mirror 
+		the image is formed between centre of curvature (C) and focus (F).
+Properties of image:
+	- Diminished compared to object
+	- Real and inverted
+                ╭
+               /│──────←───────←──────←──────←──────▲
+               /│\                                 /│
+               /│ \                               / │
+               /│  \                             /  │
+               /│   ↘                           ↙   │
+               /│    \                         /    │
+               /│     \                       /     │
+               /│      \                     /      │
+               /│       ↘                   ↙       │
+               /│        \                 /        │
+               /│         \               /         │
+               /│          \      I      /          │
+<───────────────(───────────│─────│─────│───────────│─────>
+                P/           F    │     C           O
+               /│             \   │   /
+               /│              \  │  /
+               /│               \ │ /
+               /│                \|/
+               /│─────────────────▼
+               /│                / \
+               /│               /   \
+               /│              /     \
+                ╰
+%
+Concave Mirror O C
+                ╭
+                │                │
+                │                │
+                │                │
+                │
+<───────────────(───────────│───────────│───────────>
+                P           F           C
+                │
+                │
+                ╰
+%
+Concave Mirror P O F
+                ╭
+                │
+                │
+<───────────────(───────────│───────────│───────────>
+                P            F            C
+                │
+                │
+                │
+                ╰
+%
+Concave Mirror O F
+                ╭
+                │
+                │
+                │
+<───────────────(───────────│───────────│───────────>
+                P            F            C
+                │
+                │
+                │
+                ╰
+%
+Concave Mirror F O C
+                ╭
+                │
+                │
+                │
+<───────────────(───────────│───────────│───────────>
+                P            F            C
+                │
+                │
+                │
+                ╰
+%
+Concave Mirror
+                ╭
+                │
+                │
+                │
+<───────────────(───────────│───────────│───────────>
+                P            F            C
+                │
+                │
+                │
+                ╰
+%
+# Python factorial
+fac = lambda n: 1 if n == 0 or n == 1 else n * fac(n - 1)
+%
+# Python fibonacci
+fib = lambda n: 0 if n == 0 else 1 if n == 1 or n == 2  else fib(n - 1) + fib(n - 2)
+%
+mary had a little lamb
+it's heart was black as coal
+it crept into her room one night 
+and ate her fucking soul

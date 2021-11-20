@@ -1,0 +1,9 @@
+#!/bin/sh
+
+function tryRunFail() {
+	if ! $1; then
+		$2
+	fi
+}
+
+tryRunFail st kitty
