@@ -1,5 +1,5 @@
 function fish_greeting
-    fortune -o
+    fortune ~/dotfiles/extras/quotes
     #neofetch
     #curl "wttr.in"
     #fortune
