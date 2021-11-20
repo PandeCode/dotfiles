@@ -4,7 +4,6 @@ rm -fr ~/.config/bat \
 	~/.config/clangd \
 	~/.config/conky \
 	~/.config/dunst \
-	~/.config/eww \
 	~/.config/fish \
 	~/.config/fontconfig \
 	~/.config/gtk-2.0 \
@@ -17,13 +16,14 @@ rm -fr ~/.config/bat \
 	~/.config/picom \
 	~/.config/ranger \
 	~/.config/rofi \
-	~/.config/rustfmt
-	
+	~/.config/rustfmt \
+	~/.config/xmoand \
+	~/.config/xmobar
+
 ln -s ~/dotfiles/config/bat ~/.config/bat
 ln -s ~/dotfiles/config/clangd ~/.config/clangd
 ln -s ~/dotfiles/config/conky ~/.config/conky
 ln -s ~/dotfiles/config/dunst ~/.config/dunst
-ln -s ~/dotfiles/config/eww ~/.config/eww
 ln -s ~/dotfiles/config/fish ~/.config/fish
 ln -s ~/dotfiles/config/fontconfig ~/.config/fontconfig
 ln -s ~/dotfiles/config/gtk-2.0 ~/.config/gtk-2.0
@@ -37,3 +37,5 @@ ln -s ~/dotfiles/config/picom ~/.config/picom
 ln -s ~/dotfiles/config/ranger ~/.config/ranger
 ln -s ~/dotfiles/config/rofi ~/.config/rofi
 ln -s ~/dotfiles/config/rustfmt ~/.config/rustfmt
+ln -s ~/dotfiles/config/xmonad ~/.config/xmonad
+ln -s ~/dotfiles/config/xmonbar ~/.config/xmonbar
