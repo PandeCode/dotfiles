@@ -69,7 +69,7 @@ Properties of image:
                /│         \               /         │
                /│          \      I      /          │
 <───────────────(───────────│─────│─────│───────────│─────>
-                P/           F    │     C           O
+                P            F    │     C           O
                /│             \   │   /
                /│              \  │  /
                /│               \ │ /
@@ -80,64 +80,117 @@ Properties of image:
                /│              /     \
                 ╰
 %
-Concave Mirror O C
+Concave Mirror: Object at C
+→ Image is formed at C
+→ Image is of the same size as that of the object
+→ Image is real and inverted 
                 ╭
-                │                │
-                │                │
-                │                │
-                │
+                │------<----<-----<-----▲
+                │\                     /│
+                │ \                   / │
+                │  \                 /  │
+                │   >               /   │
+                │    \             <    │
+                │     ↘           /     |
+                │      \         /      |
+                │       >       <       |
+                │        \     /        |
+                │         \   /         |
+                │          \ /          |
 <───────────────(───────────│───────────│───────────>
-                P           F           C
+                P          /F\          C
+                │         /   \         │
+                │        /     >        │
+                │       <       \       │
+                │      /         ↘      │
+                │     ↙           \     │
+                │    /             \    |
+                │   <               >   |
+                │  /                 \  |
+                │ /                   \ |
+                │/                     \|
+                │------<----<-----<-----▼
+                ╰
+%
+Concave Mirror : Object between C and F
+→ Image is formed beyond C
+→ Image is enlarged
+→ Image is real and inverted
+                ╭
+                │
+                │
+                │\
+                │ \
+                │  \
+                │   \
+                │    \
+                │     \
+                │      \
+                │       \
+                │        \
+                │         \
+                │          \
+                │           \
+                │            \
+                │             \
+                │              \
+                │               \
+                │                \
+                │-----<-----<-----▲
+                │\                |\
+                │ \               | \
+                │  \              |  \
+                │   \             |   \
+                │    \            |    \
+                │     \           |     \
+                │      \          |      \
+                │       \         |       \
+                │        \        |        \
+                │         \       |         \
+                │          \      |          \
+<───────────────(───────────│─────────────────│───────────>
+                P           F                 C
+                │
                 │
                 │
                 ╰
 %
-Concave Mirror P O F
-                ╭
-                │
-                │
-<───────────────(───────────│───────────│───────────>
-                P            F            C
-                │
-                │
-                │
-                ╰
+Concave Mirror Ray Diagrams
+Ray diagrams are necessary for understanding the formation of an image by a concave mirror. For constructing ray diagrams and for the better understanding of the image formation, we should consider at least two incident rays coming from the object. The intersection of these two rays after reflection gives the position of the image of the object. For a concave mirror any of the following four ray diagrams can be used for locating the image formed:
 %
-Concave Mirror O F
-                ╭
-                │
-                │
-                │
-<───────────────(───────────│───────────│───────────>
-                P            F            C
-                │
-                │
-                │
-                ╰
+a) A ray parallel to the principal axis, after reflection, will pass through the principal focus of a concave mirror.
+A ray parallel to the principal axis
 %
-Concave Mirror F O C
-                ╭
-                │
-                │
-                │
-<───────────────(───────────│───────────│───────────>
-                P            F            C
-                │
-                │
-                │
-                ╰
+b) A ray which is passing through the principal focus of a concave mirror, after reflection, will emerge parallel to the principal axis.
+A ray passing through the principal focus
 %
-Concave Mirror
-                ╭
-                │
-                │
-                │
-<───────────────(───────────│───────────│───────────>
-                P            F            C
-                │
-                │
-                │
-                ╰
+c) A ray passing through the centre of curvature of a concave mirror, after reflection, is reflected along the same path. The light rays come back along the same path because the incident rays fall on the mirror along the normal to the reflecting surface.
+A ray passing through the centre of curvature 
+%
+d) A ray incident obliquely to the principal axis, towards the point P (pole of the mirror), on the concave mirror, is reflected obliquely. The incident and reflected rays follow the laws of reflection at point P, making equal angles with the principal axis.
+A ray incident obliquely to the principal axis
+%
+Concave Mirror Image formation
+Rays emerging from a point meet at another point after reflection, and that point is called the image of the first point. The image is real if the rays converge to the point and it is virtual if the rays do not meet it but appear to diverge from a point when the rays are produced backwards. During image formation we assume that the rays are paraxial, i.e., they are incident at points close to the pole P of the mirror and make small angles with the principal axis. For a concave mirror, we consider six positions of the object before the mirror.
+%
+When the Object is at Infinity
+In this condition, we consider two rays parallel to the principal axis originating from the object. These rays after reflection converge and form an image at F, the principal focus of the mirror, in front of the mirror. The image thus formed is highly diminished, point size, real and inverted.
+%
+When the Object is at Infinity
+The Object is Placed Beyond C
+In this situation we consider two different rays emerging from the object. One parallel to the principal axis and the other directed towards the centre of curvature of the mirror. These rays after reflection from an image between the centre of curvature (C) the focus (F). The image thus formed is diminished, real and inverted.
+%
+The Object is Placed at C
+Here the two rays emerging from the object are one parallel to the principal axis and other passing through the focus of the mirror. These rays after reflection from an image at point C. the image formed has the same size as that of the object and it is real and inverted.
+%
+The Object is Placed Between C and F
+Here the two rays considered are one parallel to the principal axis and other passing through the principal focus of the concave mirror. The image is formed beyond C. The image is larger compared to the size of the object and it is real and inverted.
+%
+The Object is Placed at F
+The rays considered here are one parallel to the principal axis and other passing through the centre of curvature of the mirror. This results in the formation of a highly enlarged image which is real and inverted, at infinity.
+%
+The Object is Placed Between F and P
+The rays considered here are, one going parallel to the principal axis and other passing through the centre of curvature of the mirror. The image formed here is virtual and erect and it is larger than the object.
 %
 # Python factorial
 fac = lambda n: 1 if n == 0 or n == 1 else n * fac(n - 1)
