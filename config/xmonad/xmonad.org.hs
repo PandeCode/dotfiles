@@ -23,26 +23,16 @@ import XMonad.Util.Loggers
 import XMonad.Util.SpawnOnce
 import XMonad.Util.Ungrab
 
-myTerminal = "st" -- Default Terminal
+myTerminal = "st"
 
-myModMask = mod4Mask -- Rebind Mod to the Super key
+myModMask = mod4Mask
 
 myNormalBorderColor = "#dddddd" --  Light grey
-
 myFocusedBorderColor = "#ff0000" -- Solid red
 
--- ¹  ²  ³  ⁴  ⁵  ⁶  ⁷  ⁸ ⁹
 --myWorkspaces = ["¹\62056", "²\61728", "³\61729", "⁴\61501", "⁵\61884", "⁶\61664", "⁷\61723", "⁸\61734", "⁹\61462"]
-
---                         
 myWorkspaces = ["\62056", "\61728", "\61729", "\61501", "\61884", "\61664", "\61723", "\61734", "\61462"]
 
--- WINDOW MANAGEMENT
-
-{- ORMOLU_DISABLE -}
--- doShift = send to tag on creation
--- doShiftAndGo = send to tag on creation and go
--- doIgnore = don't tile and  sticky on all workspaces
 myManageHook :: ManageHook
 myManageHook      =
   composeAll . concat $
@@ -104,8 +94,6 @@ myManageHook      =
 
 {- ORMOLU_ENABLE -}
 
--- STARTUP
-
 myStartupHook = do
   spawnOnce "randbg"
   spawnOn (myWorkspaces !! 1) "pidof st        > /dev/null && echo 'st is already running.'        || st &"
@@ -113,8 +101,6 @@ myStartupHook = do
   spawnOnce                   "pidof xflux     > /dev/null && echo 'xflux is already running.'     || xflux -l 0 &"
   spawnOnce                   "pidof picom     > /dev/null && echo 'picom is already running.'     || picom -b --experimental-backend &"
   spawnOnce                   "pidof clipit    > /dev/null && echo 'clipit is already running.'    || clipit &"
-
--- LAYOUTS
 
 {- ORMOLU_DISABLE -}
 myLayout     = avoidStruts (smartBorders (tiled ||| Mirror tiled ||| noBorders Full ||| threeCol))
@@ -125,8 +111,6 @@ myLayout     = avoidStruts (smartBorders (tiled ||| Mirror tiled ||| noBorders F
     ratio    = 1 / 2 -- Default proportion of screen occupied by master pane
     delta    = 3 / 100 -- Percent of screen to increment by when resizing panes
 {- ORMOLU_ENABLE -}
-
--- XMOBAR
 
 {- ORMOLU_DISABLE -}
 -- TODO: Use backgrounds when theming
@@ -157,8 +141,6 @@ myXmobarPP              =
     red                 = xmobarColor "#ff5555" ""
     lowWhite            = xmobarColor "#bbbbbb" ""
 {- ORMOLU_ENABLE -}
-
--- KEYBINDS
 
 mySpawn p = spawn ("xsetroot -cursor_name watch;xtoolwait " ++ p ++ ";xsetroot -cursor_name left_ptr")
 
@@ -210,7 +192,6 @@ myKeybinds = [
  ]
 {- ORMOLU_ENABLE -}
 
--- MAIN
 main :: IO ()
 main =
   xmonad

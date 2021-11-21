@@ -1,7 +1,7 @@
 #+AUTHOR: pandecode
 #+TITLE: Todos
 
-* TODO Setup  Xmonand
+* TODO Setup Xmonand
 	+ Fix xtoolwait bug that persists process cains CPU
 	+ Haskell language server config (src ~/.config/xmonad.build/)
 	+ Spotify in xmobar (use cava style like thing)
@@ -18,7 +18,7 @@
 
 	- Roit.sh
 	- Theme
-	- Add Arch logo (as clickable)
+	- Add Arch logo (as clickable, animate on hover)
 	- More layouts
 
 	- Picom(compositor) intergration
@@ -73,6 +73,7 @@
 	- Xmenu
 
 	- Xmobar clickable
+	- Xmobar hover preview ???
 	- Xmobar Theme
 	- Clickable xmobar
 	- Trayer/stalonetray
@@ -80,4 +81,30 @@
 	- Push To github
 
    make sidebar that animates in and out
-https://github.com/metakirby5/zenbuhttps://github.com/metakirby5/colorz
+
+https://www.google.com/search?q=xmonad+add+clickable+xmobar
+
+https://www.google.com/search?q=trayer+xmobar
+
+https://wiki.haskell.org/Xmonad/Frequently_asked_questions#I_need_to_find_the_class_title_or_some_other_X_property_of_my_program
+
+https://www.google.com/search?q=xmonad+avoidstruts
+
+https://xmonad.org/TUTORIAL.html
+https://github.com/jaor/xmobar/blob/master/doc/plugins.org#batteryp-dirs-args-refreshrate
+https://stackoverflow.com/questions/20446348/xmonad-toggle-fullscreen-xmobar
+https://gist.github.com/comatose/2156741
+https://wiki.haskell.org/Xmonad/General_xmonad.hs_config_tips
+https://hackage.haskell.org/package/xmonad-contrib-0.17.0/docs/XMonad-Hooks-ManageDocks.html
+https://hackage.haskell.org/package/xmonad-contrib-0.17.0/docs/XMonad-Layout-NoBorders.html
+https://hackage.haskell.org/package/xmonad-contrib-0.17.0/docs/XMonad-Layout-MultiToggle.html
+https://hackage.haskell.org/package/xmonad-contrib-0.17.0/docs/XMonad-Actions-SpawnOn.html
+https://hackage.haskell.org/package/xmonad-contrib-0.17.0/docs/XMonad-Config-Prime.html#v:manageHook
+https://github.com/Maeda1/My-Xmonad-Xmobar-Trayer-configuration-files/blob/master/xmobarrc
+
+https://wiki.archlinux.org/title/Xmonad#Option_2:_More_Configurable
+https://wiki.haskell.org/Xmonad/General_xmonad.hs_config_tips
+https://hackage.haskell.org/package/xmonad-contrib-0.17.0/docs/XMonad-Hooks-DynamicLog.html
+
+https://github.com/metakirby5/zenbu
+https://github.com/metakirby5/colorz

@@ -28,8 +28,10 @@ cd ~/dotfiles
 ## Desktop Environments
 
     - DWM (https://github.com/PandeCode/dwm-flexipatch)
-    - Xmonad (when xmonad and xmonad-contrib are v0.17.0 on the package repos)
+    - Xmonad
     - i3
+
+
 
 ## Goals
 

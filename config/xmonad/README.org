@@ -1,3 +1,12 @@
+#+TITLE: Xmoand Config
+#+PROPERTY: header-args :tangle xmonad.org.hs
+
+extract and place table in keybinds table using the showkeys v2
+
+* Xmonad Config
+Xmoand Config
+* IMPORTS
+#+begin_src haskell
 import XMonad
 
 --
@@ -22,27 +31,42 @@ import XMonad.Util.EZConfig -- or use another method of binding resizable keys
 import XMonad.Util.Loggers
 import XMonad.Util.SpawnOnce
 import XMonad.Util.Ungrab
+#+end_src
 
-myTerminal = "st" -- Default Terminal
+* Terminal Emulator
+Set to st simple terminal
+#+begin_src haskell
+myTerminal = "st"
+#+end_src
 
-myModMask = mod4Mask -- Rebind Mod to the Super key
+* Mod Mask
+Set to super key
+#+begin_src haskell
+myModMask = mod4Mask
+#+end_src
+
+* Theming
+
+#+begin_src haskell
 
 myNormalBorderColor = "#dddddd" --  Light grey
-
 myFocusedBorderColor = "#ff0000" -- Solid red
+#+end_src
 
--- ¹  ²  ³  ⁴  ⁵  ⁶  ⁷  ⁸ ⁹
+* Workspace Names
+First:  ¹  ²  ³  ⁴  ⁵  ⁶  ⁷  ⁸ ⁹
+Second:                         
+
+#+begin_src haskell
 --myWorkspaces = ["¹\62056", "²\61728", "³\61729", "⁴\61501", "⁵\61884", "⁶\61664", "⁷\61723", "⁸\61734", "⁹\61462"]
-
---                         
 myWorkspaces = ["\62056", "\61728", "\61729", "\61501", "\61884", "\61664", "\61723", "\61734", "\61462"]
+#+end_src
 
--- WINDOW MANAGEMENT
-
-{- ORMOLU_DISABLE -}
--- doShift = send to tag on creation
--- doShiftAndGo = send to tag on creation and go
--- doIgnore = don't tile and  sticky on all workspaces
+* Window Management
+ doShift = send to tag on creation
+ doShiftAndGo = send to tag on creation and go
+ doIgnore = don't tile and  sticky on all workspaces
+#+begin_src haskell
 myManageHook :: ManageHook
 myManageHook      =
   composeAll . concat $
@@ -103,9 +127,10 @@ myManageHook      =
     shiftWorkspaceClassName9 = []
 
 {- ORMOLU_ENABLE -}
+#+end_src
 
--- STARTUP
-
+* Startup
+#+begin_src haskell
 myStartupHook = do
   spawnOnce "randbg"
   spawnOn (myWorkspaces !! 1) "pidof st        > /dev/null && echo 'st is already running.'        || st &"
@@ -113,8 +138,10 @@ myStartupHook = do
   spawnOnce                   "pidof xflux     > /dev/null && echo 'xflux is already running.'     || xflux -l 0 &"
   spawnOnce                   "pidof picom     > /dev/null && echo 'picom is already running.'     || picom -b --experimental-backend &"
   spawnOnce                   "pidof clipit    > /dev/null && echo 'clipit is already running.'    || clipit &"
+#+end_src
 
--- LAYOUTS
+* Layouts
+#+begin_src haskell
 
 {- ORMOLU_DISABLE -}
 myLayout     = avoidStruts (smartBorders (tiled ||| Mirror tiled ||| noBorders Full ||| threeCol))
@@ -125,8 +152,10 @@ myLayout     = avoidStruts (smartBorders (tiled ||| Mirror tiled ||| noBorders F
     ratio    = 1 / 2 -- Default proportion of screen occupied by master pane
     delta    = 3 / 100 -- Percent of screen to increment by when resizing panes
 {- ORMOLU_ENABLE -}
+#+end_src
 
--- XMOBAR
+* Xmobar
+#+begin_src haskell
 
 {- ORMOLU_DISABLE -}
 -- TODO: Use backgrounds when theming
@@ -158,7 +187,9 @@ myXmobarPP              =
     lowWhite            = xmobarColor "#bbbbbb" ""
 {- ORMOLU_ENABLE -}
 
--- KEYBINDS
+#+end_src
+* Keybinds
+#+begin_src haskell
 
 mySpawn p = spawn ("xsetroot -cursor_name watch;xtoolwait " ++ p ++ ";xsetroot -cursor_name left_ptr")
 
@@ -209,8 +240,10 @@ myKeybinds = [
     -- SHOWKEYS END
  ]
 {- ORMOLU_ENABLE -}
+#+end_src
 
--- MAIN
+* Main
+#+begin_src haskell
 main :: IO ()
 main =
   xmonad
@@ -233,3 +266,5 @@ myConfig                 =
     }
     `additionalKeysP` myKeybinds
 {- ORMOLU_ENABLE -}
+
+#+end_src
