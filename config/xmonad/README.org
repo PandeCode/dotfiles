@@ -3,6 +3,20 @@
 
 extract and place table in keybinds table using the showkeys v2
 
+* TABLE OF CONTENTS :toc:
+- [[#xmonad-config][Xmonad Config]]
+- [[#imports][IMPORTS]]
+- [[#terminal-emulator][Terminal Emulator]]
+- [[#mod-mask][Mod Mask]]
+- [[#theming][Theming]]
+- [[#workspace-names][Workspace Names]]
+- [[#window-management][Window Management]]
+- [[#startup][Startup]]
+- [[#layouts][Layouts]]
+- [[#xmobar][Xmobar]]
+- [[#keybinds][Keybinds]]
+- [[#main][Main]]
+
 * Xmonad Config
 Xmoand Config
 * IMPORTS

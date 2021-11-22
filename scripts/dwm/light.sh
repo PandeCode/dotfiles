@@ -1,7 +1,15 @@
 #!/bin/env sh
 
+lightIdFile=/tmp/lightId
+
 lightNotify() {
-	notify-send 'Light:' -h int:value:$(light)
+	replace=$(cat $lightIdFile)
+	if [ -z "$replace" ]
+	then
+		notify-send.py "Light $1" "$(light)" --hint float:value:$(light) > $lightIdFile
+	else
+		notify-send.py "Light $1" "$(light)" --hint float:value:$(light) -r $replace > $lightIdFile
+	fi
 }
 
 lightUp() {
@@ -22,10 +30,10 @@ case $1 in
 		;;
 	up)
 		lightUp
-		lightNotify
+		lightNotify Up
 		;;
 	down)
 		lightDown
-		lightNotify
+		lightNotify Down
 		;;
 esac

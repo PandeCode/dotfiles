@@ -1,3 +1,4 @@
+{- ORMOLU_DISABLE -}
 import XMonad
 
 --
@@ -17,11 +18,20 @@ import XMonad.Layout.PerWorkspace
 import XMonad.Layout.ResizableTile -- Actions.WindowNavigation is nice too
 --
 import XMonad.Layout.ThreeColumns
-import qualified XMonad.StackSet as W
+
 import XMonad.Util.EZConfig -- or use another method of binding resizable keys
 import XMonad.Util.Loggers
 import XMonad.Util.SpawnOnce
 import XMonad.Util.Ungrab
+
+
+import qualified XMonad.StackSet as W
+import qualified Data.Map as M
+import Data.Char (isSpace, toUpper)
+import Data.Maybe ( fromJust, isJust )
+import Data.Monoid
+import Data.Tree
+{- ORMOLU_ENABLE -}
 
 myTerminal = "st" -- Default Terminal
 
@@ -36,6 +46,44 @@ myFocusedBorderColor = "#ff0000" -- Solid red
 
 --                         
 myWorkspaces = ["\62056", "\61728", "\61729", "\61501", "\61884", "\61664", "\61723", "\61734", "\61462"]
+
+myWorkspaceIndices = M.fromList $ zip myWorkspaces [1 ..] -- (,) == \x y -> (x,y)
+
+clickable ws = "<action=xdotool key super+" ++ show i ++ ">" ++ ws ++ "</action>"
+  where
+    i = fromJust $ M.lookup ws myWorkspaceIndices
+
+-- XMOBAR
+
+{- ORMOLU_DISABLE -}
+-- TODO: Use backgrounds when theming
+myXmobarPP :: PP
+myXmobarPP              =
+  def
+    { ppSep             = magenta " • ",
+	  ppTitleSanitize   = xmobarStrip,
+      ppCurrent         = wrap " " "" . xmobarBorder "Top" "#8be9fd" 2, -- Current Window
+      ppHidden          = white . wrap " " "", -- Visible but not current
+	  -- ppHiddenNoWindows = lowWhite . wrap " " "", --  unused workspaces
+	  ppUrgent          = red . wrap (yellow "!") (yellow "!"),
+      ppOrder           = \[ws, l, _, wins] -> [ws, l, wins],
+	  ppExtras          = [logTitles formatFocused formatUnfocused] -- for updates
+    }
+  where
+    formatFocused       = wrap (white "[") (white "]") . magenta . ppWindow
+    formatUnfocused     = wrap (lowWhite "[") (lowWhite "]") . blue . ppWindow
+    -- Windows should have *some* title, which should not not exceed a
+    -- sane length.
+    ppWindow :: String -> String
+    ppWindow            = xmobarRaw . (\w -> if null w then "untitled" else w) . shorten 30
+    blue, lowWhite, magenta, red, white, yellow :: String -> String
+    magenta             = xmobarColor "#ff79c6" ""
+    blue                = xmobarColor "#bd93f9" ""
+    white               = xmobarColor "#f8f8f2" ""
+    yellow              = xmobarColor "#f1fa8c" ""
+    red                 = xmobarColor "#ff5555" ""
+    lowWhite            = xmobarColor "#bbbbbb" ""
+{- ORMOLU_ENABLE -}
 
 -- WINDOW MANAGEMENT
 
@@ -108,11 +156,11 @@ myManageHook      =
 
 myStartupHook = do
   spawnOnce "randbg"
-  spawnOn (myWorkspaces !! 1) "pidof st        > /dev/null && echo 'st is already running.'        || st &"
-  spawnOnce                   "pidof nm-applet > /dev/null && echo 'nm-applet is already running.' || nm-applet &"
-  spawnOnce                   "pidof xflux     > /dev/null && echo 'xflux is already running.'     || xflux -l 0 &"
-  spawnOnce                   "pidof picom     > /dev/null && echo 'picom is already running.'     || picom -b --experimental-backend &"
-  spawnOnce                   "pidof clipit    > /dev/null && echo 'clipit is already running.'    || clipit &"
+  spawnOn (myWorkspaces !! 1) "pidof st        > /dev/null && echo 'st is already running.'        || st 1>> st.log 2>> st.err.log&"
+  spawnOnce "pidof nm-applet > /dev/null && echo 'nm-applet is already running.' || nm-applet 1>> nm-applet.log 2>> nm-applet.err.log&"
+  spawnOnce "pidof xflux     > /dev/null && echo 'xflux is already running.'     || xflux -l 0 1>> xflux.log 2>> xflux.err.log&"
+  spawnOnce "pidof picom     > /dev/null && echo 'picom is already running.'     || picom -b --experimental-backend 1>> picom.log 2>> picom.err.log&"
+  spawnOnce "pidof clipit    > /dev/null && echo 'clipit is already running.'    || clipit 1>> clipit.log 2>> clipit.err.log&"
 
 -- LAYOUTS
 
@@ -124,38 +172,6 @@ myLayout     = avoidStruts (smartBorders (tiled ||| Mirror tiled ||| noBorders F
     nmaster  = 1 -- Default number of windows in the master pane
     ratio    = 1 / 2 -- Default proportion of screen occupied by master pane
     delta    = 3 / 100 -- Percent of screen to increment by when resizing panes
-{- ORMOLU_ENABLE -}
-
--- XMOBAR
-
-{- ORMOLU_DISABLE -}
--- TODO: Use backgrounds when theming
-myXmobarPP :: PP
-myXmobarPP              =
-  def
-    { ppSep             = magenta " • ",
-      ppTitleSanitize   = xmobarStrip,
-      ppCurrent         = wrap " " "" . xmobarBorder "Top" "#8be9fd" 2,
-      ppHidden          = white . wrap " " "",
-      ppHiddenNoWindows = lowWhite . wrap " " "",
-      ppUrgent          = red . wrap (yellow "!") (yellow "!"),
-      ppOrder           = \[ws, l, _, wins] -> [ws, l, wins],
-      ppExtras          = [logTitles formatFocused formatUnfocused]
-    }
-  where
-    formatFocused       = wrap (white "[") (white "]") . magenta . ppWindow
-    formatUnfocused     = wrap (lowWhite "[") (lowWhite "]") . blue . ppWindow
-    -- Windows should have *some* title, which should not not exceed a
-    -- sane length.
-    ppWindow :: String -> String
-    ppWindow            = xmobarRaw . (\w -> if null w then "untitled" else w) . shorten 30
-    blue, lowWhite, magenta, red, white, yellow :: String -> String
-    magenta             = xmobarColor "#ff79c6" ""
-    blue                = xmobarColor "#bd93f9" ""
-    white               = xmobarColor "#f8f8f2" ""
-    yellow              = xmobarColor "#f1fa8c" ""
-    red                 = xmobarColor "#ff5555" ""
-    lowWhite            = xmobarColor "#bbbbbb" ""
 {- ORMOLU_ENABLE -}
 
 -- KEYBINDS
@@ -175,20 +191,21 @@ myKeybinds = [
     --("M-t b", toggleBorder),
     --("M-t t", toggleBorder),
     --
-    ("M-s p",                   spawn "pavucontrol"),
-    ("M-s r",                   spawn "vokoscreenNG"),
-    ("M-s b",                   spawnOn (head myWorkspaces) "chrome"),
-    ("M-s h",                   spawnOn (myWorkspaces !! 3) "hakuneko-desktop"),
-    ("M-s s",                   spawnOn (myWorkspaces !! 4) "dex /usr/share/applications/spotify.desktop"),
+    ("M-s p",                   spawn "pavucontrol 1>> pavucontrol.log 2>> pavucontrol.err.log"),
+    ("M-s r",                   spawn "vokoscreenNG 1>> vokoscreenNG.log 2>> vokoscreenNG.err.log"),
+    ("M-s b",                   spawnOn (head myWorkspaces) "chrome 1>> chrome.log 2>> chrome.err.log"),
+    ("M-s h",                   spawnOn (myWorkspaces !! 3) "hakuneko-desktop 1>> hakuneko-desktop.log 2>> hakuneko-desktop.err.log"),
+    ("M-s s",                   spawnOn (myWorkspaces !! 4) "dex /usr/share/applications/spotify.desktop 1>> spotify.log 2>> spotify.err.log"),
     --
-    ("<XF86AudioLowerVolume>",  spawn "$HOME/dotfiles/scripts/dwm/vol.sh down"),
-    ("<XF86AudioMute>",         spawn "$HOME/dotfiles/scripts/dwm/vol.sh mute"),
-    ("<XF86AudioNext>",         spawn "$HOME/dotfiles/scripts/dwm/media.sh next"),
-    ("<XF86AudioPlay>",         spawn "$HOME/dotfiles/scripts/dwm/media.sh play-pause"),
-    ("<XF86AudioPrev>",         spawn "$HOME/dotfiles/scripts/dwm/media.sh previous"),
-    ("<XF86AudioRaiseVolume>",  spawn "$HOME/dotfiles/scripts/dwm/vol.sh up"),
-    ("<XF86MonBrightnessDown>", spawn "$HOME/dotfiles/scripts/dwm/light.sh down"),
-    ("<XF86MonBrightnessUp>",   spawn "$HOME/dotfiles/scripts/dwm/light.sh up"),
+
+    ("M-<F2>" {-XF86XK_MonBrightnessDown,-}, spawn "$HOME/dotfiles/scripts/dwm/light.sh down" ),
+    ("M-<F3>" {-XF86XK_MonBrightnessUp,-},   spawn "$HOME/dotfiles/scripts/dwm/light.sh up" ),
+    ("M-<F7>" {-XF86XK_AudioLowerVolume,-},  spawn "$HOME/dotfiles/scripts/dwm/vol.sh down"),
+    ("M-<F8>" {-XF86XK_AudioRaiseVolume,-},  spawn "$HOME/dotfiles/scripts/dwm/vol.sh up"),
+    ("M-<F6>" {-XF86XK_AudioMute,-},         spawn "$HOME/dotfiles/scripts/dwm/vol.sh mute" ),
+    ("M-<F10>" {-XF86XK_AudioPlay,-},        spawn "$HOME/dotfiles/scripts/dwm/media.sh play-pause" ),
+    ("M-<F11>" {-XF86XK_AudioNext,-},        spawn "$HOME/dotfiles/scripts/dwm/media.sh next      " ),
+    ("M-<F9>" {-XF86XK_AudioPrev,-},         spawn "$HOME/dotfiles/scripts/dwm/media.sh previous  " ),
 
     -- Make window sticky
     ("M-a", windows copyToAll),

@@ -2,85 +2,93 @@
 #+TITLE: Todos
 
 * TODO Setup Xmonand
-	+ Fix xtoolwait bug that persists process cains CPU
-	+ Haskell language server config (src ~/.config/xmonad.build/)
-	+ Spotify in xmobar (use cava style like thing)
-	- Stop running xmobar modules when the bar is hidden (file)
-	- Get window x,y position and size to calulate mass, use phyiscs engine like box2d to update them
-	- Interactive background (okozo desktop)
+** Cool Ideas
+   - Get window x,y position and size to calulate mass, use phyiscs engine like box2d to update them
+   - Interactive background (okozo desktop)
+   - Spotify in xmobar (use cava style like thing)
+   - Add Arch logo (as clickable, animate on hover)
+   - Roit.sh
+   - Sound Effects like in opera gx on events
+   - Animations on hover xmobar
 
-	- Stop stealing focus
+** xmonad
+*** Fix
+   + Fix xtoolwait bug that persists process cains CPU
+   + Haskell language server config (src ~/.config/xmonad.build/)
+   + Stop running xmobar modules when the bar is hidden (file)
+   + Stop stealing focus
 
-	- Logout
-	- Lock (i3lock-color, slock)
-	- Screen Saver
-	- Battery Saver (Xfce Battery monitor)
+*** Features
+   - Logout
+   - Lock (i3lock-color, slock)
+   - Screen Saver
+   - Battery Saver (Xfce Battery monitor)
 
-	- Roit.sh
-	- Theme
-	- Add Arch logo (as clickable, animate on hover)
-	- More layouts
+   - Theme
+   - More layouts
 
-	- Picom(compositor) intergration
-	- Startup programs (st, nm-applet, clipit, picom, xflux, randbg)
-	- Rename Workspaces
-	- Auto assign windows to Workspaces
-	- Hide Unsed Workspaces
-	- toggle gaps
-	- resize gaps
-	- toggle boaders
+   - Picom(compositor) intergration (done)
+   - Startup programs (st, nm-applet, clipit, picom, xflux, randbg)
+   - Rename Workspaces
+   - Auto assign windows to Workspaces
+   - Hide Unsed Workspaces
+   - toggle gaps
+   - resize gaps
+   - toggle boaders
 
-	- toggle bar (breaks 50% of the time)
-	- toggle fullscreen (maybe switch to "Full" layout)
-	- toggle stick (100%)
+   - toggle bar (breaks 50% of the time)
+   - toggle fullscreen (maybe switch to "Full" layout)
+   - toggle stick (100%)
 
-	- toggle rounded corners (look into editing the picom config at runtime)
-	- adjust rounded corners (look into editing the picom config at runtime)
-	- adjust blur (look into editing the picom config at runtime)
+   - toggle rounded corners (look into editing the picom config at runtime)
+   - adjust rounded corners (look into editing the picom config at runtime)
+   - adjust blur (look into editing the picom config at runtime)
 
-	- Xmenu layout picker
-	- Toggle fake fullscreen
+   - Xmenu layout picker
+   - Toggle fake fullscreen
 
-	- Fade inactive windows  after x amount of time  (loghook, fadeInactive hook)
+   - Fade inactive windows  after x amount of time  (loghook, fadeInactive hook)
 
-	- Fix Zoom meetings client (https://www.peterstuart.org/posts/2021-09-06-xmonad-zoom/)
+   - Fix Zoom meetings client (https://www.peterstuart.org/posts/2021-09-06-xmonad-zoom/)
 
-	- Keys (https://hackage.haskell.org/package/xmonad-contrib-0.17.0/docs/XMonad-Util-EZConfig.html#g:3)
-	- Alt tab
-	- Config Launchers
-		- [] Chrome
-		- [] click4ever
-		- [] Spotify
-		- [] Video Recorder
-		- [] Dmenu
-		- [] vimb ~/dev/Keys/keys.html (use Document Keybinds)
+   - Keys (https://hackage.haskell.org/package/xmonad-contrib-0.17.0/docs/XMonad-Util-EZConfig.html#g:3)
+   - Alt tab
+   - Config Launchers
+      - [] Chrome
+      - [] click4ever
+      - [] Spotify
+      - [] Video Recorder
+      - [] Dmenu
+      - [] vimb ~/dev/Keys/keys.html (use Document Keybinds)
 
-	- Dmenu/Rofi Launchers/Promots
-		- Bookmarks
-		- Calulator
-		- Browser Bookmarks
-		- Bookmarks
+   - Dmenu/Rofi Launchers/Promots
+      - Bookmarks
+      - Calulator
+      - Browser Bookmarks
+      - Bookmarks
 
 
-	- Document Keybinds
-		M-s b -> chrome
-		M-s s -> spotify
-		M-s p -> pavucontrol
-		M-s r -> vokoscreenNG
+   - Document Keybinds
+      M-s b -> chrome
+      M-s s -> spotify
+      M-s p -> pavucontrol
+      M-s r -> vokoscreenNG
 
-	- Tree menu
-	- Grid menu
-	- Xmenu
+   - Tree menu
+   - Grid menu
+   - Xmenu
 
-	- Xmobar clickable
-	- Xmobar hover preview ???
-	- Xmobar Theme
-	- Clickable xmobar
-	- Trayer/stalonetray
+   - Xmobar clickable
+   - Xmobar hover preview ???
+   - Xmobar Theme
+   - Clickable xmobar
+   - Trayer/stalonetray
 
-	- Push To github
+   - Push To github (done)
 
-   make sidebar that animates in and out
+
+** xmobar
+make sidebar that animates in and out
 
 https://www.google.com/search?q=xmonad+add+clickable+xmobar
 
@@ -108,3 +116,4 @@ https://hackage.haskell.org/package/xmonad-contrib-0.17.0/docs/XMonad-Hooks-Dyna
 
 https://github.com/metakirby5/zenbu
 https://github.com/metakirby5/colorz
+
