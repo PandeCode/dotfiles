@@ -1,3 +1,5 @@
+add picom controls (sed -i "" ~/dotfiles/config/picom/picom.conf) to main xmenu
+
 check >1k ping dwmstatus error
 tmux show-option -gqv "@barHidden"
 get linux-notification center to stop realigning cpu click and me click

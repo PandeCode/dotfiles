@@ -39,6 +39,8 @@ SETUVAR _fish_abbr_commit:git\x20commit\x20\x2dam\x20\x22
 SETUVAR _fish_abbr_cp:cp\x20\x2dr
 SETUVAR _fish_abbr_cs:xclip\x20\x2dselection\x20clipboard\x20\x2do
 SETUVAR _fish_abbr_d:\x20disown
+SETUVAR _fish_abbr_doc:cd\x20\x7e/Documents
+SETUVAR _fish_abbr_down:cd\x20\x7e/Downloads
 SETUVAR _fish_abbr_dwm:sudo\x20make\x20install\x20\x26\x26\x20pkill\x20dwm
 SETUVAR _fish_abbr_dwmblocks:sudo\x20make\x20install\x20\x26\x26\x20pkill\x20dwmblocks
 SETUVAR _fish_abbr_e:emacs\x20\x26\x20disown
@@ -53,10 +55,12 @@ SETUVAR _fish_abbr_idea:nvim\x20/home/shawn/dev/ideas\x2etxt
 SETUVAR _fish_abbr_initgit:git\x20init\x3bgit\x20branch\x20\x2dM\x20main\x20\x3bgit\x20add\x20\x2e\x3b\x20git\x20commit\x20\x2dm\x20\x22Init\x22
 SETUVAR _fish_abbr_l:ls\x20\x2dlatr
 SETUVAR _fish_abbr_md:mkdir
+SETUVAR _fish_abbr_music:cd\x20\x7e/Music
 SETUVAR _fish_abbr_neovide:neovide\x20\x26\x20disown
 SETUVAR _fish_abbr_pacman:sudo\x20pacman
 SETUVAR _fish_abbr_pamac:sudo\x20pamac
 SETUVAR _fish_abbr_paru:CXX\x3dg\x2b\x2b\x20CC\x3dgcc\x20paru
+SETUVAR _fish_abbr_pictures:cd\x20\x7e/Pictures
 SETUVAR _fish_abbr_pipUpdate:python3\x20\x2dm\x20pip\x20install\x20\x2d\x2dupgrade\x20\x28python3\x20\x2dm\x20pip\x20list\x20\x2d\x2doutdated\x20\x7c\x20sed\x20\x221\x2c2d\x3bs/\x20\x2e\x2a//\x3bs/pygls//\x3b\x22\x29\x3b\x20python2\x20\x2dm\x20pip\x20install\x20\x2d\x2dupgrade\x20\x28python2\x20\x2dm\x20pip\x20list\x20\x2d\x2doutdated\x20\x20\x7c\x20sed\x20\x221\x2c2d\x3bs/\x20\x2e\x2a//\x3b\x22\x29
 SETUVAR _fish_abbr_psuh:git\x20push
 SETUVAR _fish_abbr_push:git\x20push
