@@ -1,5 +1,6 @@
+{- ORMOLU_DISABLE -}
 import Data.Char (isSpace, toUpper)
-import Data.Maybe
+import Data.Maybe 
 import Data.Monoid
 import Data.Tree
 
@@ -56,12 +57,11 @@ import XMonad.Util.Ungrab
 
 import qualified Data.Map as M
 import qualified XMonad.StackSet as W
+{- ORMOLU_ENABLE -}
 
-myTerminal = "st"
+myTerminal = "st" -- Default Terminal
 
 myModMask = mod4Mask -- Rebind Mod to the Super key
-
-myFont = "xft:DejaVu Sans Condensed-16:normal"
 
 -- Deep ocean
 deepOcean :: M.Map String [Char]
@@ -117,25 +117,97 @@ myFocusedBorderColor :: [Char]
 --myFocusedBorderColor = "#ff0000" -- Solid red
 myFocusedBorderColor = fromMaybe "#ff0000" (M.lookup "selectionForeground" myTheme)
 
-myXPConfig            =
-  def
-    { searchPredicate = fuzzyMatch                                                    ,
-      font              = myFont                                                      ,
-      sorter          = fuzzySort                                                     ,
-      bgColor         = fromMaybe "#0F111A" (M.lookup "background" myTheme)           ,
-      fgColor         = fromMaybe "#8F93A2" (M.lookup "foreground" myTheme)           ,
-      bgHLight        = fromMaybe "#717CB480" (M.lookup "selectionBackground" myTheme),
-      fgHLight        = fromMaybe "#FFFFFF" (M.lookup "selectionForeground" myTheme)  ,
-      borderColor     = fromMaybe "#0F111A" (M.lookup "border" myTheme)               ,
-      position        = Top                                                           ,
-      alwaysHighlight = True
-    }
+{-
+myWorkspaces = ["1", "2", "3", "4", "5", "6", "7", "8", "9"]
+ ¹  ²  ³  ⁴  ⁵  ⁶  ⁷  ⁸ ⁹
+myWorkspaces = ["¹\62056", "²\61728", "³\61729", "⁴\61501", "⁵\61884", "⁶\61664", "⁷\61723", "⁸\61734", "⁹\61462"]
+                         
+myWorkspaces = ["\62056", "\61728", "\61729", "\61501", "\61884", "\61664", "\61723", "\61734", "\61462"]
 
+myWorkspaces =
+  [ "<action=`xdotool key super+1` button=1>\62056</action>",
+    "<action=`xdotool key super+2` button=1>\61728</action>",
+    "<action=`xdotool key super+3` button=1>\61729</action>",
+    "<action=`xdotool key super+4` button=1>\61501</action>",
+    "<action=`xdotool key super+5` button=1>\61884</action>",
+    "<action=`xdotool key super+6` button=1>\61664</action>",
+    "<action=`xdotool key super+7` button=1>\61723</action>",
+    "<action=`xdotool key super+8` button=1>\61734</action>",
+    "<action=`xdotool key super+9` button=1>\61462</action>"
+  ]
+makeAction a b t = "<action=`" ++ a ++ "` button=" ++ b ++ ">" ++ t ++ "</action>"
+
+-}
+
+myWorkspaces =
+  [ makeFullAction "xdotool set_desktop 0" "1 2" " 1 3" "1 4" "1 5" " \62056 ",
+    makeFullAction "xdotool set_desktop 1" "2 2" " 2 3" "2 4" "2 5" " \61728 ",
+    makeFullAction "xdotool set_desktop 2" "3 2" " 3 3" "3 4" "3 5" " \61729 ",
+    makeFullAction "xdotool set_desktop 3" "4 2" " 4 3" "4 4" "4 5" " \61501 ",
+    makeFullAction "xdotool set_desktop 4" "5 2" " 5 3" "5 4" "5 5" " \61884 ",
+    makeFullAction "xdotool set_desktop 5" "6 2" " 6 3" "6 4" "6 5" " \61664 ",
+    makeFullAction "xdotool set_desktop 6" "7 2" " 7 3" "7 4" "7 5" " \61723 ",
+    makeFullAction "xdotool set_desktop 7" "8 2" " 8 3" "8 4" "8 5" " \61734 ",
+    makeFullAction "xdotool set_desktop 8" "9 2" " 9 3" "9 4" "9 5" " \61462 "
+  ]
+  where
+    wsScript = "~/dotfiles/scripts/xmobar/workspaces.sh "
+    makeFullAction a1 a2 a3 a4 a5 t = "<action=`" ++ a1 ++ "` button=1>" ++ "<action=`" ++ wsScript ++ a2 ++ "` button=2>" ++ "<action=`" ++ wsScript ++ a3 ++ "` button=3>" ++ "<action=`" ++ wsScript ++ a4 ++ "` button=4>" ++ "<action=`" ++ wsScript ++ a5 ++ "` button=5>" ++ t ++ "</action></action></action></action></action>"
+
+-- XMOBAR
+-- https://hackage.haskell.org/package/xmonad-contrib-0.17.0/docs/XMonad-Hooks-StatusBar-PP.html#g:2
+{- ORMOLU_DISABLE -}
+-- TODO: Use backgrounds when theming
+myXmobarPP :: PP
+myXmobarPP              =
+  def
+    {
+      ppSep             = magenta " • "
+      , ppTitleSanitize   = xmobarStrip
+      --, ppCurrent         = wrap " " "" . xmobarBorder "Top" "#8be9fd" 2  -- Current Workspace
+      --, ppHiddenNoWindows = lowWhite . wrap " " "" --  unused workspaces
+
+      , ppCurrent         =  xmobarBorder "Top" "#8be9fd" 2  -- Current Workspace
+      , ppHidden          =  white -- Visible but not current
+
+      , ppUrgent          = red . wrap (yellow "!") (yellow "!")
+      , ppOrder           = \[ws, l, _, wins] -> [ws, l, wins]
+      , ppExtras          = [logTitles formatFocused formatUnfocused] -- for updates
+    }
+  where
+    formatFocused       = wrap (white "[") (white "]") . magenta . ppWindow
+    formatUnfocused     = wrap (lowWhite "[") (lowWhite "]") . blue . ppWindow
+    -- Windows should have *some* title, which should not not exceed a
+    -- sane length.
+    ppWindow :: String -> String
+    ppWindow            = xmobarRaw . (\w -> if null w then "untitled" else w) . shorten 30
+    blue, lowWhite, magenta, red, white, yellow :: String -> String
+    magenta             = xmobarColor "#ff79c6" ""
+    blue                = xmobarColor "#bd93f9" ""
+    white               = xmobarColor "#f8f8f2" ""
+    yellow              = xmobarColor "#f1fa8c" ""
+    red                 = xmobarColor "#ff5555" ""
+    lowWhite            = xmobarColor "#bbbbbb" ""
+{- ORMOLU_ENABLE -}
+
+--myPromptConfig = def
+--{
+--position = Top
+--, promptBorderWidth = 0
+--, defaultText = ""
+--, alwaysHighlight = True
+--, height = 32
+--, font = "xft:DejaVu Sans Condensed-16:normal"
+--, autoComplete = Just 500000
+--, searchPredicate = fuzzyMatch
+--}
+
+{- ORMOLU_DISABLE -}
 myTreeConf =
   TSConfig
     { ts_hidechildren = True,
       ts_background = 0x0F111A00,-- 0x70707070, --0xc0c0c0c0
-      ts_font = myFont,
+      ts_font = "xft:DroidSansMono Nerd Font:size=14",
       ts_node = (0xff000000, 0xff50d0db),
       ts_nodealt = (0xff000000, 0xff10b8d6),
       ts_highlight = (0xffffffff, 0xffff0000),
@@ -169,7 +241,7 @@ myTreeWorkspaces   =
 myTree =
   treeselectAction
     myTreeConf
-    [
+    [ 
       makeNodeC "Brightness" "Sets screen brightness using light" [
           makeNode "Bright" "FULL POWER!!"            (spawn "light -S 100")
         , makeNode "Normal" "Normal Brightness (50%)" (spawn "light -S 50")
@@ -186,78 +258,42 @@ myTree =
     where
         makeNode   text description execute = Node(TSNode text description execute) []
         makeNodeC  text description children = Node(TSNode text description (return ())) children
+{- ORMOLU_ENABLE -}
 
-{-
-myWorkspaces = ["¹\62056", "²\61728", "³\61729", "⁴\61501", "⁵\61884", "⁶\61664", "⁷\61723", "⁸\61734", "⁹\61462"]
-myWorkspaces = ["\62056", "\61728", "\61729", "\61501", "\61884", "\61664", "\61723", "\61734", "\61462"]
--}
-
-myWorkspaces =
-  [ makeFullAction "xdotool set_desktop 0" "1 2" " 1 3" "1 4" "1 5" " \62056 ",
-    makeFullAction "xdotool set_desktop 1" "2 2" " 2 3" "2 4" "2 5" " \61728 ",
-    makeFullAction "xdotool set_desktop 2" "3 2" " 3 3" "3 4" "3 5" " \61729 ",
-    makeFullAction "xdotool set_desktop 3" "4 2" " 4 3" "4 4" "4 5" " \61501 ",
-    makeFullAction "xdotool set_desktop 4" "5 2" " 5 3" "5 4" "5 5" " \61884 ",
-    makeFullAction "xdotool set_desktop 5" "6 2" " 6 3" "6 4" "6 5" " \61664 ",
-    makeFullAction "xdotool set_desktop 6" "7 2" " 7 3" "7 4" "7 5" " \61723 ",
-    makeFullAction "xdotool set_desktop 7" "8 2" " 8 3" "8 4" "8 5" " \61734 ",
-    makeFullAction "xdotool set_desktop 8" "9 2" " 9 3" "9 4" "9 5" " \61462 "
-  ]
-  where
-    wsScript = "~/dotfiles/scripts/xmobar/workspaces.sh "
-    makeFullAction a1 a2 a3 a4 a5 t = "<action=`" ++ a1 ++ "` button=1>" ++ "<action=`" ++ wsScript ++ a2 ++ "` button=2>" ++ "<action=`" ++ wsScript ++ a3 ++ "` button=3>" ++ "<action=`" ++ wsScript ++ a4 ++ "` button=4>" ++ "<action=`" ++ wsScript ++ a5 ++ "` button=5>" ++ t ++ "</action></action></action></action></action>"
-
-myXmobarPP :: PP
-myXmobarPP              =
+--PROMPT SETTINGS
+myXPConfig =
   def
-    {
-      ppSep             = magenta " • "
-      , ppTitleSanitize   = xmobarStrip
-      --, ppCurrent         = wrap " " "" . xmobarBorder "Top" "#8be9fd" 2  -- Current Workspace
-      --, ppHiddenNoWindows = lowWhite . wrap " " "" --  unused workspaces
-
-      , ppCurrent         =  xmobarBorder "Top" "#8be9fd" 2  -- Current Workspace
-      , ppHidden          =  white -- Visible but not current
-
-      , ppUrgent          = red . wrap (yellow "!") (yellow "!")
-      , ppOrder           = \[ws, l, _, wins] -> [ws, l, wins]
-      , ppExtras          = [logTitles formatFocused formatUnfocused] -- for updates
+    { searchPredicate = fuzzyMatch,
+      sorter = fuzzySort,
+      bgColor = fromMaybe "#0F111A" (M.lookup "background" myTheme),
+      fgColor = fromMaybe "#8F93A2" (M.lookup "foreground" myTheme),
+      bgHLight = fromMaybe "#717CB480" (M.lookup "selectionBackground" myTheme),
+      fgHLight = fromMaybe "#FFFFFF" (M.lookup "selectionForeground" myTheme),
+      borderColor = fromMaybe "#0F111A" (M.lookup "border" myTheme),
+      position = Top,
+      alwaysHighlight = True
     }
-  where
-    formatFocused       = wrap (white "[") (white "]") . magenta . ppWindow
-    formatUnfocused     = wrap (lowWhite "[") (lowWhite "]") . blue . ppWindow
-    -- Windows should have *some* title, which should not not exceed a
-    -- sane length.
-    ppWindow :: String -> String
-    ppWindow            = xmobarRaw . (\w -> if null w then "untitled" else w) . shorten 30
-    blue, lowWhite, magenta, red, white, yellow :: String -> String
-    magenta             = xmobarColor "#ff79c6" ""
-    blue                = xmobarColor "#bd93f9" ""
-    white               = xmobarColor "#f8f8f2" ""
-    yellow              = xmobarColor "#f1fa8c" ""
-    red                 = xmobarColor "#ff5555" ""
-    lowWhite            = xmobarColor "#bbbbbb" ""
+
+-- KEYBINDS
 
 mySpawn p = spawn ("xsetroot -cursor_name watch;xtoolwait " ++ p ++ ";xsetroot -cursor_name left_ptr")
 
-appLauncherPromptFunc = do
-           spawn ("date>>"++"/home/shawn/dev/personal/NOTES")
-           appendFilePrompt myXPConfig "/home/shawn/dev/personal/NOTES"
-
-gridSelectSpawn = spawnSelected def ["neovide","emacsclient -c -a emacs","chrome"]
-
+{- ORMOLU_DISABLE -}
 myKeybinds = [
     -- SHOWKEYS START
     --("M-r a", appLauncherPrompt def),
-    ("M-p n",     appLauncherPromptFunc)
+    ("M-p n", do
+           spawn ("date>>"++"/home/shawn/dev/personal/NOTES")
+           appendFilePrompt myXPConfig "/home/shawn/dev/personal/NOTES"
+    ),
     --("M-r c", confirmPromptPrompt def),
     --("M-r d", dirExecPrompt def),
     --("M-S-r d", directoryPrompt def),
     --("M-r e", emailPrompt def),
     --("M-r f", fuzzyMatchPrompt def),
     --("M-r i", inputPrompt def),
-    , ("M-r l", layoutPrompt myXPConfig)
-    , ("M-r m", manPrompt myXPConfig)
+    ("M-r l", layoutPrompt myXPConfig),
+    ("M-r m", manPrompt myXPConfig),
     --("M-r o", orgModePrompt def),
     --("M-r p", passPrompt def),
     --("M-r r", runOrRaisePrompt def),
@@ -265,29 +301,30 @@ myKeybinds = [
     --("M-S-r s", sshPrompt def),
     --("M-r t", themePrompt def),
     --("M-r u", unicodePrompt def),
-    --("M-p w", windowPrompt myXPConfig  Goto allWindows), -- Looks cursed on my config
+    -- ("M-p w", windowPrompt myXPConfig  Goto allWindows), -- Looks cursed on my config
     --("M-S-r w", workspacePrompt def),
     --("M-r x", xmonadPrompt def),
     --("M-r z", zshPrompt def),
 
-    , ("M-x", myTree)
-    , ("M-S-x",  myTreeWorkspaces)
 
-    , ("M-g", goToSelected def)
-    , ("M-S-g", gridSelectSpawn)
+    ("M-x", myTree),
+    ("M-S-x",  myTreeWorkspaces),
 
-    , ("M-c l 1", sendMessage $ JumpToLayout "Tall")
-    , ("M-c l 2", sendMessage $ JumpToLayout "Mirror Tall")
-    , ("M-c l 3", sendMessage $ JumpToLayout "Full")
-    , ("M-c l 4", sendMessage $ JumpToLayout "Magnifier NoMaster ThreeCol")
+    ("M-g", goToSelected def),
+    ("M-S-g", spawnSelected def ["neovide","emacsclient -c -a emacs","chrome"]),
 
-    , ("M1-<F4>",                 kill)
-    , ("M-S-z",                   spawn "xscreensaver-command -lock")
-    , ("M1-<F2>",                 spawn "dmenu_run  -f -i -l 10 -p 'sh -c'")
+    ("M-c l 1", sendMessage $ JumpToLayout "Tall") ,
+    ("M-c l 2", sendMessage $ JumpToLayout "Mirror Tall") ,
+    ("M-c l 3", sendMessage $ JumpToLayout "Full") ,
+    ("M-c l 4", sendMessage $ JumpToLayout "Magnifier NoMaster ThreeCol") ,
+
+    ("M1-<F4>",                 kill),
+    ("M-S-z",                   spawn "xscreensaver-command -lock"),
+    ("M1-<F2>",                 spawn "dmenu_run  -f -i -l 10 -p 'sh -c'"),
 
 
-    , ("M-<Print>",               spawn "flameshot full -p $HOME/Pictures/Screenshots")
-    , ("M-S-<Print>",             spawn "flameshot gui  -p $HOME/Pictures/Screenshots")
+    ("M-<Print>",               spawn "flameshot full -p $HOME/Pictures/Screenshots" ),
+    ("M-S-<Print>",               spawn "flameshot gui  -p $HOME/Pictures/Screenshots" ),
     --("M-S-<Print>",             unGrab *> spawn "scrot -s"),
     --
     --("M-t s",                   sendMessage ToggleStruts),
@@ -295,49 +332,47 @@ myKeybinds = [
     --("M-t b", toggleBorder),
     --("M-t t", toggleBorder),
     --
-    , ("M-s c",                   spawn "~/dotfiles/PERSONAL_PATH/click4ever")
-    , ("M-s p",                   spawn "pavucontrol 1>> pavucontrol.log 2>> pavucontrol.err.log")
-    , ("M-s r",                   spawn "vokoscreenNG 1>> vokoscreenNG.log 2>> vokoscreenNG.err.log")
-    , ("M-s b",                   spawnOn (head myWorkspaces) "chrome 1>> chrome.log 2>> chrome.err.log")
-    , ("M-s h",                   spawnOn (myWorkspaces !! 3) "hakuneko-desktop 1>> hakuneko-desktop.log 2>> hakuneko-desktop.err.log")
-    , ("M-s s",                   spawnOn (myWorkspaces !! 4) "dex /usr/share/applications/spotify.desktop 1>> spotify.log 2>> spotify.err.log")
+    ("M-s c",                   spawn "~/dotfiles/PERSONAL_PATH/click4ever"),
+    ("M-s p",                   spawn "pavucontrol 1>> pavucontrol.log 2>> pavucontrol.err.log"),
+    ("M-s r",                   spawn "vokoscreenNG 1>> vokoscreenNG.log 2>> vokoscreenNG.err.log"),
+    ("M-s b",                   spawnOn (head myWorkspaces) "chrome 1>> chrome.log 2>> chrome.err.log"),
+    ("M-s h",                   spawnOn (myWorkspaces !! 3) "hakuneko-desktop 1>> hakuneko-desktop.log 2>> hakuneko-desktop.err.log"),
+    ("M-s s",                   spawnOn (myWorkspaces !! 4) "dex /usr/share/applications/spotify.desktop 1>> spotify.log 2>> spotify.err.log"),
     --
 
-    , ("<XF86XK_MonBrightnessDown>", spawn "$HOME/dotfiles/scripts/dwm/light.sh down")
-    , ("<XF86XK_MonBrightnessUp>",   spawn "$HOME/dotfiles/scripts/dwm/light.sh up")
-    , ("<XF86XK_AudioLowerVolume>",  spawn "$HOME/dotfiles/scripts/dwm/vol.sh down")
-    , ("<XF86XK_AudioRaiseVolume>",  spawn "$HOME/dotfiles/scripts/dwm/vol.sh up")
-    , ("<XF86XK_AudioMute>",         spawn "$HOME/dotfiles/scripts/dwm/vol.sh mute")
-    , ("<XF86XK_AudioPlay>",         spawn "$HOME/dotfiles/scripts/dwm/media.sh play-pause")
-    , ("<XF86XK_AudioNext>",         spawn "$HOME/dotfiles/scripts/dwm/media.sh next")
-    , ("<XF86XK_AudioPrev>",         spawn "$HOME/dotfiles/scripts/dwm/media.sh previous")
-
-    , ("M-<F2>" , spawn "$HOME/dotfiles/scripts/dwm/light.sh down")
-    , ("M-<F3>" , spawn "$HOME/dotfiles/scripts/dwm/light.sh up")
-    , ("M-<F7>" , spawn "$HOME/dotfiles/scripts/dwm/vol.sh down")
-    , ("M-<F8>" , spawn "$HOME/dotfiles/scripts/dwm/vol.sh up")
-    , ("M-<F6>" , spawn "$HOME/dotfiles/scripts/dwm/vol.sh mute")
-    , ("M-<F10>", spawn "$HOME/dotfiles/scripts/dwm/media.sh play-pause")
-    , ("M-<F11>", spawn "$HOME/dotfiles/scripts/dwm/media.sh next")
-    , ("M-<F9>" , spawn "$HOME/dotfiles/scripts/dwm/media.sh previous")
+    ("M-<F2>" {-XF86XK_MonBrightnessDown,-}, spawn "$HOME/dotfiles/scripts/dwm/light.sh down" ),
+    ("M-<F3>" {-XF86XK_MonBrightnessUp,-},   spawn "$HOME/dotfiles/scripts/dwm/light.sh up" ),
+    ("M-<F7>" {-XF86XK_AudioLowerVolume,-},  spawn "$HOME/dotfiles/scripts/dwm/vol.sh down"),
+    ("M-<F8>" {-XF86XK_AudioRaiseVolume,-},  spawn "$HOME/dotfiles/scripts/dwm/vol.sh up"),
+    ("M-<F6>" {-XF86XK_AudioMute,-},         spawn "$HOME/dotfiles/scripts/dwm/vol.sh mute" ),
+    ("M-<F10>" {-XF86XK_AudioPlay,-},        spawn "$HOME/dotfiles/scripts/dwm/media.sh play-pause" ),
+    ("M-<F11>" {-XF86XK_AudioNext,-},        spawn "$HOME/dotfiles/scripts/dwm/media.sh next      " ),
+    ("M-<F9>" {-XF86XK_AudioPrev,-},         spawn "$HOME/dotfiles/scripts/dwm/media.sh previous  " ),
 
     -- Make window sticky
-    , ("M-a", windows copyToAll)
+    ("M-a", windows copyToAll),
 
     -- Unstick window
-    , ("M-S-a",  killAllOtherCopies)
+    ("M-S-a",  killAllOtherCopies),
 
     -- Fullscreen
-    , ("M-f", sendMessage $ JumpToLayout "Full")
+    ("M-f", sendMessage $ JumpToLayout "Full"),
 
     -- resize both axes in resizableTall
-    , ("M-C-k", sendMessage MirrorExpand)
-    , ("M-C-j", sendMessage MirrorShrink)
-    , ("M-C-h", sendMessage Shrink)
-    , ("M-C-l", sendMessage Expand)
+
+    ("M-C-k", sendMessage MirrorExpand),
+    ("M-C-j", sendMessage MirrorShrink),
+    ("M-C-h", sendMessage Shrink),
+    ("M-C-l", sendMessage Expand)
+
+    
+
     -- SHOWKEYS END
  ]
+{- ORMOLU_ENABLE -}
 
+-- WINDOW MANAGEMENT
+{- ORMOLU_DISABLE -}
 myManageHook :: ManageHook
 myManageHook      =
   composeAll . concat $ [
@@ -359,7 +394,7 @@ myManageHook      =
       [className =? c --> doShift (myWorkspaces !! 7) | c <- shiftWorkspaceClassName8],
       [className =? c --> doShift (myWorkspaces !! 8) | c <- shiftWorkspaceClassName9],
       [isFullscreen --> doFullFloat],
-      [isDialog --> doCenterFloat],
+      [isDialog --> doFloat],
 
 
       [title     =? "Ozone X11" --> doIgnore],
@@ -390,7 +425,7 @@ myManageHook      =
     localeName               = stringProperty "WM_LOCALE_NAME"
 
     centerFloatClassName     = ["Vimb", "Xmessage", "Gimp", "Open File"]
-
+      
     floatClassName           = []
 
     centerFloatRole          = ["GtkFileChooserDialog"]
@@ -404,10 +439,14 @@ myManageHook      =
     shiftWorkspaceClassName4 = ["hakuneko-desktop", "Unity", "unityhub", "UnityHub", "zoom"]
     shiftWorkspaceClassName5 = ["Spotify", "vlc"]
     shiftWorkspaceClassName6 = ["Mail", "Thunderbird"]
-    shiftWorkspaceClassName7 = ["riotclientux.exe", "leagueclient.exe", "Zenity", "zenity", "wineboot.exe", "Wine", "wine", "wine.exe", "explorer.exe", "Albion Online Launcher", "Albion Online", "Albion-Online"]
+    shiftWorkspaceClassName7 = ["riotclientux.exe", "leagueclient.exe", "Zenity", "zenity", "wine", "wine.exe", "explorer.exe", "Albion Online Launcher", "Albion Online", "Albion-Online"]
     shiftWorkspaceClassName8 = []
     shiftWorkspaceClassName9 = []
 
+{- ORMOLU_ENABLE -}
+
+-- LAYOUTS
+{- ORMOLU_DISABLE -}
 myLayout     = avoidStruts (smartBorders (tiled ||| Mirror tiled ||| noBorders Full ||| threeCol))
   where
     threeCol = magnifiercz' 1.3 $ ThreeColMid nmaster delta ratio
@@ -415,6 +454,9 @@ myLayout     = avoidStruts (smartBorders (tiled ||| Mirror tiled ||| noBorders F
     nmaster  = 1 -- Default number of windows in the master pane
     ratio    = 1 / 2 -- Default proportion of screen occupied by master pane
     delta    = 3 / 100 -- Percent of screen to increment by when resizing panes
+{- ORMOLU_ENABLE -}
+
+-- STARTUP
 
 myStartupHook = do
   spawnOnce "randbg"
@@ -433,6 +475,7 @@ myStartupHook = do
     wrapLog app = "pidof " ++ app ++ " > /dev/null && echo ''" ++ app ++ "' is already running.' || " ++ app ++ " 1>> ~/log/" ++ app ++ ".log 2>> ~/log/" ++ app ++ ".err.log&"
     wrapLogP app run = "pidof " ++ app ++ " > /dev/null && echo ''" ++ app ++ "' is already running.' || " ++ run ++ " 1>> ~/log/" ++ app ++ ".log 2>> ~/log/" ++ app ++ ".err.log&"
 
+-- MAIN
 main :: IO ()
 main =
   xmonad
@@ -441,6 +484,7 @@ main =
     . withEasySB (statusBarProp "xmobar" (pure myXmobarPP)) defToggleStrutsKey
     $ myConfig
 
+{- ORMOLU_DISABLE -}
 myConfig                 =
   def
     { modMask            = myModMask,
@@ -455,3 +499,4 @@ myConfig                 =
       workspaces         =  myWorkspaces
     }
     `additionalKeysP` myKeybinds
+{- ORMOLU_ENABLE -}

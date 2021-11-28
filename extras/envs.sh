@@ -1,4 +1,8 @@
 HOME=/home/shawn
+ 
+export WINEESYNC=1
+export WINEDEBUG=-all
+export DXVK_LOG_LEVEL=none
 
 export _JAVA_AWT_WM_NONREPARENTING=1
 

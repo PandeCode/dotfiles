@@ -1,6 +1,10 @@
 #!/bin/bash
 
-xmonadHsFilePath=~/dotfiles/config/xmonad/xmonad.hs
+if [ -z "$1" ]; then
+	xmonadHsFilePath=~/dotfiles/config/xmonad/xmonad.hs
+else
+	xmonadHsFilePath=$1
+fi
 
 startOptions=("    --SHOWKEYS START", "   --SHOWKEYS START", "  --SHOWKEYS START", " --SHOWKEYS START", "--SHOWKEYS START", "	--SHOWKEYS START")
 endOptions=("    --SHOWKEYS END", "   --SHOWKEYS END", "  --SHOWKEYS END", " --SHOWKEYS END", "--SHOWKEYS END", "	--SHOWKEYS END")
@@ -28,16 +32,16 @@ function main() {
 
 			tmp=$(echo $line | sed 's|  ||;s|--.*||')
 			if [[ -n ${tmp// /} ]]; then
-				key=$(echo $tmp | grep -Po '(?<=\(").*(?=",)')
-				action=$(echo $tmp | grep -Po '(?<=,\s).*(?=\))')
+				key=$(echo $tmp | grep -Po '\s*,*\s*\("\K.*?(?=")')
+				action=$(echo $tmp | grep -Po ',*.*?(,\s*)\K.*(?=\))')
 
 				if (($((${#key})) > longestKey)); then
 					longestKey=$((${#key}))
-					echo $longestKey -n > $longestKeyFile
+					echo $longestKey -n >$longestKeyFile
 				fi
 				if (($((${#action})) > longestAction)); then
 					longestAction=$((${#action}))
-					echo $longestAction -n > $longestActionFile
+					echo $longestAction -n >$longestActionFile
 				fi
 
 				keys+=("$key")
@@ -65,7 +69,7 @@ main | awk -F'|' -v longestKey=$(cat $longestKeyFile) -v longestAction=$(cat $lo
 	return r
 }
 BEGIN {
-	print("|", rn("-", longestKey), "|", rn("-", longestAction), "|");
+	# print("|", rn("-", longestKey), "|", rn("-", longestAction), "|");
 	print("|KEY|ACTION|");
 	print("|", rn("-", longestKey), "|", rn("-", longestAction), "|");
 }
@@ -73,5 +77,5 @@ BEGIN {
 	print $0  $1
 }
 END {
-	print("|", rn("-", longestKey), "|", rn("-", longestAction), "|")
+	# print("|", rn("-", longestKey), "|", rn("-", longestAction), "|")
 }' | sed 's/|/,|,/g' | column -s ',' -t

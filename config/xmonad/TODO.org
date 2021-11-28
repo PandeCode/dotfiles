@@ -2,118 +2,107 @@
 #+TITLE: Todos
 
 * TODO Setup Xmonand
-** Cool Ideas
-   - Get window x,y position and size to calulate mass, use phyiscs engine like box2d to update them
-   - Interactive background (okozo desktop)
-   - Spotify in xmobar (use cava style like thing)
-   - Add Arch logo (as clickable, animate on hover)
-   - Roit.sh
-   - Sound Effects like in opera gx on events
-   - Animations on hover xmobar
+** Cool Ideas [/] [%]
+   - [ ] Get window x,y position and size to calulate mass, use phyiscs engine like box2d to update them
+   - [ ] Interactive background (okozo desktop)
+   - [ ] Spotify in xmobar (use cava style like thing)
+   - [ ] Add Arch logo (as clickable, animate on hover)
+   - [ ] Roit.sh
+   - [ ] Sound Effects like in opera gx on events
+   - [ ] Animations on hover xmobar
+*** xmobar
+ - [ ] make sidebar that animates in and out
 
 ** xmonad
-*** Fix
-   + Fix xtoolwait bug that persists process cains CPU
-   + Haskell language server config (src ~/.config/xmonad.build/)
-   + Stop running xmobar modules when the bar is hidden (file)
-   + Stop stealing focus
+*** Fix [/] [%]
+   + [ ] Fix xtoolwait bug that persists process cains CPU
+   + [ ] Haskell language server config (src ~/.config/xmonad.build/)
+   + [-] Stop running xmobar modules when the bar is hidden (file)
+   + [ ] Stop stealing focus
 
-*** Features
-   - Logout
-   - Lock (i3lock-color, slock)
-   - Screen Saver
-   - Battery Saver (Xfce Battery monitor)
+*** Features [/] [%]
+   - [-] Logout
+   - [-] Lock (i3lock-color, slock)
+   - [ ] Screen Saver
+   - [ ] Battery Saver (Xfce Battery monitor)
 
-   - Theme
-   - More layouts
+   - [ ] Theme
+   - [ ] More layouts
 
-   - Picom(compositor) intergration (done)
-   - Startup programs (st, nm-applet, clipit, picom, xflux, randbg)
-   - Rename Workspaces
-   - Auto assign windows to Workspaces
-   - Hide Unsed Workspaces
-   - toggle gaps
-   - resize gaps
-   - toggle boaders
+   - [-] Picom(compositor) intergration
+   - [-] Startup programs (st, nm-applet, clipit, picom, xflux, randbg)
+   - [-] Rename Workspaces
+   - [-] Auto assign windows to Workspaces
+   - [-] Hide Unsed Workspaces
+   - [-] toggle boaders
 
-   - toggle bar (breaks 50% of the time)
-   - toggle fullscreen (maybe switch to "Full" layout)
-   - toggle stick (100%)
+   - [ ] toggle gaps
+   - [ ] resize gaps
 
-   - toggle rounded corners (look into editing the picom config at runtime)
-   - adjust rounded corners (look into editing the picom config at runtime)
-   - adjust blur (look into editing the picom config at runtime)
+   - [-] toggle bar
+   - [-] toggle fullscreen (maybe switch to "Full" layout)
+   - [-] toggle stick
 
-   - Xmenu layout picker
-   - Toggle fake fullscreen
+   - [-] toggle rounded corners (look into editing the picom config at runtime)
+   - [ ] adjust rounded corners (look into editing the picom config at runtime)
+   - [ ] adjust blur (look into editing the picom config at runtime)
 
-   - Fade inactive windows  after x amount of time  (loghook, fadeInactive hook)
+   - [ ] Xmenu layout picker
 
-   - Fix Zoom meetings client (https://www.peterstuart.org/posts/2021-09-06-xmonad-zoom/)
+   - [-] Fake fullscreen
 
-   - Keys (https://hackage.haskell.org/package/xmonad-contrib-0.17.0/docs/XMonad-Util-EZConfig.html#g:3)
-   - Alt tab
-   - Config Launchers
-      - [] Chrome
-      - [] click4ever
-      - [] Spotify
-      - [] Video Recorder
-      - [] Dmenu
-      - [] vimb ~/dev/Keys/keys.html (use Document Keybinds)
+   - [ ] Fade inactive windows  after x amount of time  (loghook, fadeInactive hook)
 
-   - Dmenu/Rofi Launchers/Promots
-      - Bookmarks
-      - Calulator
-      - Browser Bookmarks
-      - Bookmarks
+   - [-] Fix Zoom meetings client (https://www.peterstuart.org/posts/2021-09-06-xmonad-zoom/)
 
+   - [-] Keys (https://hackage.haskell.org/package/xmonad-contrib-0.17.0/docs/XMonad-Util-EZConfig.html#g:3)
+   - [ ] Alt tab
+   - [-] Config Launchers  [/] [%]
+     - [-] Chrome
+     - [-] click4ever
+     - [-] Spotify
+     - [-] Video Recorder
+     - [-] Dmenu
+     - [-] vimb ~/dev/Keys/keys.html (use Document Keybinds)
 
-   - Document Keybinds
-      M-s b -> chrome
-      M-s s -> spotify
-      M-s p -> pavucontrol
-      M-s r -> vokoscreenNG
-
-   - Tree menu
-   - Grid menu
-   - Xmenu
-
-   - Xmobar clickable
-   - Xmobar hover preview ???
-   - Xmobar Theme
-   - Clickable xmobar
-   - Trayer/stalonetray
-
-   - Push To github (done)
+   - [ ] Dmenu/Rofi Launchers/Promots [/] [%]
+     - [ ] Bookmarks
+     - [ ] Calulator
+     - [ ] Browser Bookmarks
+     - [ ] Bookmarks
 
 
-** xmobar
-make sidebar that animates in and out
+   - [ ] Document Keybinds
 
-https://www.google.com/search?q=xmonad+add+clickable+xmobar
+   - [ ] Tree menu
+   - [ ] Grid Select menu
+   - [-] Xmenu
 
-https://www.google.com/search?q=trayer+xmobar
+   - [-] Xmobar clickable
+   - [ ] Xmobar hover preview ???
+   - [-] Xmobar Theme
+   - [-] Clickable xmobar
+   - [-] Trayer/stalonetray
 
-https://wiki.haskell.org/Xmonad/Frequently_asked_questions#I_need_to_find_the_class_title_or_some_other_X_property_of_my_program
+   - [-] Push To github
 
-https://www.google.com/search?q=xmonad+avoidstruts
 
-https://xmonad.org/TUTORIAL.html
-https://github.com/jaor/xmobar/blob/master/doc/plugins.org#batteryp-dirs-args-refreshrate
-https://stackoverflow.com/questions/20446348/xmonad-toggle-fullscreen-xmobar
-https://gist.github.com/comatose/2156741
-https://wiki.haskell.org/Xmonad/General_xmonad.hs_config_tips
-https://hackage.haskell.org/package/xmonad-contrib-0.17.0/docs/XMonad-Hooks-ManageDocks.html
-https://hackage.haskell.org/package/xmonad-contrib-0.17.0/docs/XMonad-Layout-NoBorders.html
-https://hackage.haskell.org/package/xmonad-contrib-0.17.0/docs/XMonad-Layout-MultiToggle.html
-https://hackage.haskell.org/package/xmonad-contrib-0.17.0/docs/XMonad-Actions-SpawnOn.html
-https://hackage.haskell.org/package/xmonad-contrib-0.17.0/docs/XMonad-Config-Prime.html#v:manageHook
-https://github.com/Maeda1/My-Xmonad-Xmobar-Trayer-configuration-files/blob/master/xmobarrc
 
-https://wiki.archlinux.org/title/Xmonad#Option_2:_More_Configurable
-https://wiki.haskell.org/Xmonad/General_xmonad.hs_config_tips
-https://hackage.haskell.org/package/xmonad-contrib-0.17.0/docs/XMonad-Hooks-DynamicLog.html
+** Helpful Links
+ - https://gist.github.com/comatose/2156741
 
-https://github.com/metakirby5/zenbu
-https://github.com/metakirby5/colorz
+ - https://github.com/Maeda1/My-Xmonad-Xmobar-Trayer-configuration-files/blob/master/xmobarrc
 
+ - https://github.com/jaor/xmobar/blob/master/doc/plugins.org
+
+ - https://github.com/metakirby5/colorz
+ - https://github.com/metakirby5/zenbu
+
+ - https://hackage.haskell.org/package/xmonad-contrib-0.17.0/docs/XMonad-Config-Prime.html#v:manageHook
+ - https://hackage.haskell.org/package/xmonad-contrib-0.17.0/docs/XMonad-Hooks-DynamicLog.html
+ - https://hackage.haskell.org/package/xmonad-contrib-0.17.0/docs/XMonad-Layout-MultiToggle.html
+ - https://hackage.haskell.org/package/xmonad-contrib-0.17.0/docs/XMonad-Layout-NoBorders.html
+
+ - https://wiki.archlinux.org/title/Xmonad#Option_2:_More_Configurable
+ - https://wiki.haskell.org/Xmonad/General_xmonad.hs_config_tips
+ - https://xmonad.org/TUTORIAL.html

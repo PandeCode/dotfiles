@@ -13,6 +13,8 @@ Media
 	Pause                                     	 playerctl pause
 	
 Picom
+	Off                                       	 killall -9 picom
+	On                                        	 picom --experimental-background -b 1>> ~/log/picom.log 2>> ~/log/picom.err.log
 	Rounded Corners                           	 ~/dotfiles/scripts/picom.sh rounded
 	Blur                                      	 ~/dotfiles/scripts/picom.sh blur
 	Animation                                 	 ~/dotfiles/scripts/picom.sh animation
