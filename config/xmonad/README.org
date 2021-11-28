@@ -311,53 +311,53 @@ myXmobarPP              =
 #+end_src
 
 #+results: keybinds
-  | KEY                        | ACTION                                                                                                        |
-  | -------------------------- | ------------------------------------------------------------------------------------------------------------- |
-  | M-p n                      | appLauncherPromptFunc                                                                                         |
-  | M-r l                      | layoutPrompt myXPConfig                                                                                       |
-  | M-r m                      | manPrompt myXPConfig                                                                                          |
-  | M-x                        | myTree                                                                                                        |
-  | M-S-x                      | myTreeWorkspaces                                                                                              |
-  | M-g                        | goToSelected def                                                                                              |
-  | M-S-g                      | gridSelectSpawn                                                                                               |
-  | M-c l 1                    | sendMessage $ JumpToLayout "Tall"                                                                             |
-  | M-c l 2                    | sendMessage $ JumpToLayout "Mirror Tall"                                                                      |
-  | M-c l 3                    | sendMessage $ JumpToLayout "Full"                                                                             |
-  | M-c l 4                    | sendMessage $ JumpToLayout "Magnifier NoMaster ThreeCol"                                                      |
-  | M1-<F4>                    | kill                                                                                                          |
-  | M-S-z                      | spawn "xscreensaver-command -lock"                                                                            |
-  | M1-<F2>                    | spawn "dmenu_run -f -i -l 10 -p 'sh -c'"                                                                      |
-  | M-<Print>                  | spawn "flameshot full -p $HOME/Pictures/Screenshots"                                                          |
-  | M-S-<Print>                | spawn "flameshot gui -p $HOME/Pictures/Screenshots"                                                           |
-  | M-s c                      | spawn "~/dotfiles/PERSONAL_PATH/click4ever"                                                                   |
-  | M-s p                      | spawn "pavucontrol 1>> pavucontrol.log 2>> pavucontrol.err.log"                                               |
-  | M-s r                      | spawn "vokoscreenNG 1>> vokoscreenNG.log 2>> vokoscreenNG.err.log"                                            |
-  | M-s b                      | spawnOn (head myWorkspaces) "chrome 1>> chrome.log 2>> chrome.err.log"                                        |
-  | M-s h                      | spawnOn (myWorkspaces !! 3) "hakuneko-desktop 1>> hakuneko-desktop.log 2>> hakuneko-desktop.err.log"          |
-  | M-s s                      | spawnOn (myWorkspaces !! 4) "dex /usr/share/applications/spotify.desktop 1>> spotify.log 2>> spotify.err.log" |
-  | <XF86XK_MonBrightnessDown> | spawn "$HOME/dotfiles/scripts/dwm/light.sh down"                                                              |
-  | <XF86XK_MonBrightnessUp>   | spawn "$HOME/dotfiles/scripts/dwm/light.sh up"                                                                |
-  | <XF86XK_AudioLowerVolume>  | spawn "$HOME/dotfiles/scripts/dwm/vol.sh down"                                                                |
-  | <XF86XK_AudioRaiseVolume>  | spawn "$HOME/dotfiles/scripts/dwm/vol.sh up"                                                                  |
-  | <XF86XK_AudioMute>         | spawn "$HOME/dotfiles/scripts/dwm/vol.sh mute"                                                                |
-  | <XF86XK_AudioPlay>         | spawn "$HOME/dotfiles/scripts/dwm/media.sh play-pause"                                                        |
-  | <XF86XK_AudioNext>         | spawn "$HOME/dotfiles/scripts/dwm/media.sh next"                                                              |
-  | <XF86XK_AudioPrev>         | spawn "$HOME/dotfiles/scripts/dwm/media.sh previous"                                                          |
-  | M-<F2>                     | spawn "$HOME/dotfiles/scripts/dwm/light.sh down"                                                              |
-  | M-<F3>                     | spawn "$HOME/dotfiles/scripts/dwm/light.sh up"                                                                |
-  | M-<F7>                     | spawn "$HOME/dotfiles/scripts/dwm/vol.sh down"                                                                |
-  | M-<F8>                     | spawn "$HOME/dotfiles/scripts/dwm/vol.sh up"                                                                  |
-  | M-<F6>                     | spawn "$HOME/dotfiles/scripts/dwm/vol.sh mute"                                                                |
-  | M-<F10>                    | spawn "$HOME/dotfiles/scripts/dwm/media.sh play-pause"                                                        |
-  | M-<F11>                    | spawn "$HOME/dotfiles/scripts/dwm/media.sh next"                                                              |
-  | M-<F9>                     | spawn "$HOME/dotfiles/scripts/dwm/media.sh previous"                                                          |
-  | M-a                        | windows copyToAll                                                                                             |
-  | M-S-a                      | killAllOtherCopies                                                                                            |
-  | M-f                        | sendMessage $ JumpToLayout "Full"                                                                             |
-  | M-C-k                      | sendMessage MirrorExpand                                                                                      |
-  | M-C-j                      | sendMessage MirrorShrink                                                                                      |
-  | M-C-h                      | sendMessage Shrink                                                                                            |
-  | M-C-l                      | sendMessage Expand                                                                                            |
+| KEY                        | ACTION                                                                                                        |
++----------------------------+---------------------------------------------------------------------------------------------------------------+
+| M-p n                      | appLauncherPromptFunc                                                                                         |
+| M-r l                      | layoutPrompt myXPConfig                                                                                       |
+| M-r m                      | manPrompt myXPConfig                                                                                          |
+| M-x                        | myTree                                                                                                        |
+| M-S-x                      | myTreeWorkspaces                                                                                              |
+| M-g                        | goToSelected def                                                                                              |
+| M-S-g                      | gridSelectSpawn                                                                                               |
+| M-c l 1                    | sendMessage $ JumpToLayout "Tall"                                                                             |
+| M-c l 2                    | sendMessage $ JumpToLayout "Mirror Tall"                                                                      |
+| M-c l 3                    | sendMessage $ JumpToLayout "Full"                                                                             |
+| M-c l 4                    | sendMessage $ JumpToLayout "Magnifier NoMaster ThreeCol"                                                      |
+| M1-<F4>                    | kill                                                                                                          |
+| M-S-z                      | spawn "xscreensaver-command -lock"                                                                            |
+| M1-<F2>                    | spawn "dmenu_run -f -i -l 10 -p 'sh -c'"                                                                      |
+| M-<Print>                  | spawn "flameshot full -p $HOME/Pictures/Screenshots"                                                          |
+| M-S-<Print>                | spawn "flameshot gui -p $HOME/Pictures/Screenshots"                                                           |
+| M-s c                      | spawn "~/dotfiles/PERSONAL_PATH/click4ever"                                                                   |
+| M-s p                      | spawn "pavucontrol 1>> pavucontrol.log 2>> pavucontrol.err.log"                                               |
+| M-s r                      | spawn "vokoscreenNG 1>> vokoscreenNG.log 2>> vokoscreenNG.err.log"                                            |
+| M-s b                      | spawnOn (head myWorkspaces) "chrome 1>> chrome.log 2>> chrome.err.log"                                        |
+| M-s h                      | spawnOn (myWorkspaces !! 3) "hakuneko-desktop 1>> hakuneko-desktop.log 2>> hakuneko-desktop.err.log"          |
+| M-s s                      | spawnOn (myWorkspaces !! 4) "dex /usr/share/applications/spotify.desktop 1>> spotify.log 2>> spotify.err.log" |
+| <XF86XK_MonBrightnessDown> | spawn "$HOME/dotfiles/scripts/dwm/light.sh down"                                                              |
+| <XF86XK_MonBrightnessUp>   | spawn "$HOME/dotfiles/scripts/dwm/light.sh up"                                                                |
+| <XF86XK_AudioLowerVolume>  | spawn "$HOME/dotfiles/scripts/dwm/vol.sh down"                                                                |
+| <XF86XK_AudioRaiseVolume>  | spawn "$HOME/dotfiles/scripts/dwm/vol.sh up"                                                                  |
+| <XF86XK_AudioMute>         | spawn "$HOME/dotfiles/scripts/dwm/vol.sh mute"                                                                |
+| <XF86XK_AudioPlay>         | spawn "$HOME/dotfiles/scripts/dwm/media.sh play-pause"                                                        |
+| <XF86XK_AudioNext>         | spawn "$HOME/dotfiles/scripts/dwm/media.sh next"                                                              |
+| <XF86XK_AudioPrev>         | spawn "$HOME/dotfiles/scripts/dwm/media.sh previous"                                                          |
+| M-<F2>                     | spawn "$HOME/dotfiles/scripts/dwm/light.sh down"                                                              |
+| M-<F3>                     | spawn "$HOME/dotfiles/scripts/dwm/light.sh up"                                                                |
+| M-<F7>                     | spawn "$HOME/dotfiles/scripts/dwm/vol.sh down"                                                                |
+| M-<F8>                     | spawn "$HOME/dotfiles/scripts/dwm/vol.sh up"                                                                  |
+| M-<F6>                     | spawn "$HOME/dotfiles/scripts/dwm/vol.sh mute"                                                                |
+| M-<F10>                    | spawn "$HOME/dotfiles/scripts/dwm/media.sh play-pause"                                                        |
+| M-<F11>                    | spawn "$HOME/dotfiles/scripts/dwm/media.sh next"                                                              |
+| M-<F9>                     | spawn "$HOME/dotfiles/scripts/dwm/media.sh previous"                                                          |
+| M-a                        | windows copyToAll                                                                                             |
+| M-S-a                      | killAllOtherCopies                                                                                            |
+| M-f                        | sendMessage $ JumpToLayout "Full"                                                                             |
+| M-C-k                      | sendMessage MirrorExpand                                                                                      |
+| M-C-j                      | sendMessage MirrorShrink                                                                                      |
+| M-C-h                      | sendMessage Shrink                                                                                            |
+| M-C-l                      | sendMessage Expand                                                                                            |
 
 
 #+begin_src haskell
