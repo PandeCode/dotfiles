@@ -310,7 +310,6 @@ myXmobarPP              =
 ~/.config/xmonad/showMyKeysV2.sh
 #+end_src
 
-#+results: keybinds
 | KEY                        | ACTION                                                                                                        |
 +----------------------------+---------------------------------------------------------------------------------------------------------------+
 | M-p n                      | appLauncherPromptFunc                                                                                         |
