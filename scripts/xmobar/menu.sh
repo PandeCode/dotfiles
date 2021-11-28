@@ -1,4 +1,4 @@
-#!/bin/env sh
+#!/bin/sh
 
 case $1 in
 	1)
@@ -6,13 +6,19 @@ case $1 in
 		;;
 
 	2)
-		notify-send "Unbound: " "Todo"
+		notify-send "Unbound: " "Menu $1" -u critical  -t 500
 		;;
 
 	3)
 		~/dotfiles/PERSONAL_PATH/menu.sh
 		;;
 
-	4) : ;;
-	5) : ;;
+	4) 
+
+		notify-send "Unbound: " "Menu $1" -u critical  -t 500
+		;;
+	5) 
+
+		notify-send "Unbound: " "Menu $1" -u critical  -t 500
+		;;
 esac

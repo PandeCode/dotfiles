@@ -1,4 +1,4 @@
-#!/bin/env sh
+#!/bin/sh
 
 __netUpdate() {
 	sum=0
@@ -34,7 +34,7 @@ downloaded() {
 
 case $1 in
 	1)
-		notify-send "Ping" "$(echo "$(iwgetid)\n$(netTraf)\n$(wirelessStrength)\n$(host)\n$(uploaded)\n$(downloaded)")"
+		notify-send "Ping" "$(echo "$(iwgetid)\n$(netTraf)\n$(wirelessStrength)\n$(host)\n$(uploaded)\n$(downloaded)")" -t 2000
 		exit 0
 		;;
 	2)

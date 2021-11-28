@@ -6,6 +6,31 @@ import Data.Tree
 
 import XMonad
 
+import qualified XMonad.Util.Hacks as Hacks
+
+import XMonad.Prompt
+import XMonad.Prompt.AppLauncher
+import XMonad.Prompt.AppendFile
+import XMonad.Prompt.ConfirmPrompt
+import XMonad.Prompt.DirExec
+import XMonad.Prompt.Directory
+import XMonad.Prompt.Email
+import XMonad.Prompt.FuzzyMatch
+import XMonad.Prompt.Input
+import XMonad.Prompt.Layout
+import XMonad.Prompt.Man
+import XMonad.Prompt.OrgMode
+import XMonad.Prompt.Pass
+import XMonad.Prompt.RunOrRaise
+import XMonad.Prompt.Shell
+import XMonad.Prompt.Ssh
+import XMonad.Prompt.Theme
+import XMonad.Prompt.Unicode
+import XMonad.Prompt.Window
+import XMonad.Prompt.Workspace
+import XMonad.Prompt.XMonad
+import XMonad.Prompt.Zsh
+
 import XMonad.Actions.CopyWindow
 import XMonad.Actions.GridSelect
 import XMonad.Actions.SpawnOn
@@ -181,7 +206,7 @@ myXmobarPP              =
 myTreeConf =
   TSConfig
     { ts_hidechildren = True,
-      ts_background = 0x70707070, --0xc0c0c0c0
+      ts_background = 0x0F111A00,-- 0x70707070, --0xc0c0c0c0
       ts_font = "xft:DroidSansMono Nerd Font:size=14",
       ts_node = (0xff000000, 0xff50d0db),
       ts_nodealt = (0xff000000, 0xff10b8d6),
@@ -235,6 +260,20 @@ myTree =
         makeNodeC  text description children = Node(TSNode text description (return ())) children
 {- ORMOLU_ENABLE -}
 
+--PROMPT SETTINGS
+myXPConfig =
+  def
+    { searchPredicate = fuzzyMatch,
+      sorter = fuzzySort,
+      bgColor = fromMaybe "#0F111A" (M.lookup "background" myTheme),
+      fgColor = fromMaybe "#8F93A2" (M.lookup "foreground" myTheme),
+      bgHLight = fromMaybe "#717CB480" (M.lookup "selectionBackground" myTheme),
+      fgHLight = fromMaybe "#FFFFFF" (M.lookup "selectionForeground" myTheme),
+      borderColor = fromMaybe "#0F111A" (M.lookup "border" myTheme),
+      position = Top,
+      alwaysHighlight = True
+    }
+
 -- KEYBINDS
 
 mySpawn p = spawn ("xsetroot -cursor_name watch;xtoolwait " ++ p ++ ";xsetroot -cursor_name left_ptr")
@@ -242,7 +281,32 @@ mySpawn p = spawn ("xsetroot -cursor_name watch;xtoolwait " ++ p ++ ";xsetroot -
 {- ORMOLU_DISABLE -}
 myKeybinds = [
     -- SHOWKEYS START
-    --("M-x", treeselectWorkspace myTreeConf myTreeWorkspaces W.greedyViewj,
+    --("M-r a", appLauncherPrompt def),
+    ("M-p n", do
+           spawn ("date>>"++"/home/shawn/dev/personal/NOTES")
+           appendFilePrompt myXPConfig "/home/shawn/dev/personal/NOTES"
+    ),
+    --("M-r c", confirmPromptPrompt def),
+    --("M-r d", dirExecPrompt def),
+    --("M-S-r d", directoryPrompt def),
+    --("M-r e", emailPrompt def),
+    --("M-r f", fuzzyMatchPrompt def),
+    --("M-r i", inputPrompt def),
+    ("M-r l", layoutPrompt myXPConfig),
+    ("M-r m", manPrompt myXPConfig),
+    --("M-r o", orgModePrompt def),
+    --("M-r p", passPrompt def),
+    --("M-r r", runOrRaisePrompt def),
+    --("M-r s", shellPrompt def),
+    --("M-S-r s", sshPrompt def),
+    --("M-r t", themePrompt def),
+    --("M-r u", unicodePrompt def),
+    -- ("M-p w", windowPrompt myXPConfig  Goto allWindows), -- Looks cursed on my config
+    --("M-S-r w", workspacePrompt def),
+    --("M-r x", xmonadPrompt def),
+    --("M-r z", zshPrompt def),
+
+
     ("M-x", myTree),
     ("M-S-x",  myTreeWorkspaces),
 
@@ -257,13 +321,18 @@ myKeybinds = [
     ("M1-<F4>",                 kill),
     ("M-S-z",                   spawn "xscreensaver-command -lock"),
     ("M1-<F2>",                 spawn "dmenu_run  -f -i -l 10 -p 'sh -c'"),
-    ("M-S-<Print>",             unGrab *> spawn "scrot -s"),
+
+
+    ("M-<Print>",               spawn "flameshot full -p $HOME/Pictures/Screenshots" ),
+    ("M-S-<Print>",               spawn "flameshot gui  -p $HOME/Pictures/Screenshots" ),
+    --("M-S-<Print>",             unGrab *> spawn "scrot -s"),
     --
     --("M-t s",                   sendMessage ToggleStruts),
     --("M-t f", toggleBorder),
     --("M-t b", toggleBorder),
     --("M-t t", toggleBorder),
     --
+    ("M-s c",                   spawn "~/dotfiles/PERSONAL_PATH/click4ever"),
     ("M-s p",                   spawn "pavucontrol 1>> pavucontrol.log 2>> pavucontrol.err.log"),
     ("M-s r",                   spawn "vokoscreenNG 1>> vokoscreenNG.log 2>> vokoscreenNG.err.log"),
     ("M-s b",                   spawnOn (head myWorkspaces) "chrome 1>> chrome.log 2>> chrome.err.log"),
@@ -327,6 +396,7 @@ myManageHook      =
       [isFullscreen --> doFullFloat],
       [isDialog --> doFloat],
 
+
       [title     =? "Ozone X11" --> doIgnore],
       [title     =? "Picture-in-picture" --> doFloat],
 
@@ -334,9 +404,15 @@ myManageHook      =
       [name    =? "Spotify" --> doShift (myWorkspaces !! 4)],
       [netName =? "Spotify" --> doShift (myWorkspaces !! 4)],
       [className =? "spotify" --> doShift (myWorkspaces !! 4)],
-      [title   =? "Spotify" --> doShift (myWorkspaces !! 4)],
-      [title   =? "Spotify" --> doShift (myWorkspaces !! 4)],
-      [title   =? "Spotify" --> doShift (myWorkspaces !! 4)]
+
+      [isInProperty "WM_NAME" "Spotify" --> doShift (myWorkspaces !! 4)],
+      [isInProperty "_NET_WM_NAME" "Spotify" --> doShift (myWorkspaces !! 4)],
+      [isInProperty "WM_CLASS" "Spotify" --> doShift (myWorkspaces !! 4)],
+
+      [isInProperty "WM_NAME" "spotify" --> doShift (myWorkspaces !! 4)],
+      [isInProperty "_NET_WM_NAME" "spotify" --> doShift (myWorkspaces !! 4)],
+      [isInProperty "WM_CLASS" "spotify" --> doShift (myWorkspaces !! 4)]
+
     ]
   where
     name                     = stringProperty "WM_NAME"
@@ -363,7 +439,7 @@ myManageHook      =
     shiftWorkspaceClassName4 = ["hakuneko-desktop", "Unity", "unityhub", "UnityHub", "zoom"]
     shiftWorkspaceClassName5 = ["Spotify", "vlc"]
     shiftWorkspaceClassName6 = ["Mail", "Thunderbird"]
-    shiftWorkspaceClassName7 = ["riotclientux.exe", "leagueclient.exe", "Zenity", "zenity", "wine", "wine.exe", "explorer.exe"]
+    shiftWorkspaceClassName7 = ["riotclientux.exe", "leagueclient.exe", "Zenity", "zenity", "wine", "wine.exe", "explorer.exe", "Albion Online Launcher", "Albion Online", "Albion-Online"]
     shiftWorkspaceClassName8 = []
     shiftWorkspaceClassName9 = []
 
@@ -387,6 +463,7 @@ myStartupHook = do
 
   spawnOn (myWorkspaces !! 1) (wrapLog "st")
 
+  spawnOnce (wrapLog "flameshot")
   spawnOnce (wrapLog "nm-applet")
   spawnOnce (wrapLog "clipit")
   spawnOnce (wrapLog "deadd-notification-center")
@@ -417,6 +494,7 @@ myConfig                 =
       startupHook        = myStartupHook,
       normalBorderColor  = myNormalBorderColor,
       focusedBorderColor = myFocusedBorderColor,
+      handleEventHook    = handleEventHook def <+> Hacks.windowedFullscreenFixEventHook,
       --workspaces         = toWorkspaces myTreeWorkspaces
       workspaces         =  myWorkspaces
     }

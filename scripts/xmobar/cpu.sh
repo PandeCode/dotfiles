@@ -1,4 +1,4 @@
-#!/bin/env sh
+#!/bin/sh
 
 case $1 in
 	1)
@@ -11,7 +11,7 @@ case $1 in
 				column -t
 		)
 
-		notify-send "CPU $cpuper" "$topps" -h int:value:"$cpuper"
+		notify-send "CPU $cpuper" "$topps" -h int:value:"$cpuper" -t 3000
 		exit 0
 		;;
 
@@ -41,16 +41,16 @@ EOF
 		case $cmd in
 			"") exit 0 ;;
 			"Humble (picom, xflux, nm-applet, clipit)")
-				notify-send "killall -TERM picom xflux nm-applet clipit"
+				notify-send "killall -TERM picom xflux nm-applet clipit" -t 3000
 				killall -TERM picom xflux nm-applet clipit
 				;;
 			"Humble 2 (picom, xflux, nm-applet, clipit, chrome)")
-				notify-send "killall -TERM picom xflux nm-applet clipit chrome"
+				notify-send "killall -TERM picom xflux nm-applet clipit chrome" -t 3000
 				killall -TERM picom xflux nm-applet clipit chrome
 				;;
 			*)
 				process=$(echo $cmd | sed 's/ .*//')
-				notify-send "Killing $process"
+				notify-send "Killing $process" -t 3000
 				killall -TERM $process
 				;;
 		esac

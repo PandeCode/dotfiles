@@ -1,5 +1,7 @@
 HOME=/home/shawn
 
+export _JAVA_AWT_WM_NONREPARENTING=1
+
 export TERMINAL=/usr/bin/st
 export CC=/usr/bin/clang
 export CXX=/usr/bin/clang++

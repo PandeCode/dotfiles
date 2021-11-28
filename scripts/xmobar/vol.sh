@@ -1,4 +1,4 @@
-#!/bin/env sh
+#!/bin/sh
 
 getVol() {
 	amixer sget Master | grep 'Right:' | awk -F'[][]' '{ print $2 }'
@@ -9,7 +9,7 @@ isMuted() {
 }
 
 volNotify() {
-        notify-send 'Vol' -h int:value:$(pamixer --get-volume)
+        notify-send 'Vol' -h int:value:$(pamixer --get-volume) -t 500
 }
 
 volMute() {
@@ -26,7 +26,7 @@ volDown() {
 
 case $1 in
 	1)
-		notify-send "Vol" "$(getVol)"
+		notify-send "Vol" "$(getVol)" -t 500
 		exit 0
 		;;
 
@@ -38,9 +38,12 @@ case $1 in
 	3)
 		cmd="$(
 		cat << EOF | xmenu
-Hello	World
+st -e pulsemixer
+pavucontrol
 EOF
 		)"
+
+		$cmd
 
 		;;
 

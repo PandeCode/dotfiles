@@ -1,9 +1,9 @@
-#!/bin/env sh
+#!/bin/sh
 
 
 case $1 in
 	1)
-		notify-send "$(cal)"
+		notify-send "$(cal)" -t 3000
 		exit 0
 		;;
 	2)
@@ -11,7 +11,7 @@ case $1 in
 		exit 0
 		;;
 	3)
-		notify-send "Date" "$1"
+		notify-send "Date" "$1" -t 3000
 		exit 0
 		;;
 esac

@@ -1,4 +1,4 @@
-#!/bin/env sh
+#!/bin/sh
 
 
 LC_ALL=en_US.UTF-8
@@ -29,7 +29,7 @@ case $1 in
 				sort -rnk3 |
 				head |
 				column -t
-		)" -h int:value:$(free -m | awk '/Mem/ {print int($3/$2*100)}')
+		)" -h int:value:$(free -m | awk '/Mem/ {print int($3/$2*100)}') -t 2000
 
 		exit 0
 		;;
@@ -67,17 +67,17 @@ EOF
 
 		case $cmd in
 			"Humble (picom, xflux, nm-applet, clipit)")
-				notify-send "killall -TERM picom xflux nm-applet clipit"
+				notify-send "killall -TERM picom xflux nm-applet clipit" -t 2000
 				killall -TERM picom xflux nm-applet clipit
 				;;
 			"Humble 2 (picom, xflux, nm-applet, clipit, chrome)")
-				notify-send "killall -TERM picom xflux nm-applet clipit chrome"
-				killall -TERM picom xflux nm-applet clipit chrome
+				notify-send "killall -TERM picom xflux nm-applet clipit chrome" -t 2000
+				killall -TERM picom xflux nm-applet clipit chrome 
 				;;
 			"") exit 0 ;;
 			*)
 				process=$(echo $cmd | sed 's/ .*//')
-				notify-send "Killing $process"
+				notify-send "Killing $process" -t 2000
 				killall -TERM $process
 				;;
 		esac

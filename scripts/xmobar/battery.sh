@@ -1,9 +1,9 @@
-#!/bin/env sh
+#!/bin/sh
 
 case $1 in
 	1)
-		notify-send "BAT" "$(acpi)
-Light: $(light)"
+		notify-send "BAT" "$(acpi) 
+Light: $(light)" -t 2000
 		exit 0
 		;;
 
@@ -29,7 +29,7 @@ EOF
 			exit 0
 		)"
 		$cmd
-		notify-send "$cmd"
+		notify-send "$cmd" -t 500
 
 		exit 0
 		;;

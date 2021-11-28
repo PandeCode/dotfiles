@@ -5,6 +5,7 @@ getAction() {
 		echo '<action=`playerctl pause`>'
 	else
 		echo '<action=`playerctl play`>'
+     
 	fi
 }
 
@@ -13,3 +14,10 @@ echo -n "\
 $(getAction)</action>\
 <action=\`playerctl next\`>  </action>\
 "
+
+
+#echo -n "\
+#<action=\`playerctl previous\`>  </action>\
+#$(getAction)</action>\
+#<box type=Bottom width=2 color=red><action=\`playerctl next\`>  </action></box>\
+#"

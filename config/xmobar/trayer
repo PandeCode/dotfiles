@@ -1,2 +1,13 @@
-trayer --edge top --align right --SetDockType true --SetPartialStrut true \
-       --expand true --width 10 --transparent false --tint 0x0F111A  --height 20
+#!/bin/sh
+
+trayer \
+	-l \
+	--edge top \
+	--align right \
+	--SetDockType true \
+	--SetPartialStrut true \
+	--expand true \
+	--width 7 \
+	--transparent false \
+	--tint 0x0F111A \
+	--height 20
