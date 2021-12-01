@@ -128,7 +128,8 @@ myXPConfig            =
       fgHLight        = fromMaybe "#FFFFFF" (M.lookup "selectionForeground" myTheme)  ,
       borderColor     = fromMaybe "#0F111A" (M.lookup "border" myTheme)               ,
       position        = Top                                                           ,
-      alwaysHighlight = True
+      alwaysHighlight = True,
+      promptKeymap    = vimLikeXPKeymap
     }
 
 myTreeConf =
@@ -237,6 +238,8 @@ myXmobarPP              =
     yellow              = xmobarColor "#f1fa8c" ""
     red                 = xmobarColor "#ff5555" ""
     lowWhite            = xmobarColor "#bbbbbb" ""
+
+
 
 mySpawn p = spawn ("xsetroot -cursor_name watch;xtoolwait " ++ p ++ ";xsetroot -cursor_name left_ptr")
 
@@ -389,7 +392,7 @@ myManageHook      =
     netIconName              = stringProperty "_NET_WM_ICON_NAME"
     localeName               = stringProperty "WM_LOCALE_NAME"
 
-    centerFloatClassName     = ["Vimb", "Xmessage", "Gimp", "Open File"]
+    centerFloatClassName     = ["Vimb", "Xmessage", "Gimp", "Open File", "leagueclientux.exe", "riotclientux.exe"]
 
     floatClassName           = []
 
@@ -417,21 +420,23 @@ myLayout     = avoidStruts (smartBorders (tiled ||| Mirror tiled ||| noBorders F
     delta    = 3 / 100 -- Percent of screen to increment by when resizing panes
 
 myStartupHook = do
-  spawnOnce "randbg"
+  spawn (wrapLog "randbg")
+
+  spawn (wrapLogP "trayer" "~/dotfiles/config/xmobar/trayer")
+  spawn (wrapLogP "picom" "picom -b --experimental-backend")
+  spawn (wrapLog "deadd-notification-center")
+
+  spawn (wrapLogP "xflux" "xflux -l 0")
+
+  spawn (wrapLog "nm-applet")
+  spawn (wrapLog "clipit")
+  spawn (wrapLog "flameshot")
 
   spawnOn (myWorkspaces !! 1) (wrapLog "st")
 
-  spawnOnce (wrapLog "flameshot")
-  spawnOnce (wrapLog "nm-applet")
-  spawnOnce (wrapLog "clipit")
-  spawnOnce (wrapLog "deadd-notification-center")
-
-  spawnOnce (wrapLogP "trayer" "~/dotfiles/config/xmobar/trayer")
-  spawnOnce (wrapLogP "xflux" "xflux -l 0")
-  spawnOnce (wrapLogP "picom" "picom -b --experimental-backend")
   where
-    wrapLog app = "pidof " ++ app ++ " > /dev/null && echo ''" ++ app ++ "' is already running.' || " ++ app ++ " 1>> ~/log/" ++ app ++ ".log 2>> ~/log/" ++ app ++ ".err.log&"
-    wrapLogP app run = "pidof " ++ app ++ " > /dev/null && echo ''" ++ app ++ "' is already running.' || " ++ run ++ " 1>> ~/log/" ++ app ++ ".log 2>> ~/log/" ++ app ++ ".err.log&"
+    wrapLog app = "pidof " ++ app ++ " > /dev/null && echo ''" ++ app ++ "' is already running.' || " ++ app ++ " 1>> ~/log/" ++ app ++ ".log 2>> ~/log/" ++ app ++ ".err.log &"
+    wrapLogP app run = "pidof " ++ app ++ " > /dev/null && echo ''" ++ app ++ "' is already running.' || " ++ run ++ " 1>> ~/log/" ++ app ++ ".log 2>> ~/log/" ++ app ++ ".err.log &"
 
 main :: IO ()
 main =

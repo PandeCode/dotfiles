@@ -10,9 +10,9 @@ volNotify() {
 	replace=$(cat $volIdFile)
 	if [ -z "$replace" ]
 	then
-		notify-send.py "Volume $1" "$(getVol)" --hint int:value:$(getVol) > $volIdFile
+		notify-send.py "Volume $1" "$(getVol)" -t 1000 --hint int:value:$(getVol) > $volIdFile
 	else
-		notify-send.py "Volume $1" "$(getVol)" --hint int:value:$(getVol) -r $replace > $volIdFile
+		notify-send.py "Volume $1" "$(getVol)" -t 1000 --hint int:value:$(getVol) -r $replace > $volIdFile
 	fi
 }
 

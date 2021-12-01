@@ -175,7 +175,8 @@ myXPConfig            =
       fgHLight        = fromMaybe "#FFFFFF" (M.lookup "selectionForeground" myTheme)  ,
       borderColor     = fromMaybe "#0F111A" (M.lookup "border" myTheme)               ,
       position        = Top                                                           ,
-      alwaysHighlight = True
+      alwaysHighlight = True,
+      promptKeymap    = vimLikeXPKeymap
     }
 #+end_src
 
@@ -307,8 +308,8 @@ myXmobarPP              =
 
 #+name: keybinds
 #+begin_src bash :results raw
-~/.config/xmonad/showMyKeysV2.sh
 #+end_src
+~/.config/xmonad/showMyKeysV2.sh
 
 | KEY                        | ACTION                                                                                                        |
 +----------------------------+---------------------------------------------------------------------------------------------------------------+
@@ -514,7 +515,7 @@ myManageHook      =
     netIconName              = stringProperty "_NET_WM_ICON_NAME"
     localeName               = stringProperty "WM_LOCALE_NAME"
 
-    centerFloatClassName     = ["Vimb", "Xmessage", "Gimp", "Open File"]
+    centerFloatClassName     = ["Vimb", "Xmessage", "Gimp", "Open File", "leagueclientux.exe", "riotclientux.exe", "riotclientservices.exe"]
 
     floatClassName           = []
 
@@ -529,7 +530,7 @@ myManageHook      =
     shiftWorkspaceClassName4 = ["hakuneko-desktop", "Unity", "unityhub", "UnityHub", "zoom"]
     shiftWorkspaceClassName5 = ["Spotify", "vlc"]
     shiftWorkspaceClassName6 = ["Mail", "Thunderbird"]
-    shiftWorkspaceClassName7 = ["riotclientux.exe", "leagueclient.exe", "Zenity", "zenity", "wineboot.exe", "Wine", "wine", "wine.exe", "explorer.exe", "Albion Online Launcher", "Albion Online", "Albion-Online"]
+    shiftWorkspaceClassName7 = ["riotclientux.exe", "leagueclient.exe", "Zenity", "zenity", "wineboot.exe", "Wine", "wine", "wine.exe", "explorer.exe", "Albion Online Launcher", "Albion Online", "Albion-Online", "riotclientservices.exe"]
     shiftWorkspaceClassName8 = []
     shiftWorkspaceClassName9 = []
 #+end_src
@@ -549,21 +550,23 @@ myLayout     = avoidStruts (smartBorders (tiled ||| Mirror tiled ||| noBorders F
 * Startup
 #+begin_src haskell
 myStartupHook = do
-  spawnOnce "randbg"
+  spawn (wrapLog "randbg")
+
+  spawn (wrapLogP "trayer" "~/dotfiles/config/xmobar/trayer")
+  spawn (wrapLogP "picom" "picom -b --experimental-backend")
+  spawn (wrapLog "deadd-notification-center")
+
+  spawn (wrapLogP "xflux" "xflux -l 0")
+
+  spawn (wrapLog "nm-applet")
+  spawn (wrapLog "clipit")
+  spawn (wrapLog "flameshot")
 
   spawnOn (myWorkspaces !! 1) (wrapLog "st")
 
-  spawnOnce (wrapLog "flameshot")
-  spawnOnce (wrapLog "nm-applet")
-  spawnOnce (wrapLog "clipit")
-  spawnOnce (wrapLog "deadd-notification-center")
-
-  spawnOnce (wrapLogP "trayer" "~/dotfiles/config/xmobar/trayer")
-  spawnOnce (wrapLogP "xflux" "xflux -l 0")
-  spawnOnce (wrapLogP "picom" "picom -b --experimental-backend")
   where
-    wrapLog app = "pidof " ++ app ++ " > /dev/null && echo ''" ++ app ++ "' is already running.' || " ++ app ++ " 1>> ~/log/" ++ app ++ ".log 2>> ~/log/" ++ app ++ ".err.log&"
-    wrapLogP app run = "pidof " ++ app ++ " > /dev/null && echo ''" ++ app ++ "' is already running.' || " ++ run ++ " 1>> ~/log/" ++ app ++ ".log 2>> ~/log/" ++ app ++ ".err.log&"
+    wrapLog app = "pidof " ++ app ++ " > /dev/null && echo ''" ++ app ++ "' is already running.' || " ++ app ++ " 1>> ~/log/" ++ app ++ ".log 2>> ~/log/" ++ app ++ ".err.log &"
+    wrapLogP app run = "pidof " ++ app ++ " > /dev/null && echo ''" ++ app ++ "' is already running.' || " ++ run ++ " 1>> ~/log/" ++ app ++ ".log 2>> ~/log/" ++ app ++ ".err.log &"
 #+end_src
 
 * Main

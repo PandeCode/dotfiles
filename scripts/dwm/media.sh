@@ -46,9 +46,9 @@ if pgrep -x "spotify" > /dev/null; then
 
 	replace=$(cat $mediaIdFile)
 	if [ -z "$replace" ]; then
-		notify-send.py "Media $1" "$(getMedia)" --hint string:image-path:file://$spotifyAlbumArt > $mediaIdFile
+		notify-send.py -t 2000 "Media $1" "$(getMedia)" --hint string:image-path:file://$spotifyAlbumArt > $mediaIdFile
 	else
-		notify-send.py "Media $1" "$(getMedia)" -r $replace --hint string:image-path:file://$spotifyAlbumArt > $mediaIdFile
+		notify-send.py -t 2000 "Media $1" "$(getMedia)" -r $replace --hint string:image-path:file://$spotifyAlbumArt > $mediaIdFile
 	fi
 
 else
@@ -57,9 +57,9 @@ else
 
 	replace=$(cat $mediaIdFile)
 	if [ -z "$replace" ]; then
-		notify-send.py "Media $1" "$(getMedia)" > $mediaIdFile
+		notify-send.py -t 2000 "Media $1" "$(getMedia)" > $mediaIdFile
 	else
-		notify-send.py "Media $1" "$(getMedia)" -r $replace > $mediaIdFile
+		notify-send.py -t 2000 "Media $1" "$(getMedia)" -r $replace > $mediaIdFile
 	fi
 
 fi

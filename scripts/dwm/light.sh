@@ -6,9 +6,9 @@ lightNotify() {
 	replace=$(cat $lightIdFile)
 	if [ -z "$replace" ]
 	then
-		notify-send.py "Light $1" "$(light)" --hint float:value:$(light) > $lightIdFile
+		notify-send.py "Light $1" "$(light)" -t 1000 --hint float:value:$(light) > $lightIdFile
 	else
-		notify-send.py "Light $1" "$(light)" --hint float:value:$(light) -r $replace > $lightIdFile
+		notify-send.py "Light $1" "$(light)" -t 1000 --hint float:value:$(light) -r $replace > $lightIdFile
 	fi
 }
 

@@ -78,4 +78,4 @@ BEGIN {
 }
 END {
 	# print("|", rn("-", longestKey), "|", rn("-", longestAction), "|")
-}' | sed 's/|/,|,/g' | column -s ',' -t
+}' | sed 's/|/,|,/g; ' | column -s ',' -t | perl -pe '/^\s*$/d; s/\s*(?=|)//;'
