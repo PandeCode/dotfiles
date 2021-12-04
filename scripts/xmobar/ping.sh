@@ -26,10 +26,10 @@ host() {
 	echo $(cat ~/dotfiles/extras/ping.host)
 }
 uploaded() {
-	echo Uploaded: $(~/dotfiles/scripts/upload_bytes.sh)
+	echo Uploaded: "      <b>$(~/dotfiles/scripts/upload_bytes.sh)</b>"
 }
 downloaded() {
-	echo Downloaded: $(~/dotfiles/scripts/download_bytes.sh)
+	echo Downloaded: "<b>$(~/dotfiles/scripts/download_bytes.sh)</b>"
 }
 
 case $1 in

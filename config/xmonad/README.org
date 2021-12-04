@@ -27,6 +27,9 @@ Xmoand Config
 
 * Imports
 #+begin_src haskell
+import System.IO
+import System.Exit
+
 import Data.Char (isSpace, toUpper)
 import Data.Maybe
 import Data.Monoid
@@ -35,6 +38,7 @@ import Data.Tree
 import XMonad
 
 import qualified XMonad.Util.Hacks as Hacks
+
 
 import XMonad.Prompt
 import XMonad.Prompt.AppLauncher
@@ -64,12 +68,14 @@ import XMonad.Actions.GridSelect
 import XMonad.Actions.SpawnOn
 import XMonad.Actions.TreeSelect
 
+import XMonad.Hooks.UrgencyHook
 import XMonad.Hooks.EwmhDesktops
 import XMonad.Hooks.ManageDocks
 import XMonad.Hooks.ManageHelpers
 import XMonad.Hooks.StatusBar
 import XMonad.Hooks.StatusBar.PP
 import XMonad.Hooks.WorkspaceHistory
+import XMonad.Hooks.ServerMode
 
 import XMonad.Layout.Magnifier
 import XMonad.Layout.NoBorders
@@ -363,7 +369,7 @@ myXmobarPP              =
 #+begin_src haskell
 mySpawn p = spawn ("xsetroot -cursor_name watch;xtoolwait " ++ p ++ ";xsetroot -cursor_name left_ptr")
 
-appLauncherPromptFunc = do
+notesPromptFunc = do
            spawn ("date>>"++"/home/shawn/dev/personal/NOTES")
            appendFilePrompt myXPConfig "/home/shawn/dev/personal/NOTES"
 
@@ -371,30 +377,53 @@ gridSelectSpawn = spawnSelected def ["neovide","emacsclient -c -a emacs","chrome
 
 myKeybinds = [
     -- SHOWKEYS START
-    --("M-r a", appLauncherPrompt def),
-    ("M-p n",     appLauncherPromptFunc)
+     ("M-S-q", confirmPrompt myXPConfig "exit" $ io (exitWith ExitSuccess))
+
+    , ("M-r a",  launchApp myXPConfig "st -e fish")
+    , ("M-r n", notesPromptFunc)
     --("M-r c", confirmPromptPrompt def),
-    --("M-r d", dirExecPrompt def),
+    , ("M-r d", dirExecPrompt myXPConfig spawn "/home/shawn/dotfiles/scripts")
     --("M-S-r d", directoryPrompt def),
     --("M-r e", emailPrompt def),
     --("M-r f", fuzzyMatchPrompt def),
     --("M-r i", inputPrompt def),
     , ("M-r l", layoutPrompt myXPConfig)
     , ("M-r m", manPrompt myXPConfig)
-    --("M-r o", orgModePrompt def),
+    , ("M-r o", orgPrompt myXPConfig "TODO" "/home/shawn/dev/personal/org/todos.org")
     --("M-r p", passPrompt def),
-    --("M-r r", runOrRaisePrompt def),
-    --("M-r s", shellPrompt def),
+    , ("M-r r", runOrRaisePrompt myXPConfig)
+    , ("M-r s", shellPrompt myXPConfig)
+    , ("M-r p s", prompt ("st" ++ " -e") greenXPConfig)
+
     --("M-S-r s", sshPrompt def),
-    --("M-r t", themePrompt def),
-    --("M-r u", unicodePrompt def),
-    --("M-p w", windowPrompt myXPConfig  Goto allWindows), -- Looks cursed on my config
-    --("M-S-r w", workspacePrompt def),
-    --("M-r x", xmonadPrompt def),
+    , ("M-r t", themePrompt myXPConfig)
+    , ("M-u",   unicodePrompt "/home/shawn/dotfiles/extras/unicode" myXPConfig)
+    --("M-p w", windowPrompt myXPConfig  Goto allWindows),
+      , ("M-r w g", windowPrompt myXPConfig Goto wsWindows)
+      , ("M-r w b", windowPrompt myXPConfig Bring allWindows)
+
+    --("M-S-r w", workspacePrompt def),-- Looks cursed on my config
+    , ("M-r x", xmonadPrompt myXPConfig)
     --("M-r z", zshPrompt def),
 
     , ("M-x", myTree)
     , ("M-S-x",  myTreeWorkspaces)
+
+    , ("M-n c", spawn "kill -s USR1 $(pidof deadd-notification-center)") -- Notifications Center
+    , ("M-n h o", spawn  "notify-send.py a --hint boolean:deadd-notification-center:true int:id:0 boolean:state:true type:string:buttons") --  Highlight On
+    , ("M-n h f", spawn  "notify-send.py a --hint boolean:deadd-notification-center:true int:id:0 boolean:state:false type:string:buttons") --  Highlight Off
+    , ("M-n d c", spawn  "notify-send.py a --hint boolean:deadd-notification-center:true string:type:clearInCenter") --  Clear Center
+    , ("M-n d p", spawn  "notify-send.py a --hint boolean:deadd-notification-center:true string:type:clearPopups") --  Clear Popups
+    , ("M-n p", spawn  "notify-send.py a --hint boolean:deadd-notification-center:true string:type:pausePopups") --  Pause
+    , ("M-n u", spawn  "notify-send.py a --hint boolean:deadd-notification-center:true string:type:unpausePopups") --  Unpause
+    , ("M-n r", spawn  "notify-send.py a --hint boolean:deadd-notification-center:true string:type:reloadStyle") --  Reload Style
+    , ("M-n t g", spawn  "notify-send.py 'Icons are' 'COOL'  --hint string:image-path:face-cool") --  Gtk icon
+    , ("M-n t i", spawn  "notify-send.py 'Images' 'COOL'  --hint string:image-path:file://$HOME/Pictures/Wallpapers/minecraft_swamp.jpeg") --  Image file
+    , ("M-n t n", spawn  "notify-send.py 'Does pop up' -t 1") --  Notification Center Only
+    , ("M-n t a", spawn  "notify-send.py '1' '2'  --hint boolean:action-icons:true  --action yes:face-cool no:face-sick") --  Action buttons gtk icons
+    , ("M-n t p 1", spawn  "notify-send.py 'This notification has a progressbar' '33%'  --hint int:has-percentage:33") --  with progress bar
+    , ("M-n t p 2", spawn  "notify-send.py 'This notification has a progressbar' '33%'  --hint int:value:33") --  with progress bar
+    , ("M-n t s", spawn  "notify-send.py 'This notification has a slider' '33%'  --hint int:has-percentage:33 --action changeValue:abc") --  with slider
 
     , ("M-g", goToSelected def)
     , ("M-S-g", gridSelectSpawn)
@@ -403,6 +432,11 @@ myKeybinds = [
     , ("M-c l 2", sendMessage $ JumpToLayout "Mirror Tall")
     , ("M-c l 3", sendMessage $ JumpToLayout "Full")
     , ("M-c l 4", sendMessage $ JumpToLayout "Magnifier NoMaster ThreeCol")
+
+    , ("M-v",                 spawn "rofi -modi 'clipboard:greenclip print' -show clipboard -run-command '{cmd}'")
+    , ("M-S-v",                 spawn "rofi -modi 'clipboard:greenclip print' -show clipboard -run-command '{cmd}' ; sleep 0.5; xdotool type $(xclip -o -selection clipboard)")
+    , ("M-C-S-v",                 spawn "pkill greenclip && greenclip clear && greenclip daemon & notify-send 'System' 'Greenclip Cleared' ;")
+
 
     , ("M1-<F4>",                 kill)
     , ("M-S-z",                   spawn "xscreensaver-command -lock")
@@ -419,11 +453,11 @@ myKeybinds = [
     --("M-t t", toggleBorder),
     --
     , ("M-s c",                   spawn "~/dotfiles/PERSONAL_PATH/click4ever")
-    , ("M-s p",                   spawn "pavucontrol 1>> pavucontrol.log 2>> pavucontrol.err.log")
-    , ("M-s r",                   spawn "vokoscreenNG 1>> vokoscreenNG.log 2>> vokoscreenNG.err.log")
-    , ("M-s b",                   spawnOn (head myWorkspaces) "chrome 1>> chrome.log 2>> chrome.err.log")
-    , ("M-s h",                   spawnOn (myWorkspaces !! 3) "hakuneko-desktop 1>> hakuneko-desktop.log 2>> hakuneko-desktop.err.log")
-    , ("M-s s",                   spawnOn (myWorkspaces !! 4) "dex /usr/share/applications/spotify.desktop 1>> spotify.log 2>> spotify.err.log")
+    , ("M-s p",                   spawn "pavucontrol 1>> ~/log/pavucontrol.log 2>> ~/log/pavucontrol.err.log")
+    , ("M-s r",                   spawn "vokoscreenNG 1>> ~/log/vokoscreenNG.log 2>> ~/log/vokoscreenNG.err.log")
+    , ("M-s b",                   spawnOn (head myWorkspaces) "chrome 1>> ~/log/chrome.log 2>> ~/log/chrome.err.log")
+    , ("M-s h",                   spawnOn (myWorkspaces !! 3) "hakuneko-desktop 1>> ~/log/hakuneko-desktop.log 2>> ~/log/hakuneko-desktop.err.log")
+    , ("M-s s",                   spawnOn (myWorkspaces !! 4) "dex /usr/share/applications/spotify.desktop 1>> ~/log/spotify.log 2>> ~/log/spotify.err.log")
     --
 
     , ("<XF86XK_MonBrightnessDown>", spawn "$HOME/dotfiles/scripts/dwm/light.sh down")
@@ -461,6 +495,10 @@ myKeybinds = [
     -- SHOWKEYS END
  ]
 #+end_src
+
+#+RESULTS:
+: ghci>
+: <interactive>:2078:2: error: parse error on input ‘]’
 
 * Window
 #+begin_src haskell
@@ -515,7 +553,7 @@ myManageHook      =
     netIconName              = stringProperty "_NET_WM_ICON_NAME"
     localeName               = stringProperty "WM_LOCALE_NAME"
 
-    centerFloatClassName     = ["Vimb", "Xmessage", "Gimp", "Open File", "leagueclientux.exe", "riotclientux.exe", "riotclientservices.exe"]
+    centerFloatClassName     = ["Vimb", "Xmessage", "Gimp", "Open File", "leagueclientux.exe", "riotclientux.exe", "riotclientservices.exe", "League of Legends"]
 
     floatClassName           = []
 
@@ -530,7 +568,7 @@ myManageHook      =
     shiftWorkspaceClassName4 = ["hakuneko-desktop", "Unity", "unityhub", "UnityHub", "zoom"]
     shiftWorkspaceClassName5 = ["Spotify", "vlc"]
     shiftWorkspaceClassName6 = ["Mail", "Thunderbird"]
-    shiftWorkspaceClassName7 = ["riotclientux.exe", "leagueclient.exe", "Zenity", "zenity", "wineboot.exe", "Wine", "wine", "wine.exe", "explorer.exe", "Albion Online Launcher", "Albion Online", "Albion-Online", "riotclientservices.exe"]
+    shiftWorkspaceClassName7 = ["riotclientux.exe", "leagueclient.exe", "Zenity", "zenity", "wineboot.exe", "Wine", "wine", "wine.exe", "explorer.exe", "Albion Online Launcher", "Albion Online", "Albion-Online", "riotclientservices.exe", "League of Legends"]
     shiftWorkspaceClassName8 = []
     shiftWorkspaceClassName9 = []
 #+end_src
@@ -550,7 +588,7 @@ myLayout     = avoidStruts (smartBorders (tiled ||| Mirror tiled ||| noBorders F
 * Startup
 #+begin_src haskell
 myStartupHook = do
-  spawn (wrapLog "randbg")
+  spawnOnce (wrapLog "randbg")
 
   spawn (wrapLogP "trayer" "~/dotfiles/config/xmobar/trayer")
   spawn (wrapLogP "picom" "picom -b --experimental-backend")
@@ -559,7 +597,7 @@ myStartupHook = do
   spawn (wrapLogP "xflux" "xflux -l 0")
 
   spawn (wrapLog "nm-applet")
-  spawn (wrapLog "clipit")
+  spawn (wrapLogP "greeeclip" "greenclip daemon")
   spawn (wrapLog "flameshot")
 
   spawnOn (myWorkspaces !! 1) (wrapLog "st")
@@ -575,6 +613,7 @@ main :: IO ()
 main =
   xmonad
     . ewmhFullscreen
+    . setEwmhActivateHook doAskUrgent
     . ewmh
     . withEasySB (statusBarProp "xmobar" (pure myXmobarPP)) defToggleStrutsKey
     $ myConfig
@@ -588,7 +627,7 @@ myConfig                 =
       startupHook        = myStartupHook,
       normalBorderColor  = myNormalBorderColor,
       focusedBorderColor = myFocusedBorderColor,
-      handleEventHook    = handleEventHook def <+> Hacks.windowedFullscreenFixEventHook,
+      handleEventHook    = handleEventHook def <+> Hacks.windowedFullscreenFixEventHook <+> serverModeEventHook <+> serverModeEventHookCmd <+> serverModeEventHookF "XMONAD_PRINT" (io . putStrLn),
       --workspaces         = toWorkspaces myTreeWorkspaces
       workspaces         =  myWorkspaces
     }

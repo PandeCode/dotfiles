@@ -105,7 +105,8 @@ EOF
 		;;
 
 	5)
-		pactl set-sink-input-volume "$(getCurrentSink)" -10%
+		pactl set-sink-input-volume "$(getCurrnetSink)" -10%
+		notify-send "$(getCurrnetSink)" "$?" -t 1000
 		exit 0
 		;;
 

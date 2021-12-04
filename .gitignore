@@ -1,3 +1,6 @@
 tags
 extras/tika.jar
 PERSONAL_PATH/chromedriver
+
+config/xmonad/*.hi
+config/xmonad/*.o
