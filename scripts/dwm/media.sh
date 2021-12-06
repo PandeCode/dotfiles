@@ -11,29 +11,33 @@ getAlbmuArt() {
 getMedia() {
 	if pgrep -x "spotify" > /dev/null; then
 		playerctl -p spotify metadata --format \
-"Title   {{ title }}
-Album    {{ album }}
-Artist   {{ artist }}
-Position {{ duration(position) }}/{{ duration(mpris:length) }}"
+			"{{ title }}
+{{ artist }}
+{{ album }}
+{{ duration(position) }}/{{ duration(mpris:length) }}"
 	else
 		playerctl metadata --format \
-			'Status  {{status}}
-Player   {{playerName}}
-Position {{position}}
-Volume   {{volume}}
-Album    {{album}}
-Artist   {{artist}}
-Title    {{title}}'
+			'
+{{playerName}}
+{{status}}
+{{volume}}
+{{title}}
+{{artist}}
+{{album}}
+{{position}}'
 	fi
 }
 
 if pgrep -x "spotify" > /dev/null; then
-	playerctl $1 -p spotify
 
-	if [ -f "$spotifyAlbumArtId" ]; then :; else
+	if ! [ -z "$1" ]; then
+		playerctl $1 -p spotify
+	fi
+
+	if ! [ -f "$spotifyAlbumArtId" ]; then
 		playerctl -p spotify metadata --format "{{ mpris:artUrl }}" > $spotifyAlbumArtId
 	fi
-	if [ -f "$spotifyAlbumArt" ]; then :; else
+	if ! [ -f "$spotifyAlbumArt" ]; then 
 		getAlbmuArt
 	fi
 
@@ -41,7 +45,7 @@ if pgrep -x "spotify" > /dev/null; then
 
 	if ! [ "$newMd" == "$(cat $spotifyAlbumArtId)" ]; then
 		getAlbmuArt
-		echo -n "$newMd"> $spotifyAlbumArtId
+		echo -n "$newMd" > $spotifyAlbumArtId
 	fi
 
 	replace=$(cat $mediaIdFile)

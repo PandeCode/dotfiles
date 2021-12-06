@@ -4,7 +4,7 @@ defaultPlayer=spotify
 defaultSink=spotify
 currentPlayerFile=/tmp/currentPlayerFile
 
-getNewCurrentPlayer() {
+function getNewCurrentPlayer() {
 	players=$(playerctl -l)
 
 	for p in $players; do
@@ -22,7 +22,7 @@ getNewCurrentPlayer() {
 	done
 }
 
-getCurrentPlayer() {
+function getCurrentPlayer() {
 
 	if [ -f "$currentPlayerFile" ]; then
 		c=$(cat $currentPlayerFile)
@@ -36,12 +36,12 @@ getCurrentPlayer() {
 	echo -n $(getNewCurrentPlayer)
 }
 
-setCurrentPlayer() {
+function setCurrentPlayer() {
 	echo -n $1 > $currentPlayerFile
 }
 
-playerNotFound() {
-	notify-send "Player Not Found" "Start a player like spotify or a youtube video."
+function playerNotFound() {
+	notify-send "Player Not Found" "Start a player like spotify or a youtube video."  -u critical  -t 3000
 }
 
 getSink() {
@@ -64,6 +64,7 @@ case $1 in
 		;;
 
 	2)
+		~/dotfiles/scripts/dwm/media.sh
 		exit 0
 		;;
 
@@ -110,5 +111,40 @@ EOF
 		exit 0
 		;;
 
+	source)
+		exit 0
+		;;
+
 esac
+
+#echo -n '<action=>'
+
+function getAction() {
+	if [ "$(playerctl status -p $(getCurrentPlayer))" == "Playing" ]; then
+		echo "<action=\`playerctl pause -p $(getCurrentPlayer)\`>"
+	else
+		echo "<action=\`playerctl play -p $(getCurrentPlayer)\`>"
+	fi
+}
+
+echo -n '<action=`~/dotfiles/scripts/xmobar/media.sh 2` button=2>'
+echo -n '<action=`~/dotfiles/scripts/xmobar/media.sh 3` button=3>'
+echo -n '<action=`~/dotfiles/scripts/xmobar/media.sh 4` button=4>'
+echo -n '<action=`~/dotfiles/scripts/xmobar/media.sh 5` button=5>'
+
+echo -n "\
+<action=\`playerctl play-pause -p $(getCurrentPlayer)\`>\
+$(playerctl metadata -p $(getCurrentPlayer) --format '{{ artist }} - {{ title }}')\
+</action>\
+"
+
+echo -n "\
+<action=\`playerctl previous -p $(getCurrentPlayer)\`>  </action>\
+$(getAction)</action>\
+<action=\`playerctl next -p $(getCurrentPlayer)\`>  </action>\
+"
+echo -n '</action>'
+echo -n '</action>'
+echo -n '</action>'
+echo -n '</action>'
 
