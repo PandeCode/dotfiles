@@ -4,3 +4,4 @@ PERSONAL_PATH/chromedriver
 
 config/xmonad/*.hi
 config/xmonad/*.o
+config/xmonad/xmonadctl

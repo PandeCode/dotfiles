@@ -5,6 +5,9 @@ tmux show-option -gqv "@barHidden"
 get linux-notification center to stop realigning cpu click and me click
 get linux-notification center to show progress bars for cpu click and me click
 
+Xmenu replacement
+https://jgmenu.github.io/index.html
+
 http://www.keyboard-layout-editor.com/#/
 https://github.com/Litarvan/lightdm-webkit-theme-litarvan
 https://github.com/Toqozz/wired-notify
@@ -40,3 +43,5 @@ https://www.google.com/search?q=linux+mp4+to+array+of+png+for+every+frame&
 https://www.google.com/search?q=x11+animated+cursor
 https://www.x.org/releases/X11R7.7/doc/renderproto/renderproto.txt
 trayer
+
+https://github.com/spcmd/spotymenu

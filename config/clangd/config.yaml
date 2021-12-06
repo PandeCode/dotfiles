@@ -3,7 +3,7 @@ If:
 CompileFlags:
             Add: [
                     -xc++,
-                    -std=c++20,
+                    -std=gnu++20,
                     -pthread,
                     -Wall,
                     -Wextra,
@@ -17,7 +17,7 @@ If:
 CompileFlags:
             Add: [
                     -xc++-header,
-                    -std=c++20,
+                    -std=gnu++20,
                     -pthread,
                     -Wall,
                     -Wextra,
@@ -32,7 +32,7 @@ If:
 CompileFlags:
         Add: [
                 -xc-header
-                -std=c17,
+                -std=gnu17,
                 -pthread,
                 -Wall,
                 -Wextra,
@@ -47,7 +47,7 @@ If:
 CompileFlags:
         Add: [
                 -xc
-                -std=c17,
+                -std=gnu17,
                 -g,
                 -pthread,
                 -Wall,
