@@ -65,6 +65,7 @@ case $1 in
 
 	2)
 		~/dotfiles/scripts/dwm/media.sh
+		#spotymenu
 		exit 0
 		;;
 
@@ -107,7 +108,6 @@ EOF
 
 	5)
 		pactl set-sink-input-volume "$(getCurrnetSink)" -10%
-		notify-send "$(getCurrnetSink)" "$?" -t 1000
 		exit 0
 		;;
 

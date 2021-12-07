@@ -223,7 +223,8 @@ myXmobarPP              =
       --, ppCurrent         = wrap " " "" . xmobarBorder "Top" "#8be9fd" 2  -- Current Workspace
       --, ppHiddenNoWindows = lowWhite . wrap " " "" --  unused workspaces
 
-      , ppCurrent         =  xmobarBorder "Top" "#8be9fd" 2  -- Current Workspace
+      -- , ppCurrent         =  xmobarBorder "Top" "#8be9fd" 2  -- Current Workspace
+      , ppCurrent         =  wrap "[" "]"
       , ppHidden          =  white -- Visible but not current
 
       , ppUrgent          = red . wrap (yellow "!") (yellow "!")

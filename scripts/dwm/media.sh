@@ -1,11 +1,22 @@
 #!/bin/env sh
 
-mediaIdFile=/tmp/medianotifyid
-spotifyAlbumArt=/tmp/spotifyAlbumArt
-spotifyAlbumArtId=/tmp/spotifyAlbumArtId
+mediaIdFile=/tmp/mediaId
+pictureCacheDir=~/.cache/spotifyPictureCache
+
+if ! [ -d $pictureCacheDir ]; then
+	mkdir -p $pictureCacheDir
+fi
 
 getAlbmuArt() {
-	curl $(dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.freedesktop.DBus.Properties.Get string:'org.mpris.MediaPlayer2.Player' string:'Metadata' | egrep -A 1 "artUrl" | cut -b 44- | cut -d '"' -f 1 | egrep -v ^$) -o $spotifyAlbumArt
+	artUrl=$(playerctl metadata --format "{{ mpris:artUrl }}")
+	fileName=$(echo $artUrl | grep -Po '.*/\K.*')
+
+	if [ -f $pictureCacheDir/$fileName ]; then
+		echo $pictureCacheDir/$fileName
+	else
+		wget -O $pictureCacheDir/$fileName $artUrl
+		echo $pictureCacheDir/$fileName
+	fi
 }
 
 getMedia() {
@@ -34,25 +45,11 @@ if pgrep -x "spotify" > /dev/null; then
 		playerctl $1 -p spotify
 	fi
 
-	if ! [ -f "$spotifyAlbumArtId" ]; then
-		playerctl -p spotify metadata --format "{{ mpris:artUrl }}" > $spotifyAlbumArtId
-	fi
-	if ! [ -f "$spotifyAlbumArt" ]; then 
-		getAlbmuArt
-	fi
-
-	newMd=$(playerctl -p spotify metadata --format "{{ mpris:artUrl }}")
-
-	if ! [ "$newMd" == "$(cat $spotifyAlbumArtId)" ]; then
-		getAlbmuArt
-		echo -n "$newMd" > $spotifyAlbumArtId
-	fi
-
 	replace=$(cat $mediaIdFile)
 	if [ -z "$replace" ]; then
-		notify-send.py -t 2000 "Media $1" "$(getMedia)" --hint string:image-path:file://$spotifyAlbumArt > $mediaIdFile
+		notify-send.py -t 2000 "Media $1" "$(getMedia)" --hint string:image-path:file://$(getAlbmuArt) > $mediaIdFile
 	else
-		notify-send.py -t 2000 "Media $1" "$(getMedia)" -r $replace --hint string:image-path:file://$spotifyAlbumArt > $mediaIdFile
+		notify-send.py -t 2000 "Media $1" "$(getMedia)" -r $replace --hint string:image-path:file://$(getAlbmuArt) > $mediaIdFile
 	fi
 
 else
