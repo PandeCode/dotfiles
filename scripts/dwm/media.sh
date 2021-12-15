@@ -22,20 +22,17 @@ getAlbmuArt() {
 getMedia() {
 	if pgrep -x "spotify" > /dev/null; then
 		playerctl -p spotify metadata --format \
-			"{{ title }}
+			'{{ title }}
 {{ artist }}
 {{ album }}
-{{ duration(position) }}/{{ duration(mpris:length) }}"
+{{ duration(position) }}/{{ duration(mpris:length) }}'
 	else
 		playerctl metadata --format \
-			'
-{{playerName}}
-{{status}}
-{{volume}}
-{{title}}
+			'{{ uc(playerName) }} {{status}}
+{{title}} 
 {{artist}}
 {{album}}
-{{position}}'
+{{ duration(position) }}/{{ duration(mpris:length) }}'
 	fi
 }
 

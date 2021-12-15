@@ -1,0 +1,10 @@
+#!/bin/sh
+
+pkill -9 plymouth
+plymouthd
+
+plymouth --show-splash
+
+sleep $1
+
+plymouth --quit

@@ -3,6 +3,9 @@
 defaultPlayer=spotify
 defaultSink=spotify
 currentPlayerFile=/tmp/currentPlayerFile
+pictureCacheDir=~/.cache/spotifyPictureCache
+imageSize=16x16
+displayIcon=true
 
 function getNewCurrentPlayer() {
 	players=$(playerctl -l)
@@ -41,7 +44,7 @@ function setCurrentPlayer() {
 }
 
 function playerNotFound() {
-	notify-send "Player Not Found" "Start a player like spotify or a youtube video."  -u critical  -t 3000
+	notify-send "Player Not Found" "Start a player like spotify or a youtube video." -u critical -t 3000
 }
 
 getSink() {
@@ -117,7 +120,25 @@ EOF
 
 esac
 
-#echo -n '<action=>'
+function getAlbmuArt() {
+	artUrl=$(playerctl metadata -p spotify --format "{{ mpris:artUrl }}")
+	fileName=$(echo $artUrl | grep -Po '.*/\K.*')
+	fileNameXpm="$(echo $fileName).xpm"
+
+	if ! [ -f $pictureCacheDir/$fileName ]; then
+		wget -O $pictureCacheDir/$fileName $artUrl
+
+		cd $pictureCacheDir
+		convert $fileName -resize $imageSize $fileNameXpm
+	fi
+
+	if ! [ -f $fileNameXpm ]; then
+		cd $pictureCacheDir
+		convert $fileName -resize $imageSize $fileNameXpm
+	fi
+
+	echo $pictureCacheDir/$fileNameXpm
+}
 
 function getAction() {
 	if [ "$(playerctl status -p $(getCurrentPlayer))" == "Playing" ]; then
@@ -132,19 +153,24 @@ echo -n '<action=`~/dotfiles/scripts/xmobar/media.sh 3` button=3>'
 echo -n '<action=`~/dotfiles/scripts/xmobar/media.sh 4` button=4>'
 echo -n '<action=`~/dotfiles/scripts/xmobar/media.sh 5` button=5>'
 
+currentPlayer=$(getCurrentPlayer)
+
+if [ "$displayIcon" = true ] && [ "$currentPlayer" = "spotify" ] ; then
+	echo -n '<icon='$(getAlbmuArt)'/> '
+fi
+
 echo -n "\
-<action=\`playerctl play-pause -p $(getCurrentPlayer)\`>\
-$(playerctl metadata -p $(getCurrentPlayer) --format '{{ artist }} - {{ title }}')\
+<action=\`playerctl play-pause -p $currentPlayer\`>\
+$(playerctl metadata -p $currentPlayer --format '{{ artist }} - {{ title }}')\
 </action>\
 "
 
 echo -n "\
-<action=\`playerctl previous -p $(getCurrentPlayer)\`>  </action>\
+<action=\`playerctl previous -p $currentPlayer\`>  </action>\
 $(getAction)</action>\
-<action=\`playerctl next -p $(getCurrentPlayer)\`>  </action>\
+<action=\`playerctl next -p $currentPlayer\`>  </action>\
 "
 echo -n '</action>'
 echo -n '</action>'
 echo -n '</action>'
 echo -n '</action>'
-
