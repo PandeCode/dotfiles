@@ -1,37 +1,41 @@
-## Welcome to GitHub Pages
+# Dotfiles
 
-You can use the [editor on GitHub](https://github.com/PandeCode/dotfiles/edit/gh-pages/index.md) to maintain and preview the content for your website in Markdown files.
+Personal Backup of manjaro config files
 
-Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
+Always clone to "~/dotfiles" or things will break.
 
-### Markdown
-
-Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
-
-```markdown
-Syntax highlighted code block
-
-# Header 1
-## Header 2
-### Header 3
-
-- Bulleted
-- List
-
-1. Numbered
-2. List
-
-**Bold** and _Italic_ and `Code` text
-
-[Link](url) and ![Image](src)
+```bash
+git clone --recurse-submodules  https://github.com/PandeCode/dotfiles ~/dotfiles
+cd ~/dotfiles
+./install.sh
 ```
 
-For more details see [Basic writing and formatting syntax](https://docs.github.com/en/github/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax).
+## Terminal Emulator
 
-### Jekyll Themes
+    - st (https://github.com/PandeCode/st-flexipatch)
+    - kitty
 
-Your Pages site will use the layout and styles from the Jekyll theme you have selected in your [repository settings](https://github.com/PandeCode/dotfiles/settings/pages). The name of this theme is saved in the Jekyll `_config.yml` configuration file.
+## Display Server Server
 
-### Support or Contact
+    - Xorg
 
-Having trouble with Pages? Check out our [documentation](https://docs.github.com/categories/github-pages-basics/) or [contact support](https://support.github.com/contact) and we’ll help you sort it out.
+    Plan to use Wayland down the line. (dwl, waymonad)
+
+## Login Manager
+
+    - SDDM
+
+## Desktop Environments
+
+    - DWM (https://github.com/PandeCode/dwm-flexipatch)
+    - Xmonad
+    - i3
+
+
+
+## Goals
+
+    - Turn into personal distro based on pure arch/artix (might take a while)
+    - Use init system other than systemd (openrc, runit, s6, suite66)
+    - Streamline install and setup process
+    - Bootable USB Flash
