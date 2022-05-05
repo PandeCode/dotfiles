@@ -155,14 +155,28 @@ echo -n '<action=`~/dotfiles/scripts/xmobar/media.sh 5` button=5>'
 
 currentPlayer=$(getCurrentPlayer)
 
-if [ "$displayIcon" = true ] && [ "$currentPlayer" = "spotify" ] ; then
+if [ "$displayIcon" = true ] && [ "$currentPlayer" = "spotify" ]; then
 	echo -n '<icon='$(getAlbmuArt)'/> '
+fi
+
+info=$(playerctl metadata -p $currentPlayer --format '{{ artist }} ----- {{ title }}')
+
+title="$(grep -Po '(?<=----- ).*' <<< $info)"
+artist="$(grep -Po '.*(?= -----)' <<< $info)"
+
+finalInfo=''
+
+if ! [ -z "$artist" ]; then
+	finalInfo+="$artist - "
+fi
+
+if ! [ -z "$title" ]; then
+	finalInfo+="$(perl -pe 's/^Watch //; s/ English Subbed Online Free//' <<< $title)"
 fi
 
 echo -n "\
 <action=\`playerctl play-pause -p $currentPlayer\`>\
-$(playerctl metadata -p $currentPlayer --format '{{ artist }} - {{ title }}')\
-</action>\
+$finalInfo</action>\
 "
 
 echo -n "\

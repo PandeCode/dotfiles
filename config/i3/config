@@ -8,18 +8,17 @@ exec --no-startup-id xss-lock --transfer-sleep-lock -- i3lock --nofork
 exec --no-startup-id xrdb ~/.Xresources
 exec --no-startup-id nm-applet
 exec --no-startup-id clipit
-exec --no-startup-id albert
 exec --no-startup-id DISPLAY=:0 picom -b --experimental-backend
 #exec --no-startup-id DISPLAY=:0 flashfocus
 exec —-no-startup-id DISPLAY=:0 xflux -l 0
 exec —-no-startup-id DISPLAY=:0 alttab
-exec --no-startup-id ~/.config/i3/background.sh
+exec --no-startup-id ~/dotfiles/PERSONAL_PATH/randbg
 
 exec --no-startup-id i3-msg "workspace $ws1; exec chrome"
-exec --no-startup-id i3-msg "workspace $ws2; exec i3-sensible-terminal"
+exec --no-startup-id i3-msg "workspace $ws2; exec st"
 
-bindsym $mod+w exec --no-startup-id flash_window
-bindsym $mod+x exec "~/.config/i3/xprop.sh"
+# bindsym $mod+w exec --no-startup-id flash_window
+# bindsym $mod+x exec "~/.config/i3/xprop.sh"
 ipc-socket ~/.i3/i3-ipc.sock
 
 
@@ -59,19 +58,20 @@ bar {
 }
 
 
-bindsym $mod+q      exec ls -a ~/Pictures/Wallpapers/* | shuf -n 1 | xargs -t i3lockmore --dpms 5 --image-fill
-													   bindsym $mod+Tab    exec rofi -show window
-													   bindsym $alt+F2     exec dmenu_run -nf '#F8F8F2' -nb '#282A36' -sb '#6272A4' -sf '#F8F8F2' -fn 'monospace-10' -p 'dmenu%'"
-													   bindsym $mod+Escape exec conky
-													   bindsym Print       exec flameshot full -p $HOME/Pictures/Screenshots
-													   bindsym Shift+Print exec flameshot gui  -p $HOME/Pictures/Screenshots
+# bindsym $mod+q      exec betterlockscreen -l
+bindsym $mod+Tab    exec rofi -show window
+bindsym $alt+F2     exec dmenu_run -nf '#F8F8F2' -nb '#282A36' -sb '#6272A4' -sf '#F8F8F2' -fn 'monospace-10' -p 'dmenu%'"
+bindsym $mod+Escape exec conky
+bindsym Print       exec flameshot full -p $HOME/Pictures/Screenshots
+bindsym Shift+Print exec flameshot gui  -p $HOME/Pictures/Screenshots
 
 # Use pactl to adjust volume in PulseAudio.
-set $refresh_i3status killall -SIGUSR1 i3status
-bindsym XF86AudioRaiseVolume exec --no-startup-id "pactl set-sink-volume @DEFAULT_SINK@   +10%   && $refresh_i3status; dunstify 'Vol' -h int:value:$(pamixer --get-volume)"
-bindsym XF86AudioLowerVolume exec --no-startup-id "pactl set-sink-volume @DEFAULT_SINK@   -10%   && $refresh_i3status; dunstify 'Vol' -h int:value:$(pamixer --get-volume)"
-bindsym XF86AudioMute        exec --no-startup-id "pactl set-sink-mute   @DEFAULT_SINK@   toggle && $refresh_i3status; dunstify 'Mute' -h int:value:$(pamixer --get-volume)"
-bindsym XF86AudioMicMute     exec --no-startup-id "pactl set-source-mute @DEFAULT_SOURCE@ toggle && $refresh_i3status; dunstify 'Mic Mute' -h int:value:$(pamixer --get-volume)"
+set $refresh_i3blocks killall -SIGUSR1 i3blocks
+
+bindsym XF86AudioRaiseVolume exec --no-startup-id "pactl set-sink-volume @DEFAULT_SINK@   +10%   && $refresh_i3blocks; dunstify 'Vol' -h int:value:$(pamixer --get-volume)"
+bindsym XF86AudioLowerVolume exec --no-startup-id "pactl set-sink-volume @DEFAULT_SINK@   -10%   && $refresh_i3blocks; dunstify 'Vol' -h int:value:$(pamixer --get-volume)"
+bindsym XF86AudioMute        exec --no-startup-id "pactl set-sink-mute   @DEFAULT_SINK@   toggle && $refresh_i3blocks; dunstify 'Mute' -h int:value:$(pamixer --get-volume)"
+bindsym XF86AudioMicMute     exec --no-startup-id "pactl set-source-mute @DEFAULT_SOURCE@ toggle && $refresh_i3blocks; dunstify 'Mic Mute' -h int:value:$(pamixer --get-volume)"
 
 # Screen brightness controls with notification
 bindsym XF86MonBrightnessUp   exec "light -A 5;dunstify 'Light:' -h int:value:$(light)"
@@ -81,14 +81,25 @@ bindsym XF86AudioPlay exec "playerctl play-pause; dunstify $($HOME/dotfiles/conf
 bindsym XF86AudioNext exec "playerctl next;       dunstify $($HOME/dotfiles/config/i3/media.sh)"
 bindsym XF86AudioPrev exec "playerctl previous;   dunstify $($HOME/dotfiles/config/i3/media.sh)"
 
+bindsym $mod+F8 exec --no-startup-id "pactl set-sink-volume @DEFAULT_SINK@   +10%   && $refresh_i3blocks; dunstify 'Vol' -h int:value:$(pamixer --get-volume)"
+bindsym $mod+F7 exec --no-startup-id "pactl set-sink-volume @DEFAULT_SINK@   -10%   && $refresh_i3blocks; dunstify 'Vol' -h int:value:$(pamixer --get-volume)"
+bindsym $mod+F6 exec --no-startup-id "pactl set-sink-mute   @DEFAULT_SINK@   toggle && $refresh_i3blocks; dunstify 'Mute' -h int:value:$(pamixer --get-volume)"
+
+bindsym $mod+F3 exec "light -A 5;notify-send 'Light:' -h int:value:$(light)"
+bindsym $mod+F2 exec "light -U 5;notity-send 'Light:' -h int:value:$(light)"
+
+bindsym $mod+F10 exec "playerctl play-pause; notify-send $($HOME/dotfiles/config/i3/media.sh)"
+bindsym $mod+F11 exec "playerctl next;       notify-send $($HOME/dotfiles/config/i3/media.sh)"
+bindsym $mod+F9 exec "playerctl previous;   notify-send $($HOME/dotfiles/config/i3/media.sh)"
+
+
 # Use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod
 
 # start a terminal
-bindsym $mod+Return exec i3-sensible-terminal
+bindsym $mod+Shift+Return exec st
 
 # kill focused window
-bindsym $mod+Shift+q kill
 bindsym $alt+F4 kill
 
 bindsym $mod+m exec spotify
@@ -200,7 +211,7 @@ bindsym $mod+Shift+9 move container to workspace number $ws9
 # reload the configuration file
 bindsym $mod+Shift+c reload
 # restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
-bindsym $mod+Shift+r restart
+bindsym $mod+q restart
 # exit i3 (logs you out of your X session)
 bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -B 'Yes, exit i3' 'i3-msg exit'"
 

@@ -5,6 +5,6 @@ plymouthd
 
 plymouth --show-splash
 
-sleep $1
+sleep ${1:-5}
 
 plymouth --quit

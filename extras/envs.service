@@ -3,7 +3,7 @@ Description=Load Environment Variables
 
 [Service]
 Type=simple
-ExecStart=/bin/sh 'source /usr/local/bin/envs.sh'
+ExecStart=/bin/sh -c 'source /usr/local/bin/envs.sh'
 
 [Install]
 WantedBy=multi-user.target

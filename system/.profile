@@ -1,4 +1,4 @@
-source ~/dotfiles/extras/envs.sh
+source /home/shawn/dotfiles/extras/envs.sh
 
 export NO_AT_BRIDGE=1
 eval $(dbus-launch --sh-syntax)

@@ -1,6 +1,6 @@
 #!/bin/env sh
 
-index=35 # 34+1
+index=39 # 34+5
 killall -$index $(pidof dwmblocks)
 
 __netUpdate() {

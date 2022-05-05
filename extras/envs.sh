@@ -1,5 +1,5 @@
 HOME=/home/shawn
- 
+
 export WINEESYNC=1
 export WINEDEBUG=-all
 export DXVK_LOG_LEVEL=none
@@ -11,6 +11,8 @@ export CC=/usr/bin/clang
 export CXX=/usr/bin/clang++
 export SHELL=/bin/bash
 export EDITOR=/usr/bin/nvim
+export BROWSER=/usr/bin/firefox-developer-edition
+export RUST_BACKTRACE=1
 
 export GHCUP_BIN=$HOME/.ghcup/bin
 
@@ -35,7 +37,9 @@ export RUBY_GEM_BIN_PATH=$HOME/.local/share/gem/ruby/3.0.0/bin
 
 export GOPATH=$HOME/go
 
-export PATH=$PERSONAL_PATH:$GHCUP_BIN:$PATH:$GOROOT/bin:$GOPATH/bin:$HOME/bin:$YARN_BIN:$RUBY_GEM_BIN_PATH:$HOME/.emacs.d/bin
+export CARGO_BIN=$HOME/.cargo/bin
+
+export PATH=$PERSONAL_PATH:$CARGO_BIN:$GHCUP_BIN:$PATH:$GOROOT/bin:$GOPATH/bin:$HOME/bin:$YARN_BIN:$RUBY_GEM_BIN_PATH:$HOME/.emacs.d/bin
 
 preview="fzfPreview.sh {}"
 export FZF_DEFAULT_OPTS="

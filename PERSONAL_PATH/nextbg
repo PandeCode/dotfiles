@@ -9,20 +9,21 @@ fi
 imgDir=/home/shawn/Pictures/Wallpapers
 imgIndexFile=~/.cache/imgIndex.txt
 if [ ! -f $imgIndexFile ]; then
+	# ls full path
 	ls -1 $imgDir/* > $imgIndexFile
 fi
 
 lastImg=$(tail -n 1 $imgLogFile)
 
+lastImgFound=false
 newImg=''
-prevImg=''
 while read line; do
 	if [ "$line" == "$lastImg" ]; then
-		newImg=$prevImg
+		lastImgFound=true
+	elif $lastImgFound; then
+		newImg="$line"
 		break
 	fi
-
-	prevImg=$line
 done <<< $(cat $imgIndexFile)
 
 echo newImg: $newImg

@@ -1,0 +1,16 @@
+#!/bin/env sh
+
+FILE=~/log/img.log
+if [ -f "$FILE" ]; then
+    echo "$FILE exists."
+
+	img=$(tail -n 2 $FILE | sed '2d')
+	echo "Setting $img"
+	echo $img >> ~/log/img.log
+
+	feh --bg-fill $img
+
+else 
+    echo "$FILE does not exist."
+fi
+

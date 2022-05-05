@@ -1,6 +1,6 @@
 #!/bin/env sh
 
-index=36 # 34+2
+index=40 # 34+6
 
 LC_ALL=en_US.UTF-8
 case $BUTTON in

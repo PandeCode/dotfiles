@@ -48,12 +48,12 @@ cat /sys/class/power_supply/ACAD/online /sys/class/power_supply/BAT1/capacity |
 			else 		   printf("▁");
 		} 
 
-		if($2>80)      printf ("^c#c3e88d^");
-		else if($2>50) printf ("^c#ffcb6b^");
-		else if($2>20) printf ("^c#f07178^");
-		else           printf ("^c#ff5370^");
+		if($2>80)      printf ("<span color=\"#c3e88d\">");
+		else if($2>50) printf ("<span color=\"#ffcb6b\">");
+		else if($2>20) printf ("<span color=\"#f07178\">");
+		else           printf ("<span color=\"#ff5370\">");
 
-		print ($2 "%^c#8F93A2^")
+		print ($2 "%</span>")
 }'
 
 

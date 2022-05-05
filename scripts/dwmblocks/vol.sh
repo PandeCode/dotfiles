@@ -1,6 +1,6 @@
 #!/bin/env sh
 
-index=38 # 34 + 4
+index=43 # 34 + 9
 
 getVol() {
 	amixer sget Master | grep 'Right:' | awk -F'[][]' '{ print $2 }'

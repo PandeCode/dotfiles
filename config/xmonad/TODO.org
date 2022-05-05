@@ -3,15 +3,18 @@
 
 * TODO Setup Xmonand
 ** Cool Ideas [/] [%]
-   - [ ] Get window x,y position and size to calulate mass, use phyiscs engine like box2d to update them
+   - [*] Get window x,y position and size to calulate mass, use phyiscs engine like box2d to update them
    - [ ] Interactive background (okozo desktop)
    - [ ] Spotify in xmobar (use cava style like thing)
-   - [ ] Add Arch logo (as clickable, animate on hover)
    - [ ] Roit.sh
    - [ ] Sound Effects like in opera gx on events
    - [ ] Animations on hover xmobar
+*** Arch logo 
+       - [-] as clickable
+       - [ ] animate on hover
+
 *** xmobar
- - [ ] make sidebar that animates in and out
+ - [*] make sidebar that animates in and out (eww)
 
 ** xmonad
 *** Fix [/] [%]
@@ -26,8 +29,8 @@
    - [ ] Screen Saver
    - [ ] Battery Saver (Xfce Battery monitor)
 
-   - [ ] Theme
-   - [ ] More layouts
+   - [*] Theme
+   - [*] More layouts
 
    - [-] Picom(compositor) intergration
    - [-] Startup programs (st, nm-applet, clipit, picom, xflux, randbg)
@@ -44,7 +47,7 @@
    - [-] toggle stick
 
    - [-] toggle rounded corners (look into editing the picom config at runtime)
-   - [ ] adjust rounded corners (look into editing the picom config at runtime)
+   - [*] adjust rounded corners (look into editing the picom config at runtime)
    - [ ] adjust blur (look into editing the picom config at runtime)
 
    - [ ] Xmenu layout picker
@@ -65,17 +68,16 @@
      - [-] Dmenu
      - [-] vimb ~/dev/Keys/keys.html (use Document Keybinds)
 
-   - [ ] Dmenu/Rofi Launchers/Promots [/] [%]
+   - [ ] Dmenu/Rofi/Prompts/Eww [/] [%]
      - [ ] Bookmarks
      - [ ] Calulator
      - [ ] Browser Bookmarks
      - [ ] Bookmarks
 
+   - [*] Document Keybinds
 
-   - [ ] Document Keybinds
-
-   - [ ] Tree menu
-   - [ ] Grid Select menu
+   - [*] Tree menu
+   - [*] Grid Select menu
    - [-] Xmenu
 
    - [-] Xmobar clickable
@@ -106,3 +108,20 @@
  - https://wiki.archlinux.org/title/Xmonad#Option_2:_More_Configurable
  - https://wiki.haskell.org/Xmonad/General_xmonad.hs_config_tips
  - https://xmonad.org/TUTORIAL.html
+
+ - https://hackage.haskell.org/package/xmonad-contrib
+ - https://hackage.haskell.org/package/xmonad-contrib-0.17.0/docs/XMonad-Actions-FloatSnap.html
+ - https://hackage.haskell.org/package/xmonad-contrib-0.17.0/docs/XMonad-Actions-GridSelect.html#g:2
+ - https://xmonad.github.io/xmonad-docs/xmonad-contrib-0.17.0.9/XMonad-Util-NamedActions.html
+ - https://hackage.haskell.org/package/xmonad-contrib-0.17.0/docs/XMonad-Actions-TreeSelect.html
+ - https://hackage.haskell.org/package/xmonad-contrib-0.17.0/docs/XMonad-Util-Themes.html
+ - https://hackage.haskell.org/package/xmonad-contrib-0.17.0/docs/XMonad-Layout-SimpleDecoration.html
+ - https://hackage.haskell.org/package/xmonad-contrib-0.17.0/docs/XMonad-Layout-TabBarDecoration.html
+ - https://hackage.haskell.org/package/xmonad-contrib-0.17.0/docs/XMonad-Layout-DwmStyle.html
+ - https://hackage.haskell.org/package/xmonad-contrib-0.17.0/docs/XMonad-Hooks-EwmhDesktops.html
+ - https://hackage.haskell.org/package/xmonad-contrib-0.17.0/docs/XMonad-Hooks-UrgencyHook.html#v:doAskUrgent
+ - https://hackage.haskell.org/package/xmonad-contrib-0.16/docs/XMonad-Hooks-ServerMode.html#g:1
+ - https://wiki.haskell.org/Xmonad/Config_archive/doitan%27s_xmonad.hs
+
+ - https://hackage.haskell.org/package/xmonad-contrib-0.17.0/docs/XMonad-Hooks-StatusBar-PP.html#g:2
+ - https://xmonad.github.io/xmonad-docs/xmonad-contrib-0.17.0/XMonad-Hooks-StatusBar.html#v:statusBarProp

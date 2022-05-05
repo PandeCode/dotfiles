@@ -1,6 +1,6 @@
 #!/bin/env sh
 
-index=38 # 34+4
+index=42 # 34+8
 
 case $BUTTON in
 	1)

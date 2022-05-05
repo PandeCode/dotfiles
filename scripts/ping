@@ -52,7 +52,7 @@ update_cached_result() {
 }
 
 execute_ping() {
-	ping -c $ping_count -t $ping_wait_time $ping_host > $ping_log_file &
+	ping -c $ping_count -t $ping_wait_time $ping_host 2> /dev/null > $ping_log_file &
 	echo "$!" > $ping_pid_file
 }
 
@@ -114,10 +114,12 @@ main() {
 	ping_value=$ping_result
 	ping_result="$(format_ping_value $ping_result)"
 
-	if [[ $SB == "1" ]]; then
+	if [[ $SB == "0" ]]; then
+		echo -n "<span color=\"$(colorize_ping_value $ping_value)\">$ping_result</span>"
+	elif [[ $SB == "1" ]]; then
 		echo "^c$(colorize_ping_value $ping_value)^$ping_result ms^c$DEFAULT_COLOR^"
 	elif [[ $SB == "2" ]]; then
-		echo "\
+		echo -n "\
 <action=\`~/dotfiles/scripts/xmobar/ping.sh 1\` button=1>\
 <action=\`~/dotfiles/scripts/xmobar/ping.sh 2\` button=2>\
 <action=\`~/dotfiles/scripts/xmobar/ping.sh 3\` button=3>\
@@ -132,8 +134,10 @@ $(addPadding $ping_value)$ping_result ms\
 </action>\
 </action>
 "
+	elif [[ $SB == "3" ]]; then
+		echo -n "$ping_result"
 	else
-		echo "#[fg=$(colorize_ping_value $ping_value)]$ping_result#[default]"
+		echo -n "#[fg=$(colorize_ping_value $ping_value)]$ping_result#[default]"
 	fi
 }
 

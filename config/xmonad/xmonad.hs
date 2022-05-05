@@ -12,7 +12,7 @@ import Data.Ratio ((%))
 import XMonad
 
 import XMonad hiding ( (|||) )
-
+import XMonad.Actions.AfterDrag
 import XMonad.Actions.CopyWindow
 import XMonad.Actions.CycleWS
 import XMonad.Actions.DynamicWorkspaces
@@ -32,6 +32,7 @@ import XMonad.Actions.WindowGo
 
 import XMonad.Hooks.DynamicLog
 import XMonad.Hooks.EwmhDesktops
+import XMonad.Hooks.FadeInactive
 import XMonad.Hooks.ManageDocks
 import XMonad.Hooks.ManageHelpers
 import XMonad.Hooks.ServerMode
@@ -110,50 +111,118 @@ myModMask = mod4Mask -- Rebind Mod to the Super key
 myFont = "xft:DejaVu Sans Condensed-16:normal"
 
 -- Deep ocean
-deepOcean :: M.Map String [Char]
+deepOcean :: M.Map [Char] [Char]
 deepOcean =
   M.fromList
-    [ ("background", "#0F111A"),
-      ("foreground", "#8F93A2"),
-      ("text", "#4B526D"),
-      ("selectionBackground", "#717CB480"),
-      ("selectionForeground", "#FFFFFF"),
-      ("buttons", "#191A21"),
-      ("secondBackground", "#181A1F"),
-      ("disabled", "#464B5D"),
-      ("contrast", "#090B10"),
-      ("active", "#1A1C25"),
-      ("border", "#0F111A"),
-      ("highlight", "#1F2233"),
-      ("tree", "#717CB430"),
-      ("notifications", "#090B10"),
-      ("accentColor", "#84ffff"),
-      ("excludedFilesColor", "#292D3E"),
-      ("greenColor", "#c3e88d"),
-      ("yellowColor", "#ffcb6b"),
-      ("blueColor", "#82aaff"),
-      ("redColor", "#f07178"),
-      ("purpleColor", "#c792ea"),
-      ("orangeColor", "#f78c6c"),
-      ("cyanColor", "#89ddff"),
-      ("grayColor", "#717CB4"),
-      ("whiteBlackColor", "#eeffff"),
-      ("errorColor", "#ff5370"),
-      ("commentsColor", "#717CB4"),
-      ("variablesColor", "#eeffff"),
-      ("linksColor", "#80cbc4"),
-      ("functionsColor", "#82aaff"),
-      ("keywordsColor", "#c792ea"),
-      ("tagsColor", "#f07178"),
-      ("stringsColor", "#c3e88d"),
-      ("operatorsColor", "#89ddff"),
-      ("attributesColor", "#ffcb6b"),
-      ("numbersColor", "#f78c6c"),
-      ("parametersColor", "#f78c6c")
+    [ ("background"          , "#0F111A"),
+      ("foreground"          , "#8F93A2"),
+      ("text"                , "#4B526D"),
+      ("selectionBackground" , "#717CB480"),
+      ("selectionForeground" , "#FFFFFF"),
+      ("buttons"             , "#191A21"),
+      ("secondBackground"    , "#181A1F"),
+      ("disabled"            , "#464B5D"),
+      ("contrast"            , "#090B10"),
+      ("active"              , "#1A1C25"),
+      ("border"              , "#0F111A"),
+      ("highlight"           , "#1F2233"),
+      ("tree"                , "#717CB430"),
+      ("notifications"       , "#090B10"),
+      ("accentColor"         , "#84ffff"),
+      ("excludedFilesColor"  , "#292D3E"),
+      ("greenColor"          , "#c3e88d"),
+      ("yellowColor"         , "#ffcb6b"),
+      ("blueColor"           , "#82aaff"),
+      ("redColor"            , "#f07178"),
+      ("purpleColor"         , "#c792ea"),
+      ("orangeColor"         , "#f78c6c"),
+      ("cyanColor"           , "#89ddff"),
+      ("grayColor"           , "#717CB4"),
+      ("whiteBlackColor"     , "#eeffff"),
+      ("errorColor"          , "#ff5370"),
+      ("commentsColor"       , "#717CB4"),
+      ("variablesColor"      , "#eeffff"),
+      ("linksColor"          , "#80cbc4"),
+      ("functionsColor"      , "#82aaff"),
+      ("keywordsColor"       , "#c792ea"),
+      ("tagsColor"           , "#f07178"),
+      ("stringsColor"        , "#c3e88d"),
+      ("operatorsColor"      , "#89ddff"),
+      ("attributesColor"     , "#ffcb6b"),
+      ("numbersColor"        , "#f78c6c"),
+      ("parametersColor"     , "#f78c6c")
     ]
 
-myTheme :: M.Map String [Char]
-myTheme = deepOcean
+deepOceanPixels :: M.Map [Char] Pixel
+deepOceanPixels =
+  M.fromList
+    [ ("background"          , 0xff0F111A),
+      ("backgroundSemiTransparent"          , 0x660F111A),
+      ("foreground"          , 0xff8F93A2),
+      ("text"                , 0xff4B526D),
+      ("selectionBackground" , 0xff717CB480),
+      ("selectionForeground" , 0xffFFFFFF),
+      ("buttons"             , 0xff191A21),
+      ("secondBackground"    , 0xff181A1F),
+      ("disabled"            , 0xff464B5D),
+      ("contrast"            , 0xff090B10),
+      ("active"              , 0xff1A1C25),
+      ("border"              , 0xff0F111A),
+      ("highlight"           , 0xff1F2233),
+      ("tree"                , 0xff717CB430),
+      ("notifications"       , 0xff090B10),
+      ("accentColor"         , 0xff84ffff),
+      ("excludedFilesColor"  , 0xff292D3E),
+      ("greenColor"          , 0xffc3e88d),
+      ("yellowColor"         , 0xffffcb6b),
+      ("blueColor"           , 0xff82aaff),
+      ("redColor"            , 0xfff07178),
+      ("purpleColor"         , 0xffc792ea),
+      ("orangeColor"         , 0xfff78c6c),
+      ("cyanColor"           , 0xff89ddff),
+      ("grayColor"           , 0xff717CB4),
+      ("whiteBlackColor"     , 0xffeeffff),
+      ("errorColor"          , 0xffff5370),
+      ("commentsColor"       , 0xff717CB4),
+      ("variablesColor"      , 0xffeeffff),
+      ("linksColor"          , 0xff80cbc4),
+      ("functionsColor"      , 0xff82aaff),
+      ("keywordsColor"       , 0xffc792ea),
+      ("tagsColor"           , 0xfff07178),
+      ("stringsColor"        , 0xffc3e88d),
+      ("operatorsColor"      , 0xff89ddff),
+      ("attributesColor"     , 0xffffcb6b),
+      ("numbersColor"        , 0xfff78c6c),
+      ("parametersColor"     , 0xfff78c6c)
+    ]
+
+myTheme       :: M.Map [Char] [Char]
+myThemePixels :: M.Map [Char] Pixel
+myXmonadTheme :: ThemeInfo
+
+newTheme :: ThemeInfo
+newTheme = TI "" "" "" def
+
+myTheme       = deepOcean
+myThemePixels = deepOceanPixels
+myXmonadTheme =
+    newTheme { themeName        = "myXmonadTheme"
+             , themeAuthor      = "PandeCode"
+             , themeDescription = "Matching decorations for current theme"
+             , theme            = def { activeColor         = fromMaybe "#2d2d2d" (M.lookup "highlight" myTheme)
+                                      , inactiveColor       = fromMaybe "#353535" (M.lookup "selectionBackground" myTheme)
+                                      , urgentColor         = fromMaybe "#15539e" (M.lookup "secondBackground" myTheme)
+                                      , activeBorderColor   = fromMaybe "#070707" (M.lookup "border" myTheme)
+                                      , inactiveBorderColor = fromMaybe "#1c1c1c" (M.lookup "secondBackground" myTheme)
+                                      , urgentBorderColor   = fromMaybe "#030c17" (M.lookup "errorColor" myTheme)
+                                      , activeTextColor     = fromMaybe "#eeeeec" (M.lookup "text" myTheme)
+                                      , inactiveTextColor   = fromMaybe "#929291" (M.lookup "text" myTheme)
+                                      , urgentTextColor     = fromMaybe "#ffffff" (M.lookup "text" myTheme )
+                                      , fontName            = "xft:Fira Code:size=10:antialias=true:hinting=true"
+                                      , decoWidth           = 400
+                                      , decoHeight          = 17
+                                      }
+             }
 
 myNormalBorderColor :: [Char]
 --myNormalBorderColor = "#dddddd" --  Light grey
@@ -165,41 +234,44 @@ myFocusedBorderColor = fromMaybe "#ff0000" (M.lookup "selectionForeground" myThe
 
 myXPConfig            =
   def
-    { searchPredicate = fuzzyMatch                                                    ,
-      font            = myFont                                                      ,
-      sorter          = fuzzySort                                                     ,
-      bgColor         = fromMaybe "#0F111A" (M.lookup "background" myTheme)           ,
-      fgColor         = fromMaybe "#8F93A2" (M.lookup "foreground" myTheme)           ,
-      bgHLight        = fromMaybe "#717CB480" (M.lookup "selectionBackground" myTheme),
-      fgHLight        = fromMaybe "#FFFFFF" (M.lookup "selectionForeground" myTheme)  ,
-      borderColor     = fromMaybe "#0F111A" (M.lookup "border" myTheme)               ,
-      position        = Top                                                           ,
+    { searchPredicate = fuzzyMatch,
+      font            = myFont,
+      sorter          = fuzzySort,
+      position        = Top,
       alwaysHighlight = True,
-      promptKeymap    = vimLikeXPKeymap
+      promptKeymap    = vimLikeXPKeymap,
+
+      bgColor     = fromMaybe "#0F111A"   (M.lookup "background"          myTheme),
+      fgColor     = fromMaybe "#8F93A2"   (M.lookup "foreground"          myTheme),
+      bgHLight    = fromMaybe "#717CB480" (M.lookup "selectionBackground" myTheme),
+      fgHLight    = fromMaybe "#FFFFFF"   (M.lookup "selectionForeground" myTheme),
+      borderColor = fromMaybe "#0F111A"   (M.lookup "border"              myTheme)
     }
 
-myTreeConf =
+myTreeConf            =
   TSConfig
     { ts_hidechildren = True,
-      ts_background = 0x0F111A00,-- 0x70707070, --0xc0c0c0c0
-      ts_font = myFont,
-      ts_node = (0xff000000, 0xff50d0db),
-      ts_nodealt = (0xff000000, 0xff10b8d6),
-      ts_highlight = (0xffffffff, 0xffff0000),
-      ts_extra = 0xff000000,
-      ts_node_width = 200,
-      ts_node_height = 30,
-      ts_originX = 0,
-      ts_originY = 0,
-      ts_indent = 60,
-      ts_navigate = XMonad.Actions.TreeSelect.defaultNavigation
+      ts_font         = myFont,
+
+      ts_background   = fromMaybe 0X0f111a00 (M.lookup "backgroundSemiTransparent" myThemePixels),
+      ts_node         = (fromMaybe 0xff000000 (M.lookup "text" myThemePixels), fromMaybe 0xff50d0db (M.lookup "background" myThemePixels)),
+      ts_nodealt      = (fromMaybe 0xff000000 (M.lookup "text" myThemePixels), fromMaybe 0xff10b8d6 (M.lookup "secondBackground" myThemePixels)),
+      ts_highlight    = (fromMaybe 0xffffffff (M.lookup "selectionForeground" myThemePixels), fromMaybe 0xffff0000 (M.lookup "selectionBackground" myThemePixels)),
+      ts_extra        = fromMaybe 0xff000000 (M.lookup "foreground" myThemePixels),
+
+      ts_node_width   = 200,
+      ts_node_height  = 30,
+      ts_originX      = 0,
+      ts_originY      = 0,
+      ts_indent       = 60,
+      ts_navigate     = XMonad.Actions.TreeSelect.defaultNavigation
     }
 
 myTreeWorkspaces   =
   treeselectAction
     myTreeConf
     [
-        makeNode "Browser"  "Workspace 1 \62056" (spawn "xdotool set_desktop 0")
+    makeNode "Browser"  "Workspace 1 \62056" (spawn "xdotool set_desktop 0")
     ,   makeNode "Terminal" "Workspace 2 \61728" (spawn "xdotool set_desktop 1")
     ,   makeNode "Code"     "Workspace 3 \61729" (spawn "xdotool set_desktop 2")
     ,   makeNode "Zoom"     "Workspace 4 \61501" (spawn "xdotool set_desktop 3")
@@ -218,26 +290,24 @@ myTree =
     myTreeConf
     [
       makeNodeC "Brightness" "Sets screen brightness using light" [
-          makeNode "Bright" "FULL POWER!!"            (spawn "light -S 100")
-        , makeNode "Normal" "Normal Brightness (50%)" (spawn "light -S 50")
-        , makeNode "Dim"    "Quite dark"              (spawn "light -S 10")
-        ]
+      makeNode "Bright" "FULL POWER!!"            (spawn "light -S 100")
+    , makeNode "Normal" "Normal Brightness (50%)" (spawn "light -S 50")
+    , makeNode "Dim"    "Quite dark"              (spawn "light -S 10")
+    ]
     , makeNodeC "Power"    "Power Controls" [
-          makeNode "Logout"   "Kill Xmonad"          (spawn "killall -9 xmonad-x86_64-linux'")
-        , makeNode "Sleep"    "Enter Sleep Mode"     (spawn "playerctl -a pause;systemctl sleep'")
-        , makeNode "Reboot"   "Restart Machine"      (spawn "reboot'")
-        , makeNode "Lock"     "Lock Current Session" (spawn "betterlockscreen -l")
-        , makeNode "Shutdown" "Poweroff the Machine" (spawn "shutdown 0'")
-        ]
+      makeNode "Logout"   "Kill Xmonad"          (spawn "killall -9 xmonad-x86_64-linux'")
+    , makeNode "Sleep"    "Enter Sleep Mode"     (spawn "playerctl -a pause;systemctl sleep'")
+    , makeNode "Reboot"   "Restart Machine"      (spawn "reboot'")
+    , makeNode "Lock"     "Lock Current Session" (spawn "betterlockscreen -l")
+    , makeNode "Shutdown" "Poweroff the Machine" (spawn "shutdown 0'")
+    ]
     ]
     where
-        makeNode   text description execute = Node(TSNode text description execute) []
-        makeNodeC  text description children = Node(TSNode text description (return ())) children
+    makeNode   text description execute = Node(TSNode text description execute) []
+    makeNodeC  text description children = Node(TSNode text description (return ())) children
 
 {-
 myWorkspaces = ["¹\62056", "²\61728", "³\61729", "⁴\61501", "⁵\61884", "⁶\61664", "⁷\61723", "⁸\61734", "⁹\61462"]
-myWorkspaces = ["\62056", "\61728", "\61729", "\61501", "\61884", "\61664", "\61723", "\61734", "\61462"]
--}
 
 myWorkspaces =
   [ makeFullAction "xdotool set_desktop 0" "1 2" " 1 3" "1 4" "1 5" " \62056 ",
@@ -253,50 +323,75 @@ myWorkspaces =
   where
     wsScript = "~/dotfiles/scripts/xmobar/workspaces.sh "
     makeFullAction a1 a2 a3 a4 a5 t = "<action=`" ++ a1 ++ "` button=1>" ++ "<action=`" ++ wsScript ++ a2 ++ "` button=2>" ++ "<action=`" ++ wsScript ++ a3 ++ "` button=3>" ++ "<action=`" ++ wsScript ++ a4 ++ "` button=4>" ++ "<action=`" ++ wsScript ++ a5 ++ "` button=5>" ++ t ++ "</action></action></action></action></action>"
+myWorkspaces = ["\62056", "\61728", "\61729", "\61501", "\61884", "\61664", "\61723", "\61734", "\61462"]
+-}
+
+myWorkspaces = ["¹ \62056 ",  "² \61728 ",  "³ \61729 ",  "⁴ \61501 ",  "⁵ \61884 ",  "⁶ \61664 ",  "⁷ \61723 ",  "⁸ \61734 ",  "⁹ \61462"]
 
 myXmobarPP :: PP
 myXmobarPP              =
   def
     {
-      ppSep               = magenta " • "
+      ppSep               = green " • "
       , ppTitleSanitize   = xmobarStrip
 
       --, ppHiddenNoWindows = lowWhite . wrap " " "" --  unused workspaces
 
-      , ppCurrent         =  xmobarBorder "Top" "#8be9fd" 2 -- Current Workspace
+      -- , ppCurrent         =  xmobarBorder "Bottom" (fromMaybe "#8be9fd" (M.lookup "whiteBlackColor" myTheme)) 2 -- Current Workspace
+      , ppCurrent         =  xmobarBorder "Bottom" (fromMaybe "#8be9fd" (M.lookup "whiteBlackColor" myTheme)) 2 . (\x -> makeFullAction (
+           ("xdotool set_desktop " ++ (show (fromMaybe (0) (elemIndex x myWorkspaces)))) ) 
+           ((show ((fromMaybe (0) (elemIndex x myWorkspaces)) + 1)) ++ " 2")
+           ((show ((fromMaybe (0) (elemIndex x myWorkspaces)) + 1)) ++ " 3")
+           ((show ((fromMaybe (0) (elemIndex x myWorkspaces)) + 1)) ++ " 4")
+           ((show ((fromMaybe (0) (elemIndex x myWorkspaces)) + 1)) ++ " 5")
+           x)
+-- Current Workspace
+       
 
-      , ppHidden          =  white -- Visible but not current
+
+      -- Visible but not current
+      , ppHidden          = white . (\x -> makeFullAction (
+           ("xdotool set_desktop " ++ (show (fromMaybe (0) (elemIndex x myWorkspaces)))) ) 
+           ((show ((fromMaybe (0) (elemIndex x myWorkspaces)) + 1)) ++ " 2")
+           ((show ((fromMaybe (0) (elemIndex x myWorkspaces)) + 1)) ++ " 3")
+           ((show ((fromMaybe (0) (elemIndex x myWorkspaces)) + 1)) ++ " 4")
+           ((show ((fromMaybe (0) (elemIndex x myWorkspaces)) + 1)) ++ " 5")
+           x)
 
       , ppUrgent          = red . wrap (yellow "!") (yellow "!")
       , ppOrder           = \[ws, l, _, wins] -> [ws, l, wins]
       , ppExtras          = [logTitles formatFocused formatUnfocused] -- for updates
+      , ppLayout          = wrap "<action=`~/dotfiles/scripts/xmonad/layout.sh 1` button=1><action=`~/dotfiles/scripts/xmonad/layout.sh 2` button=2><action=`~/dotfiles/scripts/xmonad/layout.sh 3` button=3><action=`~/dotfiles/scripts/xmonad/layout.sh 4` button=4><action=`~/dotfiles/scripts/xmonad/layout.sh 5` button=5>" ae
     }
   where
-    formatFocused       = wrap (white "[") (white "]") . magenta . ppWindow
+    wsScript = "~/dotfiles/scripts/xmobar/workspaces.sh "
+    ae = "</action></action></action></action></action>"
+    makeFullAction a1 a2 a3 a4 a5 t = "<action=`" ++ a1 ++ "` button=1>" ++ "<action=`" ++ wsScript ++ a2 ++ "` button=2>" ++ "<action=`" ++ wsScript ++ a3 ++ "` button=3>" ++ "<action=`" ++ wsScript ++ a4 ++ "` button=4>" ++ "<action=`" ++ wsScript ++ a5 ++ "` button=5>" ++ t ++ ae
+    formatFocused       = wrap (white "[") (white "]") . green . ppWindow
     formatUnfocused     = wrap (lowWhite "[") (lowWhite "]") . blue . ppWindow
     -- Windows should have *some* title, which should not not exceed a
     -- sane length.
     ppWindow :: String -> String
     ppWindow            = xmobarRaw . (\w -> if null w then "untitled" else w) . shorten 30
-    blue, lowWhite, magenta, red, white, yellow :: String -> String
-    magenta             = xmobarColor "#ff79c6" ""
-    blue                = xmobarColor "#bd93f9" ""
-    white               = xmobarColor "#f8f8f2" ""
-    yellow              = xmobarColor "#f1fa8c" ""
-    red                 = xmobarColor "#ff5555" ""
-    lowWhite            = xmobarColor "#bbbbbb" ""
+    blue, lowWhite, green, red, white, yellow :: String -> String
+    green             = xmobarColor (fromMaybe "#ff79c6" (M.lookup "greenColor" myTheme)) ""
+    blue                = xmobarColor (fromMaybe "#bd93f9" (M.lookup "blueColor" myTheme)) ""
+    white               = xmobarColor (fromMaybe "#f8f8f2" (M.lookup "whiteBlackColor" myTheme)) ""
+    lowWhite            = xmobarColor (fromMaybe "#bbbbbb" (M.lookup "foreground" myTheme)) ""
+    red                 = xmobarColor (fromMaybe "#ff5555" (M.lookup "redColor" myTheme))  ""
+    yellow              = xmobarColor (fromMaybe "#f1fa8c" (M.lookup "yellowColor" myTheme)) ""
 
 navWrapAround=False
 
-gridSelectSpawn = spawnSelected def ["neovide", "emacsclient -c -a emacs", "chrome", "st"]
+gridSelectSpawn = spawnSelected def ["neovide", "emacsclient -c -a emacs", "chrome", "st", "dex /usr/share/applications/spotify-adblock.desktop"]
 notesPromptFunc = do
-        spawn ("date>>"++"/home/shawn/dev/personal/NOTES")
-        appendFilePrompt myXPConfig "/home/shawn/dev/personal/NOTES"
+    spawn ("date>>"++"/home/shawn/dev/personal/NOTES")
+    appendFilePrompt myXPConfig "/home/shawn/dev/personal/NOTES"
 
 toggleFullScreen = do
-        sendMessage (JumpToLayout ("Full"))
-        -- sendMessage (JumpToLayout ("Tall"))
-        sendMessage (ToggleStruts)
+    sendMessage (JumpToLayout ("Full"))
+    -- sendMessage (JumpToLayout ("Tall"))
+    sendMessage (ToggleStruts)
 
 myEasyMotionConfig:: EasyMotionConfig
 myEasyMotionConfig =  def {
@@ -311,7 +406,10 @@ myEasyMotionConfig =  def {
     , emFont      = myFont
  }
 
+
+
 myKeybinds = [
+
 
     -- Waiting on
     --("M-r c"   , confirmPromptPrompt def                  ),
@@ -327,30 +425,30 @@ myKeybinds = [
 
     -- NO use
     --("M-r a",launchApp myXPConfig "st -e ")
-    --("M-r s",shellPrompt myXPConfig) 
+    --("M-r s",shellPrompt myXPConfig)
 
     -- SHOWKEYS START
 
-        ("M-/",     spawn "/home/shawn/dotfiles/scripts/xmoand/help.sh") -- Help
+    ("M-/",     spawn "/home/shawn/dotfiles/scripts/xmonad/help.sh") -- Help
 
-    ,   ("M-r /",   spawn "/home/shawn/dotfiles/scripts/xmoand/help.sh r") -- Help Prompt
-    ,   ("M-r n",   notesPromptFunc) -- Plain Notes Prompt
-    ,   ("M-r o",   orgPrompt myXPConfig "TODO" "/home/shawn/dev/personal/org/todos.org") -- Org Prompt
-    ,   ("M-r d",   dirExecPrompt myXPConfig spawn "/home/shawn/dotfiles/scripts") -- Execute Scripts Directory
-    ,   ("M-r l",   layoutPrompt myXPConfig) -- Layout Prompt
-    ,   ("M-r m",   manPrompt myXPConfig) -- Man Prompt
-    ,   ("M-r r",   runOrRaisePrompt myXPConfig) --  Run or raise window
-    ,   ("M-r p",   prompt ("st" ++ " -e") myXPConfig) -- Prompt Terminal Program
-    ,   ("M-r t",   themePrompt myXPConfig)                                           -- Theme Prompt
-    ,   ("M-r u",   unicodePrompt "/home/shawn/dotfiles/extras/unicode" myXPConfig) -- Unicode Prompt
-    ,   ("M-r w g", windowPrompt myXPConfig Goto wsWindows)                     -- Prompt: Goto window
-    ,   ("M-r w b", windowPrompt myXPConfig Bring allWindows)                   -- Prompt: Bring window to Current Workspace
-    ,   ("M-r x",   xmonadPrompt myXPConfig)                                          -- Xmonad Prompt
+    ,   ("M-p /",   spawn "/home/shawn/dotfiles/scripts/xmonad/help.sh p") -- Help Prompt
+    ,   ("M-p n",   notesPromptFunc) -- Plain Notes Prompt
+    ,   ("M-p o",   orgPrompt myXPConfig "TODO" "/home/shawn/dev/personal/org/todos.org") -- Org Prompt
+    ,   ("M-p d",   dirExecPrompt myXPConfig spawn "/home/shawn/dotfiles/scripts") -- Execute Scripts Directory
+    ,   ("M-p l",   layoutPrompt myXPConfig) -- Layout Prompt
+    ,   ("M-p m",   manPrompt myXPConfig) -- Man Prompt
+    ,   ("M-p r",   runOrRaisePrompt myXPConfig) --  Run or raise window
+    ,   ("M-p p",   prompt ("st" ++ " -e") myXPConfig) -- Prompt Terminal Program
+    ,   ("M-p t",   themePrompt myXPConfig)                                           -- Theme Prompt
+    ,   ("M-p u",   unicodePrompt "/home/shawn/dotfiles/extras/unicode" myXPConfig) -- Unicode Prompt
+    ,   ("M-p w g", windowPrompt myXPConfig Goto wsWindows)                     -- Prompt: Goto window
+    ,   ("M-p w b", windowPrompt myXPConfig Bring allWindows)                   -- Prompt: Bring window to Current Workspace
+    ,   ("M-p x",   xmonadPrompt myXPConfig)                                          -- Xmonad Prompt
 
     ,   ("M-x",  myTree) -- Open Tree
     ,   ("M-S-x",myTreeWorkspaces) -- Open Tree workspaces
 
-    ,   ("M-n /", spawn "/home/shawn/dotfiles/scripts/xmoand/help.sh n") -- Help Notifications
+    ,   ("M-n /", spawn "/home/shawn/dotfiles/scripts/xmonad/help.sh n") -- Help Notifications
     ,   ("M-n c",spawn "kill -s USR1 $(pidof deadd-notification-center)")                                                                    -- Notifications Center
     ,   ("M-n h o",    spawn  "notify-send.py a  --hint boolean:deadd-notification-center:true int:id:0 boolean:state:true type:string:buttons") --  Highlight On
     ,   ("M-n h f",    spawn  "notify-send.py a  --hint boolean:deadd-notification-center:true int:id:0 boolean:state:false type:string:buttons") --  Highlight Off
@@ -367,19 +465,41 @@ myKeybinds = [
     ,   ("M-n t p 2",  spawn  "notify-send.py 'This notification has a progressbar' '33%' --hint int:value:33") --  with progress bar
     ,   ("M-n t s",    spawn  "notify-send.py 'This notification has a slider' '33%' --hint int:has-percentage:33 --action changeValue:abc") --  with slider
 
-    ,   ("M-n /", spawn "/home/shawn/dotfiles/scripts/xmoand/help.sh w") -- Help Background
-    ,   ("M-w r",    spawn  "randbg")                                                                                                        -- Random Background
-    ,   ("M-w p",    spawn  "prevbg")                                                                                                        -- Previous Background
-    ,   ("M-w n",    spawn  "nextbg")                                                                                                        -- Next Background
+    ,   ("M-i /", spawn "/home/shawn/dotfiles/scripts/xmonad/help.sh i") -- Help Info
+    ,   ("M-i p",    spawn  "/home/shawn/dotfiles/scripts/xmobar/ping.sh 1")                                                                                                        -- Info ping
+    ,   ("M-i b",    spawn  "/home/shawn/dotfiles/scripts/xmobar/battery.sh 1")                                                                                                        -- Info battery
+    ,   ("M-i d",    spawn  "/home/shawn/dotfiles/scripts/xmobar/date.sh 1")                                                                                                        -- Info date
+    ,   ("M-i c",    spawn  "/home/shawn/dotfiles/scripts/xmobar/cpu.sh 1")                                                                                                        -- Info cpu
+    ,   ("M-i m",    spawn  "/home/shawn/dotfiles/scripts/xmobar/mem.sh 1")                                                                                                        -- Info memory
+
+    ,   ("M-m /", spawn "/home/shawn/dotfiles/scripts/xmonad/help.sh m") -- Help Menu
+    ,   ("M-m p",    spawn  "/home/shawn/dotfiles/scripts/xmobar/ping.sh 3")                                                                                                        -- Menu ping
+    ,   ("M-m b",    spawn  "/home/shawn/dotfiles/scripts/xmobar/battery.sh 3")                                                                                                        -- Menu battery
+    ,   ("M-m d",    spawn  "/home/shawn/dotfiles/scripts/xmobar/date.sh 3")                                                                                                        -- Menu date
+    ,   ("M-m c",    spawn  "/home/shawn/dotfiles/scripts/xmobar/cpu.sh 3")                                                                                                        -- Menu cpu
+    ,   ("M-m m",    spawn  "/home/shawn/dotfiles/scripts/xmobar/mem.sh 3")                                                                                                        -- Menu memory
+    ,   ("M-m M-m",    spawn  "/home/shawn/dotfiles/PERSONAL_PATH/menu.sh")                                                                                                        -- Menu Main
+
+    ,   ("M-w /", spawn "/home/shawn/dotfiles/scripts/xmonad/help.sh w") -- Help Wallpaper
+    ,   ("M-w w",    spawn  "~/dotfiles/PERSONAL_PATH/randbg")                                                                                                        -- Random Wallpaper
+    ,   ("M-w M-w",  spawn  "~/dotfiles/PERSONAL_PATH/randbg")                                                                                                        -- Random Wallpaper
+    ,   ("M-w r",    spawn  "~/dotfiles/PERSONAL_PATH/randbg")                                                                                                        -- Random Wallpaper
+    ,   ("M-w M-r",    spawn  "~/dotfiles/PERSONAL_PATH/randbg")                                                                                                        -- Random Wallpaper
+    ,   ("M-w p",    spawn  "~/dotfiles/PERSONAL_PATH/prevbg")                                                                                                        -- Previous Wallpaper
+    ,   ("M-w M-p",    spawn  "~/dotfiles/PERSONAL_PATH/prevbg")                                                                                                        -- Previous Wallpaper
+    ,   ("M-w n",    spawn  "~/dotfiles/PERSONAL_PATH/nextbg")                                                                                                        -- Next Wallpaper
+    ,   ("M-w nM-",    spawn  "~/dotfiles/PERSONAL_PATH/nextbg")                                                                                                        -- Next Wallpaper
 
     ,   ("M-g",  goToSelected def) -- Grid Select go to window
     ,   ("M-S-g",gridSelectSpawn) -- Grid Select swap program
 
-    ,   ("M-n /", spawn "/home/shawn/dotfiles/scripts/xmoand/help.sh c") -- Help Layouts
-    ,   ("M-c l 1",    sendMessage $ JumpToLayout "Tall") -- Switch to "Tall" layout
-    ,   ("M-c l 2",    sendMessage $ JumpToLayout "Mirror Tall")  -- Switch to "Mirror Tall" layout
-    ,   ("M-c l 3",    sendMessage $ JumpToLayout "Full") -- Switch to "Full" layout
-    ,   ("M-c l 4",    sendMessage $ JumpToLayout "Magnifier NoMaster ThreeCol") -- Switch to "Magnifier NoMaster ThreeCol" layout
+    ,   ("M-c /", spawn "/home/shawn/dotfiles/scripts/xmonad/help.sh c")             -- Help Change Layouts
+    ,   ("M-c 1",    sendMessage $ JumpToLayout "Tall")                              -- Switch to "Tall" layout
+    ,   ("M-c 2",    sendMessage $ JumpToLayout "Mirror Tall")                       -- Switch to "Mirror Tall" layout
+    ,   ("M-c 3",    sendMessage $ JumpToLayout "Full")                              -- Switch to "Full" layout
+    ,   ("M-c 4",    sendMessage $ JumpToLayout "Magnifier NoMaster ThreeCol")       -- Switch to "Magnifier NoMaster ThreeCol" layout
+    ,   ("M-c n",    spawn " ~/dotfiles/scripts/xmonad/xmonadctl.sh next-layout")    -- Switch to Next layout
+    ,   ("M-c p",    spawn " ~/dotfiles/scripts/xmonad/xmonadctl.sh default-layout") -- Switch to Default layout
 
     ,   ("M-v",  spawn "rofi -modi 'clipboard:greenclip print' -show clipboard -run-command '{cmd}'") -- Select from Green Clip and set as current clipboard value
     ,   ("M-S-v",spawn "rofi -modi 'clipboard:greenclip print' -show clipboard -run-command '{cmd}' ; sleep 0.5; xdotool type $(xclip -o -selection clipboard)") -- Select from Green Clip and paste
@@ -395,13 +515,13 @@ myKeybinds = [
     ,   ("M-z", spawn "eww open                                                                                                              --toggle sidebar") -- Spawn Eww Sidebar
     ,   ("M-S-z", spawn "eww open                                                                                                            --toggle dubs") -- Spawn Eww dubs
 
-    ,   ("M-s /", spawn "/home/shawn/dotfiles/scripts/xmoand/help.sh s") -- Help Spawn
+    ,   ("M-s /", spawn "/home/shawn/dotfiles/scripts/xmonad/help.sh s") -- Help Spawn
     ,   ("M-s c", spawn "~/dotfiles/PERSONAL_PATH/click4ever")                                                                               -- Spawn Click4ever (~/dotfiles/PERSONAL_PATH/click4ever")
-    ,   ("M-s p", spawn "pavucontrol 1>> ~/log/pavucontrol.log 2>> ~/log/pavucontrol.err.log")                                               -- Spawn pavucontrol
-    ,   ("M-s r", spawn "vokoscreenNG 1>> ~/log/vokoscreenNG.log 2>> ~/log/vokoscreenNG.err.log")                                            -- Spawn vokoscreenNG
-    ,   ("M-s b", spawnOn (head myWorkspaces) "chrome 1>> ~/log/chrome.log 2>> ~/log/chrome.err.log")                                        -- Spawn chrome
-    ,   ("M-s h", spawnOn (myWorkspaces !! 3) "hakuneko-desktop 1>> ~/log/hakuneko-desktop.log 2>> ~/log/hakuneko-desktop.err.log")          -- Spawn hakuneko-desktop
-    ,   ("M-s s", spawnOn (myWorkspaces !! 4) "dex /usr/share/applications/spotify.desktop 1>> ~/log/spotify.log 2>> ~/log/spotify.err.log") -- Spawn spotify
+    ,   ("M-s p", spawn "notify-send 'Xmonad' 'Spawning pavucontrol'; pavucontrol")                                               -- Spawn pavucontrol
+    ,   ("M-s r", spawn "notify-send 'Xmonad' 'Spawning vokoscreenNG';vokoscreenNG")                                            -- Spawn vokoscreenNG
+    ,   ("M-s b", spawnOn (head myWorkspaces) "notify-send'Xmoand' 'Spawning chrome';/usr/bin/google-chrome-stable")                                        -- Spawn chrome
+    ,   ("M-s h", spawnOn (myWorkspaces !! 3) "notify-send'Xmoand' 'Spawning hakuneko-desktop';hakuneko-desktop")          -- Spawn hakuneko-desktop
+    ,   ("M-s s", spawnOn (myWorkspaces !! 4) "notify-send'Xmoand' 'Spawning dex';dex /usr/share/applications/spotify-adblock.desktop") -- Spawn spotify
 
     , ("<XF86XK_MonBrightnessDown>",   spawn "$HOME/dotfiles/scripts/dwm/light.sh down")                                                   -- light down
     , ("<XF86XK_MonBrightnessUp>",     spawn "$HOME/dotfiles/scripts/dwm/light.sh up")                                                     -- light up
@@ -424,7 +544,7 @@ myKeybinds = [
     , ("M-a",  windows copyToAll)                                                                                                          -- Make window sticky
     , ("M-S-a",killAllOtherCopies)                                                                                                         -- Unstick window
 
-    , ("M-t /", spawn "/home/shawn/dotfiles/scripts/xmoand/help.sh t") -- Help Toggles
+    , ("M-t /", spawn "/home/shawn/dotfiles/scripts/xmonad/help.sh t") -- Help Toggles
     , ("M-t f", toggleFullScreen)                                                                                                          -- Toggle Fullscreen
     , ("M-t M-f", toggleFullScreen)                                                                                                        -- Toggle Fullscreen
     , ("M-t t", withFocused $ windows . W.sink)                                                                                            -- Force focused window back into tiling
@@ -443,7 +563,6 @@ myKeybinds = [
     , ("M-C-k", sendMessage $ Move U)                                                                                                        -- move up
     , ("M-C-l", sendMessage $ Move R)                                                                                                        -- move right
 
-                                                                                                                                             -- float
     , ("M-<L>", withFocused (keysMoveWindow (-20,0)))                                                                                        -- move float left
     , ("M-<R>", withFocused (keysMoveWindow (20,0)))                                                                                         -- move float right
     , ("M-<U>", withFocused (keysMoveWindow (0,-20)))                                                                                        -- move float up
@@ -494,9 +613,18 @@ myKeybinds = [
     -- , ("M-f h", withFocused (keysMoveWindow (-10,0))) -- Move Window 10 px to left
     -- , ("M-f k", withFocused (keysMoveWindow (0,-10))) -- Move Window 10 px to up
     -- , ("M-f j", withFocused (keysMoveWindow (0,10))) -- Move Window 10 px to down
-
-
  ]
+
+
+myMouseBindings = [
+    --     ((myModMask,               button1), (\w -> focus w >> mouseMoveWindow w >> ifClick (snapMagicMove (Just 50) (Just 50) w)))
+    --    ,((myModMask .|. shiftMask, button1), (\w -> focus w >> mouseMoveWindow w >> ifClick (snapMagicResize [L,R,U,D] (Just 50) (Just 50) w)))
+    --    , ((myModMask,               button3), (\w -> focus w >> mouseResizeWindow w >> ifClick (snapMagicResize [R,D] (Just 50) (Just 50) w)))
+
+    ((myModMask,               button1), (\w -> focus w >> mouseMoveWindow w >> afterDrag (snapMagicMove (Just 50) (Just 50) w)))
+       , ((myModMask .|. shiftMask, button1), (\w -> focus w >> mouseMoveWindow w >> afterDrag (snapMagicResize [L,R,U,D] (Just 50) (Just 50) w)))
+        , ((myModMask, button3), (\w -> focus w >> mouseResizeWindow w >> afterDrag (snapMagicResize [R,D] (Just 50) (Just 50) w) >> ifClick (windows $ W.float w $ W.RationalRect 0 0 1 1)  ))
+    ]
 
 myManageHook :: ManageHook
 myManageHook      =
@@ -522,21 +650,21 @@ myManageHook      =
       [isDialog --> doCenterFloat],
 
 
-      [title     =? "Ozone X11" --> doIgnore],
-      [title     =? "Picture-in-picture" --> doFloat],
+      [title     =? "Ozone X11"              --> doIgnore],
+      [title     =? "Picture-in-picture"     --> doFloat],
 
-      [title   =? "Spotify" --> doShift (myWorkspaces !! 4)],
-      [name    =? "Spotify" --> doShift (myWorkspaces !! 4)],
-      [netName =? "Spotify" --> doShift (myWorkspaces !! 4)],
-      [className =? "spotify" --> doShift (myWorkspaces !! 4)],
+      [title     =? "Spotify"                  --> doShift (myWorkspaces !! 4)],
+      [name      =? "Spotify"                  --> doShift (myWorkspaces !! 4)],
+      [netName   =? "Spotify"                  --> doShift (myWorkspaces !! 4)],
+      [className =? "spotify"                --> doShift (myWorkspaces !! 4)],
 
-      [isInProperty "WM_NAME" "Spotify" --> doShift (myWorkspaces !! 4)],
+      [isInProperty "WM_NAME" "Spotify"      --> doShift (myWorkspaces !! 4)],
       [isInProperty "_NET_WM_NAME" "Spotify" --> doShift (myWorkspaces !! 4)],
-      [isInProperty "WM_CLASS" "Spotify" --> doShift (myWorkspaces !! 4)],
+      [isInProperty "WM_CLASS" "Spotify"     --> doShift (myWorkspaces !! 4)],
 
-      [isInProperty "WM_NAME" "spotify" --> doShift (myWorkspaces !! 4)],
+      [isInProperty "WM_NAME" "spotify"      --> doShift (myWorkspaces !! 4)],
       [isInProperty "_NET_WM_NAME" "spotify" --> doShift (myWorkspaces !! 4)],
-      [isInProperty "WM_CLASS" "spotify" --> doShift (myWorkspaces !! 4)]
+      [isInProperty "WM_CLASS" "spotify"     --> doShift (myWorkspaces !! 4)]
 
     ]
   where
@@ -568,7 +696,7 @@ myManageHook      =
     shiftWorkspaceClassName8 = []
     shiftWorkspaceClassName9 = []
 
-myLayout     = avoidStruts (smartBorders (tiled ||| Mirror tiled ||| noBorders Full ||| threeCol ||| tabbed shrinkText (theme smallClean)))
+myLayout     = avoidStruts (smartBorders (tiled ||| Mirror tiled ||| noBorders Full ||| threeCol ||| tabbed shrinkText (theme myXmonadTheme)))
   where
     threeCol = magnifiercz' 1.3 $ ThreeColMid nmaster delta ratio
     tiled    = Tall nmaster delta ratio
@@ -594,8 +722,8 @@ myStartupHook = do
   spawnOn (myWorkspaces !! 1) (wrapLog "st")
 
   where
-    wrapLog app = "pidof " ++ app ++ " > /dev/null && echo ''" ++ app ++ "' is already running.' || " ++ app ++ " 1>> ~/log/" ++ app ++ ".log 2>> ~/log/" ++ app ++ ".err.log &"
-    wrapLogP app run = "pidof " ++ app ++ " > /dev/null && echo ''" ++ app ++ "' is already running.' || " ++ run ++ " 1>> ~/log/" ++ app ++ ".log 2>> ~/log/" ++ app ++ ".err.log &"
+    wrapLog app = "pidof " ++ app ++ " > /dev/null && echo ''" ++ app ++ "' is already running.' || " ++ app ++ " &"
+    wrapLogP app run = "pidof " ++ app ++ " > /dev/null && echo ''" ++ app ++ "' is already running.' || " ++ run ++ " &"
 
 main :: IO ()
 main =
@@ -606,17 +734,22 @@ main =
     . withEasySB (statusBarProp "xmobar" (pure myXmobarPP)) defToggleStrutsKey
     $ myConfig
 
+myLogHook = fadeInactiveLogHook fadeAmount
+    where fadeAmount = 0.8
+
 myConfig                 =
   def
     { modMask            = myModMask,
-      layoutHook         = myLayout,
-      terminal           = myTerminal,
-      manageHook         = manageDocks <+> myManageHook,
-      startupHook        = myStartupHook,
-      normalBorderColor  = myNormalBorderColor,
+      --workspaces         = toWorkspaces myTreeWorkspaces
       focusedBorderColor = myFocusedBorderColor,
       handleEventHook    = handleEventHook def <+> Hacks.windowedFullscreenFixEventHook <+> serverModeEventHook <+> serverModeEventHookCmd <+> serverModeEventHookF "XMONAD_PRINT" (io . putStrLn),
-      --workspaces         = toWorkspaces myTreeWorkspaces
-      workspaces         =  myWorkspaces
+      layoutHook         = myLayout,
+      logHook            = myLogHook,
+      manageHook         = manageDocks <+> myManageHook,
+      normalBorderColor  = myNormalBorderColor,
+      startupHook        = myStartupHook,
+      terminal           = myTerminal,
+      workspaces         = myWorkspaces
     }
     `additionalKeysP` myKeybinds
+    `additionalMouseBindings` myMouseBindings

@@ -30,7 +30,7 @@ Config {
   				, "--Low",     "15"
   				, "--"
 				, "-O",        "\61926"
-				, "-a",        "notify-send -u critical 'Battery running out!!'"
+				-- , "-a",        "notify-send -u critical 'Battery running out!!'"
 				, "--off",     "<left> (<timeleft>)"
 				, "--lows",    "<fn=1>\62020</fn>  "
 				, "--mediums", "<fn=1>\62018</fn>  "
