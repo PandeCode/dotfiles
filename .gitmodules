@@ -40,3 +40,6 @@
 [submodule "build/xmenu"]
 	path = build/xmenu
 	url = https://github.com/PandeCode/xmenu
+[submodule "config/awesome"]
+	path = config/awesome
+	url = https://github.com/PandeCode/awesome

@@ -23,27 +23,31 @@ declare -a bindings=()
 declare -a comments=()
 isReading=false
 
-while read line; do
-	if [ "$line" == "$startString" ]; then
-		# echo "Found start string"
-		isReading=true
-		echo '+──────────────────────────────`───────────────────────────────────────────────────────────+'
-		echo '│ Binding ` Comment`'
-		echo '+──────────────────────────────`───────────────────────────────────────────────────────────+`'
-	elif [ "$line" == "$stopString" ]; then
-		# echo "Found stop string"
-		echo '+──────────────────────────────`───────────────────────────────────────────────────────────+'
-		isReading=false
-	elif $isReading; then
-		# echo $line
-		binding="$(grep -Po "$bindingRegex" <<< "$line")"
-		bindings+=($binding)
+function getData() {
+	while read line; do
+		if [ "$line" == "$startString" ]; then
+			# echo "Found start string"
+			isReading=true
+			echo '+──────────────────────────────`───────────────────────────────────────────────────────────+'
+			echo '│ Binding ` Comment`'
+			echo '+──────────────────────────────`───────────────────────────────────────────────────────────+`'
+		elif [ "$line" == "$stopString" ]; then
+			# echo "Found stop string"
+			echo '+──────────────────────────────`───────────────────────────────────────────────────────────+'
+			isReading=false
+		elif $isReading; then
+			# echo $line
+			binding="$(grep -Po "$bindingRegex" <<< "$line")"
+			bindings+=($binding)
 
-		comment="$(grep -Po "$commentRegex" <<< "$line")"
-		comments+=($comment)
+			comment="$(grep -Po "$commentRegex" <<< "$line")"
+			comments+=($comment)
 
-		if ! [ -z "$binding" ]; then
-			echo "│ '$binding' \` $comment \`"
+			if ! [ -z "$binding" ]; then
+				echo "│ '$binding' \` $comment \`"
+			fi
 		fi
-	fi
-done < $xmonadConfigFile
+	done < $xmonadConfigFile
+}
+
+getData | column -t -o '|' -s '`'

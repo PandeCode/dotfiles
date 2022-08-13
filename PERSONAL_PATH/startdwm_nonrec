@@ -1,0 +1,5 @@
+#!/bin/env bash
+
+echo "================$(date)=================" >> ~/log/dwm.log
+echo "================$(date)=================" >> ~/log/dwm.err.log
+dwm $@ 1>> ~/log/dwm.log 2>> ~/log/dwm.err.log

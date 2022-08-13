@@ -3,6 +3,17 @@
 CONFIGDIR=$HOME/dotfiles/dotfiles/config/
 TERMINAL=st
 
+function getShaders {
+	shaderDir="$HOME/dotfiles/config/picom/shaders"
+	shaders=`ls $shaderDir`
+
+	for shader in $shaders
+	do
+		echo "		${shader::-5}	~/dotfiles/config/picom/setShader.sh $shaderDir/$shader"
+	done
+}
+
+
 cat << EOF | xmenu -i -p 0x25:1 | sh &
 Background
 	Random                                    	 randbg
@@ -13,6 +24,8 @@ Media
 	Pause                                     	 playerctl pause
 	
 Picom
+	Shaders
+$(getShaders)
 	Off                                       	 killall -9 picom
 	On                                        	 picom --experimental-background -b 1>> ~/log/picom.log 2>> ~/log/picom.err.log
 	Rounded Corners                           	 ~/dotfiles/scripts/picom.sh rounded

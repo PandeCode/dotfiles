@@ -156,3 +156,8 @@ source ~/dotfiles/extras/envs.sh
 source ~/dotfiles/extras/aliases.sh
 source ~/dotfiles/extras/functions.sh
 #source ~/dotfiles/extras/dracula-tty.sh
+
+# pnpm
+export PNPM_HOME="/home/shawn/.local/share/pnpm"
+export PATH="$PNPM_HOME:$PATH"
+# pnpm end

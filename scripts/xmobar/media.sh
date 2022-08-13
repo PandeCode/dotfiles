@@ -1,11 +1,21 @@
 #!/bin/sh
 
+# TODO: add get current playback position and a border to display progress
+# <box type="Bottom" width=2 color="red"></box>
+
 defaultPlayer=spotify
 defaultSink=spotify
+currentSinkFile=/tmp/currentSinkFile
 currentPlayerFile=/tmp/currentPlayerFile
 pictureCacheDir=~/.cache/spotifyPictureCache
 imageSize=16x16
 displayIcon=true
+
+function isProcessRunning() {
+	pid=$1
+	kill -0 $pid 2> /dev/null
+	return $?
+}
 
 function getNewCurrentPlayer() {
 	players=$(playerctl -l)
@@ -47,17 +57,41 @@ function playerNotFound() {
 	notify-send "Player Not Found" "Start a player like spotify or a youtube video." -u critical -t 3000
 }
 
-getSink() {
+function sinkNotFound() {
+	notify-send "Sink Not Found" "Start a player like spotify or a youtube video." -u critical -t 3000
+}
+
+function setCurrentSink() {
+	echo -n $1 > $currentSinkFile
+}
+
+function getSink() {
 	pactl list sink-inputs |
 		grep "\(Sink Input\|media.name\)" |
 		perl -pe 's/(\t)//; s/\s*//; s/\n//; s/Sink Input #/\n/; s/^(\s|\t|\")*$//;s/"//; s/"// ;s/media.name = / /' |
 		grep $1 |
 		cut -d ' ' -f 1 | tr '
 ' ' ' | sed 's/ //'
+
+	if [ $? -ne 0 ]; then
+		sinkNotFound
+		setCurrentSink $defaultSink
+	fi
 }
 
-getCurrnetSink() {
-	getSink Spotify
+function getSinks() {
+	pactl list sink-inputs |
+		grep "\(Sink Input\|media.name\)" |
+		perl -pe 's/(\t)//; s/\s*//; s/\n//; s/Sink Input #/\n/; s/^(\s|\t|\")*$//;s/"//; s/"// ;s/media.name = / /' | sed -r '/^\s*$/d'
+}
+
+function getCurrentSink() {
+	if [ -f "$currentSinkFile" ]; then
+		cat $currentSinkFile
+	else
+		setCurrentSink $(getSink Spotify)
+		echo -n Spotify | tee $currentSinkFile
+	fi
 }
 
 case $1 in
@@ -74,14 +108,27 @@ case $1 in
 
 	3)
 		players=""
-		for p in $(playerctl -l); do players+="	$p	setCurrentPlayer $p > $currentPlayerFile
-"; done
-
+		for p in $(playerctl -l); do
+			players+="	$p	setCurrentPlayer $p > $currentPlayerFile
+"
+		done
 		if [ -z "$players" ]; then
 			players='	None	playerNotFound'
 		else
 			players+="	"
 		fi
+
+		sinks=""
+		for p in $(getSinks); do
+			sinks+="	$p	setCurrentSink $p > $currentSinkFile
+"
+		done
+		if [ -z "$sinks" ]; then
+			sinks='	None	sinkNotFound'
+		else
+			sinks+="	"
+		fi
+
 
 		currentPlayer=$(getCurrentPlayer)
 
@@ -89,6 +136,9 @@ case $1 in
 			cat << EOF | xmenu
 Player
 $players
+	
+Sinks
+$sinks
 	
 Control
 	Play-Pause	playerctl --player=$currentPlayer  play-pause
@@ -105,12 +155,12 @@ EOF
 		;;
 
 	4)
-		pactl set-sink-input-volume "$(getCurrnetSink)" +10%
+		pactl set-sink-input-volume "$(getCurrentSink)" +10%
 		exit 0
 		;;
 
 	5)
-		pactl set-sink-input-volume "$(getCurrnetSink)" -10%
+		pactl set-sink-input-volume "$(getCurrentSink)" -10%
 		exit 0
 		;;
 
@@ -188,3 +238,4 @@ echo -n '</action>'
 echo -n '</action>'
 echo -n '</action>'
 echo -n '</action>'
+
