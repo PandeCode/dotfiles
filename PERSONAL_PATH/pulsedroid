@@ -1,0 +1,32 @@
+#!/bin/sh
+
+PULSEDROID_FILE=/tmp/pulsedroid
+SOURCE=alsa_output.pci-0000_00_1f.3.analog-stereo.monitor
+PORT=8000
+
+stop_pulsedroid() {
+	if [ -f $PULSEDROID_FILE ]; then
+		pactl unload-module $(cat $PULSEDROID_FILE)
+	else
+		echo "No pulsedroid file" 1>&2
+	fi
+}
+
+start_pulsedroid() {
+	pactl \
+		load-module \
+		module-simple-protocol-tcp \
+		rate=48000 \
+		format=s16le \
+		channels=2 \
+		record=true \
+		source=$SOURCE \
+		port=$PORT > $PULSEDROID_FILE
+}
+
+if [ "$1" == "stop" ]; then
+	stop_pulsedroid
+	rm $PULSEDROID_FILE
+else
+	start_pulsedroid
+fi

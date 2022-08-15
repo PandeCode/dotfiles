@@ -11,7 +11,7 @@ export CC=/usr/bin/clang
 export CXX=/usr/bin/clang++
 export SHELL=/bin/bash
 export EDITOR=/usr/bin/nvim
-export BROWSER=/usr/bin/firefox-developer-edition
+export BROWSER=/usr/bin/google-chrome-stable
 export RUST_BACKTRACE=1
 
 export GHCUP_BIN=$HOME/.ghcup/bin
