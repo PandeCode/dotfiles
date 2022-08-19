@@ -38,8 +38,9 @@ export RUBY_GEM_BIN_PATH=$HOME/.local/share/gem/ruby/3.0.0/bin
 export GOPATH=$HOME/go
 
 export CARGO_BIN=$HOME/.cargo/bin
+export PNPM_HOME=$HOME/.local/share/pnpm/
 
-export PATH=$PERSONAL_PATH:$CARGO_BIN:$GHCUP_BIN:$PATH:$GOROOT/bin:$GOPATH/bin:$HOME/bin:$YARN_BIN:$RUBY_GEM_BIN_PATH:$HOME/.emacs.d/bin
+export PATH=$PERSONAL_PATH:$PNPM_HOME:$CARGO_BIN:$GHCUP_BIN:$PATH:$GOROOT/bin:$GOPATH/bin:$HOME/bin:$YARN_BIN:$RUBY_GEM_BIN_PATH:$HOME/.emacs.d/bin
 
 preview="fzfPreview.sh {}"
 export FZF_DEFAULT_OPTS="
@@ -77,3 +78,4 @@ export FORGIT_FZF_DEFAULT_OPTS="
 --reverse
 --height '80%'
 "
+

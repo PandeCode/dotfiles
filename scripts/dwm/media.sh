@@ -25,14 +25,14 @@ getMedia() {
 			'{{ title }}
 {{ artist }}
 {{ album }}
-{{ duration(position) }}/{{ duration(mpris:length) }}'
+{{ duration(position) }} / {{ duration(mpris:length) }}'
 	else
 		playerctl metadata --format \
 			'{{ uc(playerName) }} {{status}}
 {{title}} 
 {{artist}}
 {{album}}
-{{ duration(position) }}/{{ duration(mpris:length) }}'
+{{ duration(position) }} / {{ duration(mpris:length) }}'
 	fi
 }
 

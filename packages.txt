@@ -48,6 +48,7 @@ cryptsetup
 csfml
 ctags
 cutter
+d-feet
 dbus-x11
 deadd-notification-center-git
 device-mapper
@@ -55,6 +56,7 @@ dex
 dhclient
 dhcpcd
 diffutils
+dir2ogg
 discord
 dmenu
 dmidecode
@@ -62,7 +64,6 @@ dmraid
 dnsmasq
 docker
 dosfstools
-dotnet-sdk
 dzen2
 e2fsprogs
 ecryptfs-utils
@@ -108,6 +109,7 @@ glfw-doc
 glfw-x11
 glibc
 glm
+glow
 glsl-language-server
 gnome-icon-theme
 gnome-keyring
@@ -155,10 +157,12 @@ iptables
 iputils
 ipw2100-fw
 ipw2200-fw
+iwd
 jdk
 jfsutils
 jgmenu
 jre
+kdeconnect
 kid3
 kitty
 komikku
@@ -198,6 +202,9 @@ linux514-virtualbox-host-modules
 linux517
 linux517-headers
 linux517-virtualbox-host-modules
+linux519
+linux519-headers
+linux519-virtualbox-host-modules
 lld
 lldb
 logrotate
@@ -265,7 +272,6 @@ nmap
 nodejs
 noto-color-emoji-fontconfig
 noto-fonts
-npm
 nss-mdns
 ntfs-3g
 ntp
@@ -292,7 +298,6 @@ pciutils
 perl
 perl-file-mimeinfo
 picom-jonaburg-git
-pingg-git
 pipes.sh
 pkgconf
 pkgfile
@@ -314,7 +319,7 @@ python-pip
 python2
 python2-pip
 qbittorrent
-qemu
+qemu-desktop
 qpdfview
 qrencode
 qt5-charts
@@ -324,6 +329,8 @@ qtcreator
 radare2
 ranger
 raylib
+realvnc-vnc-server
+realvnc-vnc-viewer
 regextester
 reiserfsprogs
 ripgrep
@@ -357,6 +364,7 @@ spectre-meltdown-checker
 spicetify-cli-git
 spotify-adblock-git
 squashfs-tools
+sshfs
 sslh
 stalonetray
 starship
@@ -373,6 +381,7 @@ tabbed
 tar
 tcpdump
 tcpflow
+teamviewer
 terminus-font
 tesseract
 tesseract-data-deu
@@ -413,6 +422,7 @@ unityhub
 unrar
 usb_modeswitch
 usbutils
+uthash
 util-linux
 v4l2loopback-dkms
 vagrant
@@ -433,7 +443,6 @@ vulkan-intel
 vulkan-radeon
 w3m
 wakatime
-web-ext
 websocat
 wget
 whatsapp-for-linux
@@ -444,7 +453,6 @@ wine-staging
 wireshark-qt
 wmctrl
 wpa_supplicant
-wscat
 xbacklight-ctl-git
 xbindkeys
 xbindkeys_config-gtk2
@@ -485,6 +493,7 @@ xorg-xclock
 xorg-xev
 xorg-xgamma
 xorg-xinit
+xorg-xinput
 xorg-xkill
 xorg-xmessage
 xorg-xsetroot
@@ -494,7 +503,6 @@ xseticon
 xterm
 xtoolwait-git
 xxd-standalone
-yarn
 ytfzf
 zeal
 zenith-bin

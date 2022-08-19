@@ -1,8 +1,5 @@
 #!/bin/sh
 
-# TODO: add get current playback position and a border to display progress
-# <box type="Bottom" width=2 color="red"></box>
-
 defaultPlayer=spotify
 defaultSink=spotify
 currentSinkFile=/tmp/currentSinkFile
@@ -10,11 +7,53 @@ currentPlayerFile=/tmp/currentPlayerFile
 pictureCacheDir=~/.cache/spotifyPictureCache
 imageSize=16x16
 displayIcon=true
+progressWidth=2
+progressPosition=Bottom # Top | Bottom
+progressColor="#84ffff"
+
+
+DELIMITER_1="🗘" # It is there just not rendered easily
+
+function makeSafeForSed (){
+	str="$1"
+	strlen=${#str}
+	for (( i=0; i< ${strlen}; i++ )); do
+		char=${str:$i:1}
+		if [ "$char" == "/" ];then
+			echo -n "\\/"
+		else
+			echo -n $char
+		fi
+	done
+}
 
 function isProcessRunning() {
 	pid=$1
 	kill -0 $pid 2> /dev/null
 	return $?
+}
+
+function applyProgress () {
+	info=$1
+	infoLen=${#info}
+	data=$( playerctl metadata -p $currentPlayer -f '{{ position }} {{ mpris:length }}' )
+	length=$(echo -n "$data" | awk '{print $2}')
+	numChars=$(echo -n "$data" | awk "{ printf(\"%.f\", $infoLen * (\$1/\$2))}" )
+
+	first=""
+	second=""
+	for (( i=0; i < infoLen; i++ )); do
+		char=${info:$i:1}
+		seek=$(echo -n "$i $infoLen" | awk "{ printf(\"%.f\", 0.000001*($length*($i/$infoLen)))}")
+
+		if (( $i > $numChars )); then
+			second+="<action=\`playerctl -p $currentPlayer position $seek\`>$char</action>"
+		else
+			first+="<action=\`playerctl -p $currentPlayer position $seek\`>$char</action>"
+		fi
+	done
+
+	echo -n "<box type=$progressPosition width=$progressWidth color=$progressColor>$first</box>$second"
 }
 
 function getNewCurrentPlayer() {
@@ -48,6 +87,8 @@ function getCurrentPlayer() {
 
 	echo -n $(getNewCurrentPlayer)
 }
+
+currentPlayer=$(getCurrentPlayer)
 
 function setCurrentPlayer() {
 	echo -n $1 > $currentPlayerFile
@@ -96,7 +137,7 @@ function getCurrentSink() {
 
 case $1 in
 	1)
-		playerctl -p spotify play-pause
+		playerctl -p $currentPlayer play-pause
 		exit 0
 		;;
 
@@ -119,18 +160,19 @@ case $1 in
 		fi
 
 		sinks=""
-		for p in $(getSinks); do
-			sinks+="	$p	setCurrentSink $p > $currentSinkFile
-"
-		done
+		while IFS= read -r line; do
+    		sinkNumber=$(echo $line | awk '{print($1)}')
+    		sinkName=$(echo $line | awk '{print($2)}')
+			sinks+="	$sinkName	setCurrentSink $sinkNumber > $currentSinkFile"
+		done <<< "$(getSinks)"
+
+
 		if [ -z "$sinks" ]; then
 			sinks='	None	sinkNotFound'
 		else
 			sinks+="	"
 		fi
 
-
-		currentPlayer=$(getCurrentPlayer)
 
 		cmd="$(
 			cat << EOF | xmenu
@@ -191,10 +233,10 @@ function getAlbmuArt() {
 }
 
 function getAction() {
-	if [ "$(playerctl status -p $(getCurrentPlayer))" == "Playing" ]; then
-		echo "<action=\`playerctl pause -p $(getCurrentPlayer)\`>"
+	if [ "$(playerctl status -p $currentPlayer)" == "Playing" ]; then
+		echo "<action=\`playerctl pause -p $currentPlayer)\`>"
 	else
-		echo "<action=\`playerctl play -p $(getCurrentPlayer)\`>"
+		echo "<action=\`playerctl play -p $currentPlayer\`>"
 	fi
 }
 
@@ -203,10 +245,10 @@ echo -n '<action=`~/dotfiles/scripts/xmobar/media.sh 3` button=3>'
 echo -n '<action=`~/dotfiles/scripts/xmobar/media.sh 4` button=4>'
 echo -n '<action=`~/dotfiles/scripts/xmobar/media.sh 5` button=5>'
 
-currentPlayer=$(getCurrentPlayer)
+iconText=''
 
 if [ "$displayIcon" = true ] && [ "$currentPlayer" = "spotify" ]; then
-	echo -n '<icon='$(getAlbmuArt)'/> '
+	iconText="$(echo -n '<icon='$(getAlbmuArt)'/> ')"
 fi
 
 info=$(playerctl metadata -p $currentPlayer --format '{{ artist }} ----- {{ title }}')
@@ -224,18 +266,16 @@ if ! [ -z "$title" ]; then
 	finalInfo+="$(perl -pe 's/^Watch //; s/ English Subbed Online Free//' <<< $title)"
 fi
 
-echo -n "\
-<action=\`playerctl play-pause -p $currentPlayer\`>\
-$finalInfo</action>\
-"
+progressedInfo=$(applyProgress "$DELIMITER_1$finalInfo")
+
+echo -n "$progressedInfo" | sed "s/$DELIMITER_1/$(makeSafeForSed $iconText)/"
 
 echo -n "\
 <action=\`playerctl previous -p $currentPlayer\`>  </action>\
 $(getAction)</action>\
 <action=\`playerctl next -p $currentPlayer\`>  </action>\
+</action>\
+</action>\
+</action>\
+</action>\
 "
-echo -n '</action>'
-echo -n '</action>'
-echo -n '</action>'
-echo -n '</action>'
-
