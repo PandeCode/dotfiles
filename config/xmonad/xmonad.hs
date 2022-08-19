@@ -338,7 +338,7 @@ myXmobarPP              =
       --, ppHiddenNoWindows = lowWhite . wrap " " "" --  unused workspaces
 
       -- , ppCurrent         =  xmobarBorder "Bottom" (fromMaybe "#8be9fd" (M.lookup "whiteBlackColor" myTheme)) 2 -- Current Workspace
-      , ppCurrent         =  white $ . xmobarBorder "Bottom" currentBorderColor 2 . (\x -> makeFullAction (
+      , ppCurrent         =  white . xmobarBorder "Bottom" currentBorderColor 2 . (\x -> makeFullAction (
            ("xdotool set_desktop " ++ (show (fromMaybe (0) (elemIndex x myWorkspaces)))) ) 
            ((show ((fromMaybe (0) (elemIndex x myWorkspaces)) + 1)) ++ " 2")
            ((show ((fromMaybe (0) (elemIndex x myWorkspaces)) + 1)) ++ " 3")
