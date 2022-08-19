@@ -161,3 +161,5 @@ source ~/dotfiles/extras/functions.sh
 export PNPM_HOME="/home/shawn/.local/share/pnpm"
 export PATH="$PNPM_HOME:$PATH"
 # pnpm end
+
+[[ -s /etc/profile.d/autojump.sh ]] && source /etc/profile.d/autojump.sh
