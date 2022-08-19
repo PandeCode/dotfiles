@@ -38,4 +38,4 @@ ln -s ~/dotfiles/config/ranger ~/.config/ranger
 ln -s ~/dotfiles/config/rofi ~/.config/rofi
 ln -s ~/dotfiles/config/rustfmt ~/.config/rustfmt
 ln -s ~/dotfiles/config/xmonad ~/.config/xmonad
-ln -s ~/dotfiles/config/xmonbar ~/.config/xmonbar
+ln -s ~/dotfiles/config/xmobar ~/.config/xmobar
