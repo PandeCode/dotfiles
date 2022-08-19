@@ -22,7 +22,7 @@ Config {
 	, sepChar  = "%"
 	, alignSep = "}{"
 
-	, template = "<action=`~/dotfiles/scripts/xmobar/menu.sh 1` button=1><action=`~/dotfiles/scripts/xmobar/menu.sh 2` button=2><action=`~/dotfiles/scripts/xmobar/menu.sh 3` button=3><action=`~/dotfiles/scripts/xmobar/menu.sh 4` button=4><action=`~/dotfiles/scripts/xmobar/menu.sh 5` button=5> </action></action></action></action></action> | %UnsafeXMonadLog% |} %mymedia%{ | %myping% | %cpu% | %memory% %swap% | %alsa:default:Master% | %date% | %battery% %trayerpad%"
+	, template = "<action=`~/dotfiles/scripts/xmobar/menu.sh 1` button=1><action=`~/dotfiles/scripts/xmobar/menu.sh 2` button=2><action=`~/dotfiles/scripts/xmobar/menu.sh 3` button=3><action=`~/dotfiles/scripts/xmobar/menu.sh 4` button=4><action=`~/dotfiles/scripts/xmobar/menu.sh 5` button=5> </action></action></action></action></action> | %UnsafeXMonadLog% |} %mymedia%{ | %myping% | %cpu% | %memory% %swap% | %volume% | %date% | %battery% %trayerpad%"
 
 	, commands = [
 		  Run Battery [
@@ -46,12 +46,7 @@ Config {
 			, "--normal", "#c3e88d"
 		] 100
 
-		, Run Alsa "default" "Master" [ "-t", "<action=`~/dotfiles/scripts/xmobar/vol.sh 1` button=1><action=`~/dotfiles/scripts/xmobar/vol.sh 2` button=2><action=`~/dotfiles/scripts/xmobar/vol.sh 3` button=3><action=`~/dotfiles/scripts/xmobar/vol.sh 4` button=4><action=`~/dotfiles/scripts/xmobar/vol.sh 5` button=5><volumestatus></action></action></action></action></action>"
-			, "--suffix"  , "True"
-			, "-m", "4"
-			, "--"
-			, "--on", ""
-		]
+		, Run Com "sh" ["-c", "~/dotfiles/scripts/xmobar/vol.sh"] "volume" 5
 
 		, Run Memory [
 			"-t", "<action=`~/dotfiles/scripts/xmobar/mem.sh 1` button=1><action=`~/dotfiles/scripts/xmobar/mem.sh 2` button=2><action=`~/dotfiles/scripts/xmobar/mem.sh 3` button=3><action=`~/dotfiles/scripts/xmobar/mem.sh 4` button=4><action=`~/dotfiles/scripts/xmobar/mem.sh 5` button=5><usedratio>%</action></action></action></action></action>"
