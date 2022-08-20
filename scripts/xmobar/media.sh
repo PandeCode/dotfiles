@@ -234,7 +234,7 @@ function getAlbmuArt() {
 
 function getAction() {
 	if [ "$(playerctl status -p $currentPlayer)" == "Playing" ]; then
-		echo "<action=\`playerctl pause -p $currentPlayer)\`>"
+		echo "<action=\`playerctl pause -p $currentPlayer\`>"
 	else
 		echo "<action=\`playerctl play -p $currentPlayer\`>"
 	fi
