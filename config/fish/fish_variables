@@ -87,6 +87,10 @@ SETUVAR _fish_abbr_wget:xclip\x20\x2dselection\x20clipboard\x20\x2do\x20\x7c\x20
 SETUVAR _fish_abbr_wq:exit
 SETUVAR _fish_abbr_www:python\x20\x2dm\x20http\x2eserver\x208000
 SETUVAR _fish_abbr_yay:CXX\x3dg\x2b\x2b\x20CC\x3dgcc\x20paru
+SETUVAR _fisher_efforiaknight_2F_fizzygit_files:\x7e/\x2econfig/fish/functions/fizzygit\x2efish
+SETUVAR _fisher_jorgebucaran_2F_fisher_files:\x7e/\x2econfig/fish/functions/fisher\x2efish\x1e\x7e/\x2econfig/fish/completions/fisher\x2efish
+SETUVAR _fisher_plugins:jorgebucaran/fisher\x1eefforiaknight/fizzygit
+SETUVAR _fisher_upgraded_to_4_4:\x1d
 SETUVAR fish_color_autosuggestion:7596E4
 SETUVAR fish_color_cancel:\x2dr
 SETUVAR fish_color_command:164CC9

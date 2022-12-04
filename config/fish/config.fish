@@ -13,3 +13,7 @@ set -g fish_ambiguous_width 1
 set -gx GPG_TTY (tty)
 
 [ -f /usr/share/autojump/autojump.fish ]; and source /usr/share/autojump/autojump.fish
+
+if type -q fizzygit
+    fizzygit
+end

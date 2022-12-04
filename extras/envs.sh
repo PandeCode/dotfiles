@@ -6,7 +6,7 @@ export DXVK_LOG_LEVEL=none
 
 export _JAVA_AWT_WM_NONREPARENTING=1
 
-export TERMINAL=/usr/bin/st
+export TERMINAL=/usr/bin/alacritty
 export CC=/usr/bin/clang
 export CXX=/usr/bin/clang++
 export SHELL=/bin/bash
@@ -40,7 +40,7 @@ export GOPATH=$HOME/go
 export CARGO_BIN=$HOME/.cargo/bin
 export PNPM_HOME=$HOME/.local/share/pnpm/
 
-export PATH=$PERSONAL_PATH:$PNPM_HOME:$CARGO_BIN:$GHCUP_BIN:$PATH:$GOROOT/bin:$GOPATH/bin:$HOME/bin:$YARN_BIN:$RUBY_GEM_BIN_PATH:$HOME/.emacs.d/bin
+export PATH=$PERSONAL_PATH:$HOME/.local/bin:$PNPM_HOME:$CARGO_BIN:$GHCUP_BIN:$PATH:$GOROOT/bin:$GOPATH/bin:$HOME/bin:$YARN_BIN:$RUBY_GEM_BIN_PATH:$HOME/.emacs.d/bin
 
 preview="fzfPreview.sh {}"
 export FZF_DEFAULT_OPTS="
