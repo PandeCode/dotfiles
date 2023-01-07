@@ -17,3 +17,4 @@ set -gx GPG_TTY (tty)
 if type -q fizzygit
     fizzygit
 end
+fish_add_path /home/shawn/.spicetify
