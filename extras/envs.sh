@@ -79,3 +79,7 @@ export FORGIT_FZF_DEFAULT_OPTS="
 --height '80%'
 "
 
+
+if [ -f $HOME/.open_ai ]; then
+	export OPENAI_API_KEY=$(cat $HOME/.open_ai)
+fi
