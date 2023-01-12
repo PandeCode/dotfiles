@@ -1,10 +1,5 @@
 #!/bin/env sh
 
-imgDir=~/Pictures/Wallpapers/
-img=$(find $imgDir -type f | shuf -n 1)
-
-echo $img >> ~/log/img.log
-
-echo $img
-
-feh --bg-fill $img
+source ~/dotfiles/scripts/lib/bg.sh
+new_img=$(find $img_dir -type f | shuf -n 1)
+setbg $new_img
