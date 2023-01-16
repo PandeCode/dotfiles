@@ -28,7 +28,9 @@ function setbg (){
 		echo "$img" >> $img_log_file
 	elif [[ "$XDG_SESSION_TYPE" == "wayland" ]]; then
 		killall -9 swaybg 2> /dev/null
-		swaybg -i "$img" -m fill & disown
+		swaybg -i "$img" -m fill 1>&2 2> /dev/null & disown
+		echo "$img"
+		echo "$img" >> $img_log_file
 	else
 		echo "No XDG_SESSION_TYPE:'$XDG_SESSION_TYPE'"
 	fi

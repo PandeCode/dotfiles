@@ -1,5 +1,8 @@
 HOME=/home/shawn
 
+export GRIM_DEFAULT_DIR=$HOME/Pictures/Screenshots
+
+export XKB_DEFAULT_OPTIONS=ctrl:nocaps
 export WINEESYNC=1
 export WINEDEBUG=-all
 export DXVK_LOG_LEVEL=none
@@ -60,14 +63,14 @@ export FZF_DEFAULT_OPTS="
 --bind '?:toggle-preview'
 --bind 'ctrl-a:select-all'
 --bind 'ctrl-y:execute-silent(echo {+} | pbcopy)'
---bind 'ctrl-e:execute(echo {+} | xargs -o vim)'
+--bind 'ctrl-e:execute(echo {+} | xargs -o nvim)'
 --bind 'ctrl-v:execute(code {+})'
 --bind 'ctrl-k:preview-up'
 --bind 'ctrl-j:preview-down'
 --bind 'ctrl-r:reload(ps aux)' 
 "
 
-export FZF_DEFAULT_COMMAND="fdfind --follow --hidden --exclude .git --exclude 'node_modules' --color=always"
+export FZF_DEFAULT_COMMAND="fd --follow --hidden --exclude .git --exclude 'node_modules' --color=always"
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 export FZF_ALT_C_COMMAND="$FZF_DEFAULT_COMMAND --type d"
 

@@ -1,7 +1,7 @@
 #!/bin/sh
 
 CONFIGDIR=$HOME/dotfiles/dotfiles/config/
-TERMINAL=st
+TERMINAL=kitty
 
 function getShaders {
 	shaderDir="$HOME/dotfiles/config/picom/shaders"

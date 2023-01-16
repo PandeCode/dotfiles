@@ -4,14 +4,6 @@
 
 #!/bin/env bash
 
-if [ "$TERM" == "st-256color" ] || [ "$TERM" == "xterm-256color" ]; then
-    if [ "$(pidof st | wc -w | tr '\n' '\0')" == "1" ] || [ "$(pidof alacritty | wc -w | tr '\n' '\0')" == "1" ]; then
-        tmux new -As0 && exit
-    else
-        tmux new && exit;
-    fi
-fi
-
 [[ $- != *i* ]] && return
 
 colors() {
