@@ -1,16 +1,16 @@
 #!/bin/env sh
 
 oneStInstance() {
-        return $(pgrep st | wc -w | awk '{print $1>=2}')
+	return $(pgrep '^(st|kitty|alacritty|xterm)$' | wc -w | awk '{print $1>=2}')
 }
 
 tmuxNewIfNoTmuxFn() {
 	if oneStInstance; then
-			# if there is one instance of st
-			tmux new -As0 "$@"
+		# if there is one instance
+		tmux new -As0 "$@"
 	else
-			# if there is more than one instance of st
-			tmux "$@"
+		# if there is more than one instance
+		tmux "$@"
 	fi
 }
 
