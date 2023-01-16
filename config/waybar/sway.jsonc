@@ -1,0 +1,61 @@
+{
+	"include": "$HOME/.config/waybar/modules.jsonc",
+	"layer": "top", 
+	// "height": 20, 
+	// "position": "top", 
+	// "width": 1280, 
+
+	"spacing": 4, // Gaps between modules (4px)
+
+	"modules-left": [
+		"sway/workspaces",
+		"sway/mode",
+		"sway/scratchpad",
+		"sway/window"
+	],
+	"modules-center": ["custom/media"],
+	"modules-right": [
+		// "mpd",
+		"sway/language",
+		"sway/scratchpad",
+		"idle_inhibitor",
+		"pulseaudio",
+		"network",
+		"cpu",
+		"memory",
+		"temperature",
+		"backlight",
+		// "keyboard-state",
+		"battery",
+		// "battery#bat2",
+		"clock",
+		"tray"
+	],
+
+	"sway/workspaces": {
+		"disable-scroll": true,
+		"all-outputs": true,
+		"format": "{icon}",
+		"format-icons": {
+			"1": "",
+			"2": "",
+			"3": "",
+			"4": "",
+			"5": "",
+			// "urgent": "",
+			// "focused": "",
+			// "default": ""
+		}
+	},
+
+	"sway/mode": {
+		"format": "<span style=\"italic\">{}</span>"
+	},
+	"sway/scratchpad": {
+		"format": "{icon} {count}",
+		"show-empty": false,
+		"format-icons": ["", ""],
+		"tooltip": true,
+		"tooltip-format": "{app}: {title}"
+	}
+}

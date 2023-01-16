@@ -17,6 +17,8 @@ rm -fr ~/.config/bat \
 	~/.config/ranger \
 	~/.config/rofi \
 	~/.config/rustfmt \
+	~/.config/sway \
+	~/.config/waybar \
 	~/.config/xmoand \
 	~/.config/xmobar
 
@@ -37,5 +39,7 @@ ln -s ~/dotfiles/config/picom ~/.config/picom
 ln -s ~/dotfiles/config/ranger ~/.config/ranger
 ln -s ~/dotfiles/config/rofi ~/.config/rofi
 ln -s ~/dotfiles/config/rustfmt ~/.config/rustfmt
+ln -s ~/dotfiles/config/sway ~/.config/sway
+ln -s ~/dotfiles/config/waybar ~/.config/waybar
 ln -s ~/dotfiles/config/xmonad ~/.config/xmonad
 ln -s ~/dotfiles/config/xmobar ~/.config/xmobar

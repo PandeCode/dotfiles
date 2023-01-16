@@ -1,0 +1,520 @@
+{
+	"$schema": "https://json-schema.org/draft/2020-12/schema",
+	"title": "Waybar",
+	"description": "Waybar Config Json schema (incomplete)",
+
+	"type": "object",
+
+	"definitions": {
+		"rotate": {
+			"type": "object",
+			"properties": {
+				"rotate": {
+					"type": "integer",
+					"description": "Positive value to rotate the text label."
+				}
+			}
+		},
+
+		"tooltip-format-extra": {
+			"type": "object",
+			"allOf": [{ "$ref": "#/definitions/tooltip" }],
+
+			"properties": {
+				"tooltip-format-disabled": {
+					"type": "string",
+					"description": "This format is used when the displayed controller is disabled."
+				},
+				"tooltip-format-off": {
+					"type": "string",
+					"description": "This format is used when the displayed controller is turned off."
+				},
+				"tooltip-format-on": {
+					"type": "string",
+					"description": "This format is used when the displayed controller is turned on with no devices connected."
+				},
+				"tooltip-format-connected": {
+					"type": "string",
+					"description": "This format is used when the displayed controller is connected to at least 1 device."
+				},
+				"tooltip-format-enumerate-connected": {
+					"type": "string",
+					"description": "This format is used to define how each connected device should be displayed within the device_enumerate format replacement in the tooltip menu."
+				}
+			}
+		},
+
+		"smooth-scrolling-threshold": {
+			"type": "object",
+			"properties": {
+				"smooth-scrolling-threshold": {
+					"type": "number",
+					"description": "Threshold to be used when scrolling."
+				}
+			}
+		},
+
+		"tooltip": {
+			"type": "object",
+			"properties": {
+				"tooltip": {
+					"type": "boolean",
+					"default": true,
+					"description": "Option to enable tooltip on hover."
+				},
+				"tooltip-format": {
+					"type": "string",
+					"default": "{timeTo}",
+					"description": "The tooltip format."
+				}
+			}
+		},
+
+		"module": {
+			"type": "object",
+			"properties": {
+				"on-click": {
+					"type": "string",
+					"description": "Command to execute when you left click on the module"
+				},
+				"on-double-click": {
+					"type": "string",
+					"description": "Command to execute when you double left click on the module"
+				},
+				"on-triple-click": {
+					"type": "string",
+					"description": "Command to execute when you triple left click on the module"
+				},
+				"on-click-middle": {
+					"type": "string",
+					"description": "Command to execute when you middle click on the module using mousewheel"
+				},
+				"on-double-click-middle": {
+					"type": "string",
+					"description": "Command to execute when you double middle click on the module using mousewheel"
+				},
+				"on-triple-click-middle": {
+					"type": "string",
+					"description": "Command to execute when you triple middle click on the module using mousewheel"
+				},
+				"on-click-right": {
+					"type": "string",
+					"description": "Command to execute when you right click on the module"
+				},
+				"on-double-click-right": {
+					"type": "string",
+					"description": "Command to execute when you double right click on the module"
+				},
+				"on-triple-click-right": {
+					"type": "string",
+					"description": "Command to execute when you triple right click on the module"
+				},
+				"on-click-backward": {
+					"type": "string",
+					"description": "Command to execute when you click on the module using mouse backward button"
+				},
+				"on-double-click-backward": {
+					"type": "string",
+					"description": "Command to execute when you double click on the module using mouse backward button"
+				},
+				"on-triple-click-backward": {
+					"type": "string",
+					"description": "Command to execute when you triple click on the module using mouse backward button"
+				},
+				"on-click-forward": {
+					"type": "string",
+					"description": "Command to execute when you click on the module using mouse forward button"
+				},
+				"on-double-click-forward": {
+					"type": "string",
+					"description": "Command to execute when you double click on the module using mouse forward button"
+				},
+				"on-triple-click-forward": {
+					"type": "string",
+					"description": "Command to execute when you triple click on the module using mouse forward button"
+				}
+			}
+		}
+	},
+
+	"properties": {
+		"clock": {
+			"title": "Clock Configuration Options",
+			"type": "object",
+			"allOf": [
+				{ "$ref": "#/definitions/module" },
+				{ "$ref": "#/definitions/tooltip" },
+				{ "$ref": "#/definitions/rotate" },
+				{ "$ref": "#/definitions/smooth-scrolling-threshold" }
+			],
+			"properties": {
+				"interval": {
+					"type": "integer",
+					"default": 60,
+					"description": "The interval in which the information gets polled."
+				},
+				"format": {
+					"type": "string",
+					"default": "{:%H:%M}",
+					"description": "The format, how the date and time should be displayed. See format options https://fmt.dev/latest/syntax.html#chrono-specs."
+				},
+				"today-format": {
+					"type": "string",
+					"default": "<b><u>{}</u></b>",
+					"description": "The formatting of today's date in the {calendar}"
+				},
+				"format-calendar": {
+					"type": "string",
+					"description": "The format, how the {calendar} should be displayed"
+				},
+				"format-calendar-weekdays": {
+					"type": "string",
+					"description": "The format, how the weekdays(SU-SA) in {calendar} should be displayed"
+				},
+				"format-calendar-weeks": {
+					"type": "string",
+					"default": "{:%V}|{:%U}",
+					"description": "The format, how the week numbers in {calendar} should be displayed. When weekday format is not provided then is used default format: '{:%V}' when week starts with Monday, '{:%U}' otherwise"
+				},
+				"calendar-weeks-pos": {
+					"type": "string",
+					"enum": ["left", "right"],
+					"default": "left",
+					"description": "The position where week numbers should be displayed. Disabled when is empty"
+				},
+				"timezone": {
+					"type": "string",
+					"description": "The timezone to display the time in, e.g. America/New_York. See Wikipedia's unofficial list of timezones(https://en.wikipedia.org/wiki/List_of_tz_database_time_zones)."
+				},
+				"timezones": {
+					"type": "array",
+					"items": {
+						"type": "string"
+					},
+					"description": "A list of timezones (as in timezone) to use for time display, changed using the scroll wheel. Do not specify timezone option when timezones is specified."
+				},
+				"locale": {
+					"type": "string",
+					"description": "A locale to be used to display the time. Intended to render times in custom timezones with the proper language and format."
+				},
+				"max-length": {
+					"type": "integer",
+					"description": "The maximum length in character the module should display."
+				},
+				"calendar": {
+					"type": "integer",
+					"description": "Value to scroll months forward/backward. Can be negative. Is configured under on-scroll option"
+				}
+			}
+		},
+
+		"cpu": {
+			"title": "cpu",
+			"type": "object",
+			"allOf": [
+				{ "$ref": "#/definitions/module" },
+				{ "$ref": "#/definitions/tooltip" },
+				{ "$ref": "#/definitions/rotate" },
+				{ "$ref": "#/definitions/smooth-scrolling-threshold" }
+			],
+
+			"properties": {
+				"interval": {
+					"type": "integer",
+					"default": 10,
+					"description": "The interval in which the information gets polled."
+				},
+				"format": {
+					"type": "string",
+					"default": "{usage}%",
+					"description": "The format, how information should be displayed. On {} data gets inserted.\n {load}	Current cpu load.\n {usage}	Current cpu usage (% view).\n {usageN}	Nth cpu core usage (% view).\n {icon}	Current cpu usage (icon view).\n {iconN}	Nth cpu core usage (icon view).\n {avg_frequency}	Current cpu average frequency (based on all cores) in GHz.\n {max_frequency}	Current cpu max frequency (based on the core with the highest frequency) in GHz.\n {min_frequency}	Current cpu min frequency (based on the core with the lowest frequency) in GHz."
+				},
+				"max-length": {
+					"type": "integer",
+					"default": null,
+					"description": "The maximum length in character the module should display."
+				},
+				"states": {
+					"type": "array",
+					"default": null,
+					"description": "A number of cpu usage states which get activated on certain usage levels."
+				}
+			}
+		},
+
+		"bluetooth": {
+			"title": "Config Addressed by Bluetooth",
+			"type": "object",
+			"allOf": [
+				{ "$ref": "#/definitions/module" },
+				{ "$ref": "#/definitions/tooltip-format-extra" },
+				{ "$ref": "#/definitions/rotate" },
+				{ "$ref": "#/definitions/smooth-scrolling-threshold" }
+			],
+			"properties": {
+				"controller": {
+					"type": "string",
+					"description": "Use the controller with the defined alias. Otherwise a random controller is used. Recommended to define when there is more than 1 controller available to the system."
+				},
+				"format-device-preference": {
+					"type": "array",
+					"description": "A ranking of bluetooth devices, addressed by their alias. The order is from first displayed to last displayed. If this config option is not defined or none of the devices in the list are connected, it will fall back to showing the last connected device.",
+					"items": {
+						"type": "string"
+					}
+				},
+				"format": {
+					"type": "string",
+					"description": "The format, how information should be displayed. This format is used when other formats aren't specified.",
+					"default": " {status}"
+				},
+				"format-disabled": {
+					"type": "string",
+					"description": "This format is used when the displayed controller is disabled."
+				},
+				"format-off": {
+					"type": "string",
+					"description": "This format is used when the displayed controller is turned off."
+				},
+				"format-on": {
+					"type": "string",
+					"description": "This format is used when the displayed controller is turned on with no devices connected."
+				},
+				"format-connected": {
+					"type": "string",
+					"description": "This format is used when the displayed controller is connected to at least 1 device."
+				},
+
+				"max-length": {
+					"type": "integer",
+					"description": "The maximum length in character the module should display."
+				},
+				"min-length": {
+					"type": "integer",
+					"description": "The minimum length in characters the module should take up."
+				},
+				"align": {
+					"type": "number",
+					"description": "The alignment of the text, where 0 is left-aligned and 1 is right-aligned. If the module is rotated, it will follow the flow of the text.",
+					"minimum": 0.0,
+					"maximum": 1.0
+				}
+			},
+
+			"battery": {
+				"type": "object",
+				"title": "Battery Module Configuration",
+				"description": "Configuration for the battery module which displays the current capacity and state (eg. charging) of your battery.",
+				"allOf": [
+					{ "$ref": "#/definitions/module" },
+					{ "$ref": "#/definitions/smooth-scrolling-threshold" },
+					{ "$ref": "#/definitions/tooltip" },
+					{ "$ref": "#/definitions/rotate" }
+				],
+				"properties": {
+					"bat": {
+						"type": "string",
+						"description": "The battery to monitor, as in /sys/class/power_supply/ instead of auto detect."
+					},
+					"adapter": {
+						"type": "string",
+						"description": "The adapter to monitor, as in /sys/class/power_supply/ instead of auto detect."
+					},
+					"design-capacity": {
+						"type": "boolean",
+						"default": false,
+						"description": "Option to enable the use of the design capacity instead of the actual maximal capacity. Thus, even full, the battery may be at less than 100%."
+					},
+					"full-at": {
+						"type": "integer",
+						"description": "Define the max percentage of the battery, useful for an old battery, e.g. 96"
+					},
+					"interval": {
+						"type": "integer",
+						"default": 60,
+						"description": "The interval in which the information gets polled."
+					},
+					"states": {
+						"type": "array",
+						"description": "A number of battery states which get activated on certain capacity levels."
+					},
+					"format": {
+						"type": "string",
+						"default": "{capacity}%",
+						"description": "The format, how the time should be displayed."
+					},
+					"format-time": {
+						"type": "string",
+						"default": "{H} h {M} min",
+						"description": "The format of the estimate of time until full or empty."
+					},
+					"format-icons": {
+						"type": ["array", "object"],
+						"description": "Based on the current capacity, the corresponding icon gets selected. The order is low to high. Or by the state if it is an object."
+					},
+					"max-length": {
+						"type": "integer",
+						"description": "The maximum length in character the module should display."
+					}
+				}
+			},
+
+			"backlight": {
+				"title": "Backlight Config",
+				"type": "object",
+				"allOf": [
+					{ "$ref": "#/definitions/module" },
+					{ "$ref": "#/definitions/rotate" },
+					{ "$ref": "#/definitions/smooth-scrolling-threshold" }
+				],
+				"properties": {
+					"interval": {
+						"type": "integer",
+						"default": 2,
+						"description": "The interval in which the information gets polled."
+					},
+					"format": {
+						"type": "string",
+						"default": "{percent}%",
+						"description": "The format, how information should be displayed. On {} data gets inserted."
+					},
+					"max-length": {
+						"type": "integer",
+						"default": null,
+						"description": "The maximum length in characters the module should display."
+					},
+					"states": {
+						"type": "array",
+						"default": null,
+						"description": "A number of backlight states which get activated on certain brightness levels. See States"
+					}
+				}
+			},
+
+			"layer": {
+				"type": "string",
+				"enum": ["top", "bottom"],
+				"default": "bottom",
+				"description": "Decide if the bar is displayed in front (top) of the windows or behind (bottom) them."
+			},
+			"output": {
+				"type": "string",
+				"enum": ["array"],
+				"default": "array",
+				"description": ""
+			},
+			"position": {
+				"type": "string",
+				"enum": ["top", "bottom", "left", "right"],
+				"default": "top",
+				"description": "Bar position, can be top,bottom,left,right."
+			},
+			"height": {
+				"type": "integer",
+				"default": null,
+				"description": "Height to be used by the bar if possible, leave blank for a dynamic value."
+			},
+			"width": {
+				"type": "integer",
+				"default": null,
+				"description": "Width to be used by the bar if possible, leave blank for a dynamic value."
+			},
+			"modules-left": {
+				"type": "array",
+				"default": null,
+				"description": "Modules that will be displayed on the left."
+			},
+			"modules-center": {
+				"type": "array",
+				"default": null,
+				"description": "Modules that will be displayed in the center."
+			},
+			"modules-right": {
+				"type": "array",
+				"default": null,
+				"description": "Modules that will be displayed on the right."
+			},
+			"margin": {
+				"type": "string",
+				"default": null,
+				"description": "Margins value using the css format without units."
+			},
+			"margin-top": {
+				"type": "integer",
+				"default": null,
+				"description": "Margins value without units."
+			},
+			"margin-left": {
+				"type": "integer",
+				"default": null,
+				"description": "Margins value without units."
+			},
+			"margin-bottom": {
+				"type": "integer",
+				"default": null,
+				"description": "Margins value without units."
+			},
+			"margin-right": {
+				"type": "integer",
+				"default": null,
+				"description": "Margins value without units."
+			},
+			"spacing": {
+				"type": "integer",
+				"default": 4,
+				"description": "Size of gaps in between of the different modules."
+			},
+			"name": {
+				"type": "string",
+				"default": null,
+				"description": "Optional name added as a CSS class, for styling multiple waybars."
+			},
+			"mode": {
+				"type": "string",
+				"default": null,
+				"description": "Selects one of the preconfigured display modes. This is an equivalent of the sway-bar(5) mode command and supports the same values: dock, hide, invisible, overlay. Note: hide and invisible modes may be not as useful without Sway IPC."
+			},
+			"modifier-reset": {
+				"type": "string",
+				"enum": ["press", "release"],
+				"default": "press",
+				"description": "Defines the timing of modifier key to reset the bar visibility. To reset the visibility of the bar with the press of the modifier key use press. Use release to reset the visibility upon the release of the modifier key and only if no other action happened while the key was pressed. This prevents hiding the bar when the modifier is used to switch a workspace, change binding mode or start a keybinding."
+			},
+			"exclusive": {
+				"type": "boolean",
+				"default": true,
+				"description": "Option to request an exclusive zone from the compositor. Disable this to allow drawing application windows underneath or on top of the bar. Disabled by default for overlay layer."
+			},
+			"fixed-center": {
+				"type": "boolean",
+				"default": true,
+				"description": "Prefer fixed center position for the modules-center block. The center block will stay in the middle of the bar whenever possible. It can still be pushed around if other blocks need more space. When false, the center block is centered in the space between the left and right block."
+			},
+			"passthrough": {
+				"type": "boolean",
+				"default": false,
+				"description": "Option to pass any pointer events to the window under the bar. Intended to be used with either top or overlay layers and without exclusive zone. Enabled by default for overlay layer."
+			},
+			"gtk-layer-shell": {
+				"type": "boolean",
+				"default": true,
+				"description": "Option to disable the use of gtk-layer-shell for popups. Only functional if compiled with gtk-layer-shell support."
+			},
+			"ipc": {
+				"type": "boolean",
+				"default": false,
+				"description": "Option to subscribe to the Sway IPC bar configuration and visibility events and control waybar with swaymsg bar commands. Requires bar_id value from sway configuration to be either passed with the -b commandline argument or specified with the id option. See #1244 for the documentation and configuration examples."
+			},
+			"id": {
+				"type": "string",
+				"default": null,
+				"description": "Bar_id for the Sway IPC.\nUse this if you need to override the value passed with the -b bar_id commandline argument for the specific bar instance."
+			},
+			"include": {
+				"type": ["array", "string"],
+				"default": null,
+				"description": "Paths to additional configuration files.\nEach file can contain a single object with any of the bar configuration options.\nIn case of duplicate options, the first defined value takes precedence, i.e. including file -> first included file -> etc.\nNested includes are permitted, but make sure to avoid circular imports.\nFor a multi-bar config, the include directive affects only current bar configuration object."
+			}
+		}
+	}
+}

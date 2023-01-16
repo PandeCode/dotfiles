@@ -1,0 +1,50 @@
+#  ______        ___ __   __
+# / ___\ \      / / \\ \ / /
+# \___ \\ \ /\ / / _ \\ V /
+#  ___) |\ V  V / ___ \| |
+# |____/  \_/\_/_/   \_\_|
+
+font pango:Comic Shanns 8
+# class                 border  bground text    indicator child_border
+client.focused          #6272A4 #6272A4 #F8F8F2 #6272A4   #6272A4
+client.focused_inactive #44475A #44475A #F8F8F2 #44475A   #44475A
+client.unfocused        #282A36 #282A36 #BFBFBF #282A36   #282A36
+client.urgent           #44475A #FF5555 #F8F8F2 #FF5555   #FF5555
+client.placeholder      #282A36 #282A36 #F8F8F2 #282A36   #282A36
+
+client.background       #F8F8F2
+
+default_border pixel 1
+default_floating_border pixel 1
+
+set $terminal kitty
+
+# Load Xresources
+exec --no-startup-id xrdb ~/.Xresources
+exec --no-startup-id nm-applet
+exec --no-startup-id greenclip daemon
+exec --no-startup-id eww daemon
+exec --no-startup-id kdeconnect-indicator
+exec --no-startup-id waybar --config ~/.config/waybar/sway.jsonc
+
+exec --no-startup-id /usr/lib/polkit-agent-helper-1
+exec --no-startup-id killall -9 dunst && dunst
+
+exec --no-startup-id swaymsg "workspace $ws1; exec $terminal"
+
+# xss-lock grabs a logind suspend inhibit lock and will use i3lock to lock the screen before suspend. Use loginctl lock-session to lock your screen.
+# exec --no-startup-id xss-lock --transfer-sleep-lock -- i3lock --nofork
+
+set $ws1  "1  "
+set $ws2  "2  "
+set $ws3  "3  "
+set $ws4  "4  "
+set $ws5  "5 "
+set $ws6  "6  "
+set $ws7  "7  "
+set $ws8  "8  "
+set $ws9  "9  "
+
+include ~/.config/sway/rules.conf
+include ~/.config/sway/bindings.conf
+include ~/.config/sway/modes.conf

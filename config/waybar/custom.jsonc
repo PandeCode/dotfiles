@@ -1,0 +1,28 @@
+{
+	"custom/ping": {
+		"format": "{} ms",
+		"return-type": "json",
+		"max-length": 8,
+		"escape": true,
+		"exec": "$HOME/.config/waybar/scripts/ping.sh 2> /dev/null" // Script in resources folder
+	},
+	"custom/menu": {
+		"format": "",
+		"on-click": "~/dotfiles/PERSONAL_PATH/menu.sh"
+	},
+	"custom/media": {
+		"format": "{icon} {}",
+		"return-type": "json",
+		"max-length": 40,
+		"format-icons": {
+			"spotify": "",
+			"default": "🎜"
+		},
+		"escape": true,
+		"exec": "$HOME/.config/waybar/scripts/mediaplayer.py 2> /dev/null", // Script in resources folder
+		"on-click": "playerctl play-pause",
+		"on-scroll-up": "playerctl volume .1+",
+		"on-scroll-down": "playerctl volume .1-"
+		// "exec": "$HOME/.config/waybar/mediaplayer.py --player spotify 2> /dev/null" // Filter player based on name
+	}
+}

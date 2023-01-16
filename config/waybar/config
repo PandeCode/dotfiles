@@ -1,0 +1,6 @@
+{
+	// "include": "$HOME/.config/waybar/sway.jsonc"
+	// "include": "$HOME/.config/waybar/wlr.jsonc"
+	"include": "$HOME/.config/waybar/hyprland.jsonc"
+}
+
