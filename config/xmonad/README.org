@@ -137,7 +137,7 @@ import qualified XMonad.Util.Hacks as Hacks
 
 * Default Terminal
 #+begin_src haskell
-myTerminal = "st"
+myTerminal = "kitty"
 #+end_src
 
 * Default Mod Key Super
@@ -152,7 +152,7 @@ myFont = "xft:DejaVu Sans Condensed-16:normal"
 
 * Theme
 #+begin_src haskell
--- Deep ocean
+ -- Deep ocean
 deepOcean :: M.Map [Char] [Char]
 deepOcean =
   M.fromList
@@ -272,11 +272,11 @@ myXmonadTheme =
 * Border Colors
 #+begin_src haskell
 myNormalBorderColor :: [Char]
---myNormalBorderColor = "#dddddd" --  Light grey
+ --myNormalBorderColor = "#dddddd" --  Light grey
 myNormalBorderColor = fromMaybe "#dddddd" (M.lookup "borderColor" myTheme)
 
 myFocusedBorderColor :: [Char]
---myFocusedBorderColor = "#ff0000" -- Solid red
+ --myFocusedBorderColor = "#ff0000" -- Solid red
 myFocusedBorderColor = fromMaybe "#ff0000" (M.lookup "selectionForeground" myTheme)
 #+end_src
 
@@ -402,9 +402,9 @@ myXmobarPP              =
       ppSep               = green " • "
       , ppTitleSanitize   = xmobarStrip
 
-      --, ppHiddenNoWindows = lowWhite . wrap " " "" --  unused workspaces
+ --, ppHiddenNoWindows = lowWhite . wrap " " "" --  unused workspaces
 
-      -- , ppCurrent         =  xmobarBorder "Bottom" (fromMaybe "#8be9fd" (M.lookup "whiteBlackColor" myTheme)) 2 -- Current Workspace
+ -- , ppCurrent         =  xmobarBorder "Bottom" (fromMaybe "#8be9fd" (M.lookup "whiteBlackColor" myTheme)) 2 -- Current Workspace
       , ppCurrent         =  white . xmobarBorder "Bottom" currentBorderColor 2 . (\x -> makeFullAction (
            ("xdotool set_desktop " ++ (show (fromMaybe (0) (elemIndex x myWorkspaces)))) ) 
            ((show ((fromMaybe (0) (elemIndex x myWorkspaces)) + 1)) ++ " 2")
@@ -434,8 +434,8 @@ myXmobarPP              =
     makeFullAction a1 a2 a3 a4 a5 t = "<action=`" ++ a1 ++ "` button=1>" ++ "<action=`" ++ wsScript ++ a2 ++ "` button=2>" ++ "<action=`" ++ wsScript ++ a3 ++ "` button=3>" ++ "<action=`" ++ wsScript ++ a4 ++ "` button=4>" ++ "<action=`" ++ wsScript ++ a5 ++ "` button=5>" ++ t ++ ae
     formatFocused       = wrap (white "[") (white "]") . green . ppWindow
     formatUnfocused     = wrap (lowWhite "[") (lowWhite "]") . blue . ppWindow
-    -- Windows should have *some* title, which should not not exceed a
-    -- sane length.
+ -- Windows should have *some* title, which should not not exceed a
+ -- sane length.
     ppWindow :: String -> String
     ppWindow            = xmobarRaw . (\w -> if null w then "untitled" else w) . shorten 30
     blue, lowWhite, green, red, white, yellow :: String -> String
@@ -452,243 +452,127 @@ myXmobarPP              =
 #+begin_src haskell
 navWrapAround=False
 
-gridSelectSpawn = spawnSelected def ["virtualbox", "neovide", "emacsclient -c -a emacs", "chrome", "st", "dex /usr/share/applications/spotify-adblock.desktop"]
+gridSelectSpawn = spawnSelected def ["virtualbox", "neovide", "kitty", "barrier", "kdeconnect-indicator", "emacsclient -c -a emacs", "chrome", "st", "spotify"]
 notesPromptFunc = do
     spawn ("date>>"++"/home/shawn/dev/personal/NOTES")
     appendFilePrompt myXPConfig "/home/shawn/dev/personal/NOTES"
 
 toggleFullScreen = do
     sendMessage (JumpToLayout ("Full"))
-    -- sendMessage (JumpToLayout ("Tall"))
     sendMessage (ToggleStruts)
 
 myEasyMotionConfig:: EasyMotionConfig
 myEasyMotionConfig =  def {
       txtCol      = fromMaybe "#ffffff" (M.lookup "foreground" myTheme)
     , bgCol       = fromMaybe "#000000" (M.lookup "background" myTheme)
-    -- , overlayF    = proportional (0.3::Double)
+ -- , overlayF    = proportional (0.3::Double)
     , borderCol   = fromMaybe "#000000" (M.lookup "borderColor" myTheme)
-    -- , sKeys       = AnyKeys [xK_s, xK_d, xK_f, xK_j, xK_k, xK_l]
-    -- , cancelKey   = xK_q
-    -- , borderPx    = 1
-    -- , maxChordLen = 0
+ -- , sKeys       = AnyKeys [xK_s, xK_d, xK_f, xK_j, xK_k, xK_l]
+ -- , cancelKey   = xK_q
+ -- , borderPx    = 1
+ -- , maxChordLen = 0
     , emFont      = myFont
  }
 
-
-
 myKeybinds = [
-
-
-    -- Waiting on
-    --("M-r c"   , confirmPromptPrompt def                  ),
-    --("M-S-r d" , directoryPrompt def                  ),
-    --("M-r e"   , emailPrompt def                          ),
-    --("M-r f"   , fuzzyMatchPrompt def                     ),
-    --("M-r i"   , inputPrompt def                          ),
-    --("M-r p"   , passPrompt def                           ),
-    --("M-S-r s" , sshPrompt def                        ),
-    --("M-p w"   , windowPrompt myXPConfig  Goto allWindows ),
-    --("M-S-r w" , workspacePrompt def                  ),    -- Looks cursed on my config
-    --("M-r z"   , zshPrompt def                            ),
-
-    -- NO use
-    --("M-r a",launchApp myXPConfig "st -e ")
-    --("M-r s",shellPrompt myXPConfig)
-
-    -- SHOWKEYS START
-
+ -- SHOWKEYS START
     ("M-/",     spawn "/home/shawn/dotfiles/scripts/xmonad/help.sh") -- Help
 
-    ,   ("M-p /",   spawn "/home/shawn/dotfiles/scripts/xmonad/help.sh p") -- Help Prompt
-    ,   ("M-p n",   notesPromptFunc) -- Plain Notes Prompt
-    ,   ("M-p o",   orgPrompt myXPConfig "TODO" "/home/shawn/dev/personal/org/todos.org") -- Org Prompt
-    ,   ("M-p d",   dirExecPrompt myXPConfig spawn "/home/shawn/dotfiles/scripts") -- Execute Scripts Directory
-    ,   ("M-p l",   layoutPrompt myXPConfig) -- Layout Prompt
-    ,   ("M-p m",   manPrompt myXPConfig) -- Man Prompt
-    ,   ("M-p r",   runOrRaisePrompt myXPConfig) --  Run or raise window
-    ,   ("M-p p",   prompt ("st" ++ " -e") myXPConfig) -- Prompt Terminal Program
-    ,   ("M-p t",   themePrompt myXPConfig)                                           -- Theme Prompt
-    ,   ("M-p u",   unicodePrompt "/home/shawn/dotfiles/extras/unicode" myXPConfig) -- Unicode Prompt
-    ,   ("M-p w g", windowPrompt myXPConfig Goto wsWindows)                     -- Prompt: Goto window
-    ,   ("M-p w b", windowPrompt myXPConfig Bring allWindows)                   -- Prompt: Bring window to Current Workspace
-    ,   ("M-p x",   xmonadPrompt myXPConfig)                                          -- Xmonad Prompt
+    , ("M-x",  myTree) -- Open Tree
+    , ("M-S-x",myTreeWorkspaces) -- Open Tree workspaces
 
-    ,   ("M-x",  myTree) -- Open Tree
-    ,   ("M-S-x",myTreeWorkspaces) -- Open Tree workspaces
+    , ("M-g", gridSelectSpawn) -- Grid Select swap program
+    , ("M-S-g",  goToSelected def) -- Grid Select go to window
 
-    ,   ("M-n /", spawn "/home/shawn/dotfiles/scripts/xmonad/help.sh n") -- Help Notifications
-    ,   ("M-n c",spawn "kill -s USR1 $(pidof deadd-notification-center)")                                                                    -- Notifications Center
-    ,   ("M-n h o",    spawn  "notify-send.py a  --hint boolean:deadd-notification-center:true int:id:0 boolean:state:true type:string:buttons") --  Highlight On
-    ,   ("M-n h f",    spawn  "notify-send.py a  --hint boolean:deadd-notification-center:true int:id:0 boolean:state:false type:string:buttons") --  Highlight Off
-    ,   ("M-n d c",    spawn  "notify-send.py a  --hint boolean:deadd-notification-center:true string:type:clearInCenter") --  Clear Center
-    ,   ("M-n d p",    spawn  "notify-send.py a  --hint boolean:deadd-notification-center:true string:type:clearPopups") --  Clear Popups
-    ,   ("M-n p",spawn  "notify-send.py a --hint boolean:deadd-notification-center:true string:type:pausePopups") --  Pause Notifications
-    ,   ("M-n u",spawn  "notify-send.py a --hint boolean:deadd-notification-center:true string:type:unpausePopups") --  Unpause Notifications
-    ,   ("M-n r",spawn  "notify-send.py a --hint boolean:deadd-notification-center:true string:type:reloadStyle") --  Reload Style
-    ,   ("M-n t g",    spawn  "notify-send.py 'Icons are' 'COOL' --hint string:image-path:face-cool") --  Gtk icon
-    ,   ("M-n t i",    spawn  "notify-send.py 'Images' 'COOL' --hint string:image-path:file://$HOME/Pictures/Wallpapers/minecraft_swamp.jpeg") --  Image file
-    ,   ("M-n t n",    spawn  "notify-send.py 'Does pop up' -t 1") --  Notification Center Only
-    ,   ("M-n t a",    spawn  "notify-send.py '1' '2' --hint boolean:action-icons:true  --action yes:face-cool no:face-sick") --  Action buttons gtk icons
-    ,   ("M-n t p 1",  spawn  "notify-send.py 'This notification has a progressbar' '33%' --hint int:has-percentage:33") --  with progress bar
-    ,   ("M-n t p 2",  spawn  "notify-send.py 'This notification has a progressbar' '33%' --hint int:value:33") --  with progress bar
-    ,   ("M-n t s",    spawn  "notify-send.py 'This notification has a slider' '33%' --hint int:has-percentage:33 --action changeValue:abc") --  with slider
+    , ("M-c /", spawn "/home/shawn/dotfiles/scripts/xmonad/help.sh c") -- Help Change Layouts
+    , ("M-c 1", sendMessage $ JumpToLayout "Tall") -- Switch to "Tall" layout
+    , ("M-c 2", sendMessage $ JumpToLayout "Mirror Tall") -- Switch to "Mirror Tall" layout
+    , ("M-c 3", sendMessage $ JumpToLayout "Full") -- Switch to "Full" layout
+    , ("M-c 4", sendMessage $ JumpToLayout "Magnifier NoMaster ThreeCol") -- Switch to "Magnifier NoMaster ThreeCol" layout
+    , ("M-c n", spawn " ~/dotfiles/scripts/xmonad/xmonadctl.sh next-layout") -- Switch to Next layout
+    , ("M-c p", spawn " ~/dotfiles/scripts/xmonad/xmonadctl.sh default-layout") -- Switch to Default layout
 
-    ,   ("M-i /", spawn "/home/shawn/dotfiles/scripts/xmonad/help.sh i") -- Help Info
-    ,   ("M-i p",    spawn  "/home/shawn/dotfiles/scripts/xmobar/ping.sh 1")                                                                                                        -- Info ping
-    ,   ("M-i b",    spawn  "/home/shawn/dotfiles/scripts/xmobar/battery.sh 1")                                                                                                        -- Info battery
-    ,   ("M-i d",    spawn  "/home/shawn/dotfiles/scripts/xmobar/date.sh 1")                                                                                                        -- Info date
-    ,   ("M-i c",    spawn  "/home/shawn/dotfiles/scripts/xmobar/cpu.sh 1")                                                                                                        -- Info cpu
-    ,   ("M-i m",    spawn  "/home/shawn/dotfiles/scripts/xmobar/mem.sh 1")                                                                                                        -- Info memory
+    , ("M1-<F4>", kill) -- Alt F4, kill windwow
 
-    ,   ("M-m /", spawn "/home/shawn/dotfiles/scripts/xmonad/help.sh m") -- Help Menu
-    ,   ("M-m p",    spawn  "/home/shawn/dotfiles/scripts/xmobar/ping.sh 3")                                                                                                        -- Menu ping
-    ,   ("M-m b",    spawn  "/home/shawn/dotfiles/scripts/xmobar/battery.sh 3")                                                                                                        -- Menu battery
-    ,   ("M-m d",    spawn  "/home/shawn/dotfiles/scripts/xmobar/date.sh 3")                                                                                                        -- Menu date
-    ,   ("M-m c",    spawn  "/home/shawn/dotfiles/scripts/xmobar/cpu.sh 3")                                                                                                        -- Menu cpu
-    ,   ("M-m m",    spawn  "/home/shawn/dotfiles/scripts/xmobar/mem.sh 3")                                                                                                        -- Menu memory
-    ,   ("M-m M-m",    spawn  "/home/shawn/dotfiles/PERSONAL_PATH/menu.sh")                                                                                                        -- Menu Main
+    , ("M-a",  windows copyToAll) -- Make window sticky
+    , ("M-S-a",killAllOtherCopies) -- Unstick window
 
-    ,   ("M-w /", spawn "/home/shawn/dotfiles/scripts/xmonad/help.sh w") -- Help Wallpaper
-    ,   ("M-w w",    spawn  "~/dotfiles/PERSONAL_PATH/randbg")                                                                                                        -- Random Wallpaper
-    ,   ("M-w M-w",  spawn  "~/dotfiles/PERSONAL_PATH/randbg")                                                                                                        -- Random Wallpaper
-    ,   ("M-w r",    spawn  "~/dotfiles/PERSONAL_PATH/randbg")                                                                                                        -- Random Wallpaper
-    ,   ("M-w M-r",    spawn  "~/dotfiles/PERSONAL_PATH/randbg")                                                                                                        -- Random Wallpaper
-    ,   ("M-w p",    spawn  "~/dotfiles/PERSONAL_PATH/prevbg")                                                                                                        -- Previous Wallpaper
-    ,   ("M-w M-p",    spawn  "~/dotfiles/PERSONAL_PATH/prevbg")                                                                                                        -- Previous Wallpaper
-    ,   ("M-w n",    spawn  "~/dotfiles/PERSONAL_PATH/nextbg")                                                                                                        -- Next Wallpaper
-    ,   ("M-w nM-",    spawn  "~/dotfiles/PERSONAL_PATH/nextbg")                                                                                                        -- Next Wallpaper
-
-    ,   ("M-g",gridSelectSpawn) -- Grid Select swap program
-    ,   ("M-S-g",  goToSelected def) -- Grid Select go to window
-
-    ,   ("M-c /", spawn "/home/shawn/dotfiles/scripts/xmonad/help.sh c")             -- Help Change Layouts
-    ,   ("M-c 1",    sendMessage $ JumpToLayout "Tall")                              -- Switch to "Tall" layout
-    ,   ("M-c 2",    sendMessage $ JumpToLayout "Mirror Tall")                       -- Switch to "Mirror Tall" layout
-    ,   ("M-c 3",    sendMessage $ JumpToLayout "Full")                              -- Switch to "Full" layout
-    ,   ("M-c 4",    sendMessage $ JumpToLayout "Magnifier NoMaster ThreeCol")       -- Switch to "Magnifier NoMaster ThreeCol" layout
-    ,   ("M-c n",    spawn " ~/dotfiles/scripts/xmonad/xmonadctl.sh next-layout")    -- Switch to Next layout
-    ,   ("M-c p",    spawn " ~/dotfiles/scripts/xmonad/xmonadctl.sh default-layout") -- Switch to Default layout
-
-    ,   ("M-v",  spawn "rofi -modi 'clipboard:greenclip print' -show clipboard -run-command '{cmd}'") -- Select from Green Clip and set as current clipboard value
-    ,   ("M-S-v",spawn "rofi -modi 'clipboard:greenclip print' -show clipboard -run-command '{cmd}' ; sleep 0.5; xdotool type $(xclip -o -selection clipboard)") -- Select from Green Clip and paste
-    ,   ("M-C-S-v",    spawn "pkill greenclip && greenclip clear && greenclip daemon & notify-send 'System' 'Greenclip Cleared' ;") -- Clear Green Clip
-
-    ,   ("M1-<F4>",    kill)                                                                                                                 -- Alt F4, kill windwow
-    ,   ("M-S-l",spawn "betterlockscreen -lock")                                                                                             -- Lock WM
-    ,   ("M1-<F2>",    spawn "dmenu_run  -f -i -l 10 -p 'sh -c'")                                                                            -- Dmenu launch program
-
-    ,   ("M-<Print>",  spawn "flameshot full -p $HOME/Pictures/Screenshots")                                                                 -- Full Screenshot
-    ,   ("M-S-<Print>",spawn "flameshot gui  -p $HOME/Pictures/Screenshots")                                                                 -- Snip Screenshot
-
-    ,   ("M-z", spawn "eww open                                                                                                              --toggle sidebar") -- Spawn Eww Sidebar
-    ,   ("M-S-z", spawn "eww open                                                                                                            --toggle dubs") -- Spawn Eww dubs
-
-    ,   ("M-s /", spawn "/home/shawn/dotfiles/scripts/xmonad/help.sh s") -- Help Spawn
-    ,   ("M-s c", spawn "~/dotfiles/PERSONAL_PATH/click4ever")                                                                               -- Spawn Click4ever (~/dotfiles/PERSONAL_PATH/click4ever")
-    ,   ("M-s p", spawn "notify-send 'Xmonad' 'Spawning pavucontrol'; pavucontrol")                                               -- Spawn pavucontrol
-    ,   ("M-s r", spawn "notify-send 'Xmonad' 'Spawning vokoscreenNG';vokoscreenNG")                                            -- Spawn vokoscreenNG
-    ,   ("M-s b", spawnOn (head myWorkspaces) "notify-send'Xmoand' 'Spawning chrome';/usr/bin/google-chrome-stable")                                        -- Spawn chrome
-    ,   ("M-s h", spawnOn (myWorkspaces !! 3) "notify-send'Xmoand' 'Spawning hakuneko-desktop';hakuneko-desktop")          -- Spawn hakuneko-desktop
-    ,   ("M-s s", spawnOn (myWorkspaces !! 4) "notify-send'Xmoand' 'Spawning dex';dex /usr/share/applications/spotify-adblock.desktop") -- Spawn spotify
-
-    , ("<XF86XK_MonBrightnessDown>",   spawn "$HOME/dotfiles/scripts/dwm/light.sh down")                                                   -- light down
-    , ("<XF86XK_MonBrightnessUp>",     spawn "$HOME/dotfiles/scripts/dwm/light.sh up")                                                     -- light up
-    , ("<XF86XK_AudioLowerVolume>",    spawn "$HOME/dotfiles/scripts/dwm/vol.sh down")                                                     -- vol down
-    , ("<XF86XK_AudioRaiseVolume>",    spawn "$HOME/dotfiles/scripts/dwm/vol.sh up")                                                       -- vol up
-    , ("<XF86XK_AudioMute>",     spawn "$HOME/dotfiles/scripts/dwm/vol.sh mute")                                                           -- vol mute
-    , ("<XF86XK_AudioPlay>",     spawn "$HOME/dotfiles/scripts/dwm/media.sh play-pause")                                                   -- media play-pause
-    , ("<XF86XK_AudioNext>",     spawn "$HOME/dotfiles/scripts/dwm/media.sh next")                                                         -- media next
-    , ("<XF86XK_AudioPrev>",     spawn "$HOME/dotfiles/scripts/dwm/media.sh previous")                                                     -- media previous
-
-    , ("M-<F2>",     spawn "$HOME/dotfiles/scripts/dwm/light.sh down")                                                                     -- light down
-    , ("M-<F3>",     spawn "$HOME/dotfiles/scripts/dwm/light.sh up")                                                                       -- light up
-    , ("M-<F7>",     spawn "$HOME/dotfiles/scripts/dwm/vol.sh down")                                                                       -- vol down
-    , ("M-<F8>",     spawn "$HOME/dotfiles/scripts/dwm/vol.sh up")                                                                         -- vol up
-    , ("M-<F6>",     spawn "$HOME/dotfiles/scripts/dwm/vol.sh mute")                                                                       -- vol mute
-    , ("M-<F10>",    spawn "$HOME/dotfiles/scripts/dwm/media.sh play-pause")                                                               -- media play-pause
-    , ("M-<F11>",    spawn "$HOME/dotfiles/scripts/dwm/media.sh next")                                                                     -- media next
-    , ("M-<F9>",     spawn "$HOME/dotfiles/scripts/dwm/media.sh previous")                                                                 -- media previous
-
-    , ("M-a",  windows copyToAll)                                                                                                          -- Make window sticky
-    , ("M-S-a",killAllOtherCopies)                                                                                                         -- Unstick window
+    , ("M-e f", (selectWindow myEasyMotionConfig) >>= (`whenJust` windows . W.focusWindow)) -- EasyMotion focus window
+    , ("M-e k", (selectWindow myEasyMotionConfig) >>= (`whenJust` killWindow)) -- EasyMotion kill window
 
     , ("M-t /", spawn "/home/shawn/dotfiles/scripts/xmonad/help.sh t") -- Help Toggles
-    , ("M-t f", toggleFullScreen)                                                                                                          -- Toggle Fullscreen
-    , ("M-t M-f", toggleFullScreen)                                                                                                        -- Toggle Fullscreen
-    , ("M-t t", withFocused $ windows . W.sink)                                                                                            -- Force focused window back into tiling
-    , ("M-t M-t", withFocused $ windows . W.sink)                                                                                          -- Force focused window back into tiling
+    , ("M-t f", toggleFullScreen) -- Toggle Fullscreen
+    , ("M-t M-f", toggleFullScreen) -- Toggle Fullscreen
+    , ("M-t t", withFocused $ windows . W.sink) -- Force focused window back into tiling
+    , ("M-t M-t", withFocused $ windows . W.sink) -- Force focused window back into tiling
 
-    , ("M-h", sendMessage $ Go L)                                                                                                            -- focus left
-    , ("M-j", sendMessage $ Go D)                                                                                                            -- focus down
-    , ("M-k", sendMessage $ Go U)                                                                                                            -- focus up
-    , ("M-l", sendMessage $ Go R)                                                                                                            -- focus right
-    , ("M-S-h", sendMessage $ Swap L)                                                                                                        -- swap left
-    , ("M-S-j", sendMessage $ Swap D)                                                                                                        -- swap down
-    , ("M-S-k", sendMessage $ Swap U)                                                                                                        -- swap up
-    , ("M-S-l", sendMessage $ Swap R)                                                                                                        -- swap right
-    , ("M-C-h", sendMessage $ Move L)                                                                                                        -- move left
-    , ("M-C-j", sendMessage $ Move D)                                                                                                        -- move down
-    , ("M-C-k", sendMessage $ Move U)                                                                                                        -- move up
-    , ("M-C-l", sendMessage $ Move R)                                                                                                        -- move right
+    , ("M-h", sendMessage $ Go L) -- focus left
+    , ("M-j", sendMessage $ Go D) -- focus down
+    , ("M-k", sendMessage $ Go U) -- focus up
+    , ("M-l", sendMessage $ Go R) -- focus right
+    , ("M-S-h", sendMessage $ Swap L) -- swap left
+    , ("M-S-j", sendMessage $ Swap D) -- swap down
+    , ("M-S-k", sendMessage $ Swap U) -- swap up
+    , ("M-S-l", sendMessage $ Swap R) -- swap right
+    , ("M-C-h", sendMessage $ Move L) -- move left
+    , ("M-C-j", sendMessage $ Move D) -- move down
+    , ("M-C-k", sendMessage $ Move U) -- move up
+    , ("M-C-l", sendMessage $ Move R) -- move right
 
-    , ("M-<L>", withFocused (keysMoveWindow (-20,0)))                                                                                        -- move float left
-    , ("M-<R>", withFocused (keysMoveWindow (20,0)))                                                                                         -- move float right
-    , ("M-<U>", withFocused (keysMoveWindow (0,-20)))                                                                                        -- move float up
-    , ("M-<D>", withFocused (keysMoveWindow (0,20)))                                                                                         -- move float down
-    , ("M-S-<L>", withFocused (keysResizeWindow (-20,0) (0,0)))                                                                              --shrink float at right
-    , ("M-S-<R>", withFocused (keysResizeWindow (20,0) (0,0)))                                                                               --expand float at right
-    , ("M-S-<D>", withFocused (keysResizeWindow (0,20) (0,0)))                                                                               --expand float at bottom
-    , ("M-S-<U>", withFocused (keysResizeWindow (0,-20) (0,0)))                                                                              --shrink float at bottom
-    , ("M-C-<L>", withFocused (keysResizeWindow (20,0) (1,0)))                                                                               --expand float at left
-    , ("M-C-<R>", withFocused (keysResizeWindow (-20,0) (1,0)))                                                                              --shrink float at left
-    , ("M-C-<U>", withFocused (keysResizeWindow (0,20) (0,1)))                                                                               --expand float at top
-    , ("M-C-<D>", withFocused (keysResizeWindow (0,-20) (0,1)))                                                                              --shrink float at top
+    , ("M-<L>", withFocused (keysMoveWindow (-20,0))) -- move float left
+    , ("M-<R>", withFocused (keysMoveWindow (20,0))) -- move float right
+    , ("M-<U>", withFocused (keysMoveWindow (0,-20))) -- move float up
+    , ("M-<D>", withFocused (keysMoveWindow (0,20))) -- move float down
+    , ("M-S-<L>", withFocused (keysResizeWindow (-20,0) (0,0))) --shrink float at right
+    , ("M-S-<R>", withFocused (keysResizeWindow (20,0) (0,0))) --expand float at right
+    , ("M-S-<D>", withFocused (keysResizeWindow (0,20) (0,0))) --expand float at bottom
+    , ("M-S-<U>", withFocused (keysResizeWindow (0,-20) (0,0))) --shrink float at bottom
+    , ("M-C-<L>", withFocused (keysResizeWindow (20,0) (1,0))) --expand float at left
+    , ("M-C-<R>", withFocused (keysResizeWindow (-20,0) (1,0))) --shrink float at left
+    , ("M-C-<U>", withFocused (keysResizeWindow (0,20) (0,1))) --expand float at top
+    , ("M-C-<D>", withFocused (keysResizeWindow (0,-20) (0,1))) --shrink float at top
 
-    , ("M-e f", (selectWindow myEasyMotionConfig) >>= (`whenJust` windows . W.focusWindow))                                                -- EasyMotion focus window
-    , ("M-e k", (selectWindow myEasyMotionConfig) >>= (`whenJust` killWindow))                                                             -- EasyMotion kill window
+ -- SHOWKEYS END
 
-    -- SHOWKEYS END
+ -- ,   ("M-j", windowGo D navWrapAround) -- Focus Window Down
+ -- ,   ("M-h", windowGo L navWrapAround) -- Focus Window Left
+ -- ,   ("M-l", windowGo R navWrapAround) -- Focus Window Right
 
-    -- ,   ("M-j", windowGo D navWrapAround) -- Focus Window Down
-    -- ,   ("M-h", windowGo L navWrapAround) -- Focus Window Left
-    -- ,   ("M-l", windowGo R navWrapAround) -- Focus Window Right
+ -- ,   ("M-S-k",sendMessage MirrorExpand) -- Resize Window Up
+ -- ,   ("M-S-j",sendMessage MirrorShrink) -- Resize Window Down
+ -- ,   ("M-S-h",sendMessage Shrink) -- Resize Window Left
+ -- ,   ("M-S-l",sendMessage Expand) -- Resize Window Right
 
-    -- ,   ("M-S-k",sendMessage MirrorExpand) -- Resize Window Up
-    -- ,   ("M-S-j",sendMessage MirrorShrink) -- Resize Window Down
-    -- ,   ("M-S-h",sendMessage Shrink) -- Resize Window Left
-    -- ,   ("M-S-l",sendMessage Expand) -- Resize Window Right
+ -- ,   ("M-C-k", windowSwap U navWrapAround) -- Move Window Up
+ -- ,   ("M-C-j", windowSwap D navWrapAround) -- Move Window Down
+ -- ,   ("M-C-h", windowSwap L navWrapAround) -- Move window Left
+ -- ,   ("M-C-l", windowSwap R navWrapAround) -- Move window Right
 
-    -- ,   ("M-C-k", windowSwap U navWrapAround) -- Move Window Up
-    -- ,   ("M-C-j", windowSwap D navWrapAround) -- Move Window Down
-    -- ,   ("M-C-h", windowSwap L navWrapAround) -- Move window Left
-    -- ,   ("M-C-l", windowSwap R navWrapAround) -- Move window Right
+ --    , ("M-f h", withFocused $ snapMove L Nothing)
+ --    , ("M-f l", withFocused $ snapMove R Nothing)
+ --    , ("M-f k", withFocused $ snapMove U Nothing)
+ --    , ("M-f j", withFocused $ snapMove D Nothing)
 
-    --    , ("M-f h", withFocused $ snapMove L Nothing)
-    --    , ("M-f l", withFocused $ snapMove R Nothing)
-    --    , ("M-f k", withFocused $ snapMove U Nothing)
-    --    , ("M-f j", withFocused $ snapMove D Nothing)
+ --    , ("M-f S-h", withFocused $ snapShrink R Nothing)
+ --    , ("M-f S-l", withFocused $ snapGrow R Nothing)
+ --    , ("M-f S-k", withFocused $ snapShrink D Nothing)
+ --    , ("M-f S-j", withFocused $ snapGrow D Nothing)
 
-    --    , ("M-f S-h", withFocused $ snapShrink R Nothing)
-    --    , ("M-f S-l", withFocused $ snapGrow R Nothing)
-    --    , ("M-f S-k", withFocused $ snapShrink D Nothing)
-    --    , ("M-f S-j", withFocused $ snapGrow D Nothing)
+ -- , ("M-f S-h", withFocused (keysResizeWindow (-10, 0) (1, 0) )) -- Resize Floating Windowa 10px to the left
+ -- , ("M-f S-k", withFocused (keysResizeWindow (0, -10) (0, 1) )) -- Resize Floating Windowa 10px to the up
+ -- , ("M-f S-j", withFocused (keysResizeWindow (0, 10) (0, 1) )) -- Resize Floating Windowa 10px to the down
 
-    -- , ("M-f S-h", withFocused (keysResizeWindow (-10, 0) (1, 0) )) -- Resize Floating Windowa 10px to the left
-    -- , ("M-f S-k", withFocused (keysResizeWindow (0, -10) (0, 1) )) -- Resize Floating Windowa 10px to the up
-    -- , ("M-f S-j", withFocused (keysResizeWindow (0, 10) (0, 1) )) -- Resize Floating Windowa 10px to the down
-
-    -- , ("M-f l", withFocused (keysMoveWindow (10,0))) -- Move Window 10 px to right
-    -- , ("M-f h", withFocused (keysMoveWindow (-10,0))) -- Move Window 10 px to left
-    -- , ("M-f k", withFocused (keysMoveWindow (0,-10))) -- Move Window 10 px to up
-    -- , ("M-f j", withFocused (keysMoveWindow (0,10))) -- Move Window 10 px to down
+ -- , ("M-f l", withFocused (keysMoveWindow (10,0))) -- Move Window 10 px to right
+ -- , ("M-f h", withFocused (keysMoveWindow (-10,0))) -- Move Window 10 px to left
+ -- , ("M-f k", withFocused (keysMoveWindow (0,-10))) -- Move Window 10 px to up
+ -- , ("M-f j", withFocused (keysMoveWindow (0,10))) -- Move Window 10 px to down
  ]
 
 
 myMouseBindings = [
-    --     ((myModMask,               button1), (\w -> focus w >> mouseMoveWindow w >> ifClick (snapMagicMove (Just 50) (Just 50) w)))
-    --    ,((myModMask .|. shiftMask, button1), (\w -> focus w >> mouseMoveWindow w >> ifClick (snapMagicResize [L,R,U,D] (Just 50) (Just 50) w)))
-    --    , ((myModMask,               button3), (\w -> focus w >> mouseResizeWindow w >> ifClick (snapMagicResize [R,D] (Just 50) (Just 50) w)))
+ --     ((myModMask,               button1), (\w -> focus w >> mouseMoveWindow w >> ifClick (snapMagicMove (Just 50) (Just 50) w)))
+ --    ,((myModMask .|. shiftMask, button1), (\w -> focus w >> mouseMoveWindow w >> ifClick (snapMagicResize [L,R,U,D] (Just 50) (Just 50) w)))
+ --    , ((myModMask,               button3), (\w -> focus w >> mouseResizeWindow w >> ifClick (snapMagicResize [R,D] (Just 50) (Just 50) w)))
 
     ((myModMask,               button1), (\w -> focus w >> mouseMoveWindow w >> afterDrag (snapMagicMove (Just 50) (Just 50) w)))
        , ((myModMask .|. shiftMask, button1), (\w -> focus w >> mouseMoveWindow w >> afterDrag (snapMagicResize [L,R,U,D] (Just 50) (Just 50) w)))
@@ -723,21 +607,21 @@ myManageHook      =
       [isDialog --> doCenterFloat],
 
 
-      [title     =? "Ozone X11"              --> doIgnore],
-      [title     =? "Picture-in-picture"     --> doFloat],
+      [title     =? "Ozone X11" --> doIgnore],
+      [title     =? "Picture-in-picture" --> doFloat],
 
-      [title     =? "Spotify"                  --> doShift (myWorkspaces !! 4)],
-      [name      =? "Spotify"                  --> doShift (myWorkspaces !! 4)],
-      [netName   =? "Spotify"                  --> doShift (myWorkspaces !! 4)],
-      [className =? "spotify"                --> doShift (myWorkspaces !! 4)],
+      [title     =? "Spotify" --> doShift (myWorkspaces !! 4)],
+      [name      =? "Spotify" --> doShift (myWorkspaces !! 4)],
+      [netName   =? "Spotify" --> doShift (myWorkspaces !! 4)],
+      [className =? "spotify" --> doShift (myWorkspaces !! 4)],
 
-      [isInProperty "WM_NAME" "Spotify"      --> doShift (myWorkspaces !! 4)],
+      [isInProperty "WM_NAME" "Spotify" --> doShift (myWorkspaces !! 4)],
       [isInProperty "_NET_WM_NAME" "Spotify" --> doShift (myWorkspaces !! 4)],
-      [isInProperty "WM_CLASS" "Spotify"     --> doShift (myWorkspaces !! 4)],
+      [isInProperty "WM_CLASS" "Spotify" --> doShift (myWorkspaces !! 4)],
 
-      [isInProperty "WM_NAME" "spotify"      --> doShift (myWorkspaces !! 4)],
+      [isInProperty "WM_NAME" "spotify" --> doShift (myWorkspaces !! 4)],
       [isInProperty "_NET_WM_NAME" "spotify" --> doShift (myWorkspaces !! 4)],
-      [isInProperty "WM_CLASS" "spotify"     --> doShift (myWorkspaces !! 4)]
+      [isInProperty "WM_CLASS" "spotify" --> doShift (myWorkspaces !! 4)]
 
     ]
   where
@@ -750,7 +634,7 @@ myManageHook      =
     netIconName              = stringProperty "_NET_WM_ICON_NAME"
     localeName               = stringProperty "WM_LOCALE_NAME"
 
-    centerFloatClassName     = ["Vimb", "Xmessage", "Gimp", "Open File", "leagueclientux.exe", "riotclientux.exe", "riotclientservices.exe", "League of Legends"]
+    centerFloatClassName     = ["opengl_testing", "Vimb", "Xmessage", "Gimp", "Open File", "leagueclientux.exe", "riotclientux.exe", "riotclientservices.exe", "League of Legends"]
 
     floatClassName           = []
 
@@ -760,10 +644,10 @@ myManageHook      =
     ignoreRole               = ["popup"]
 
     shiftWorkspaceClassName1 = ["Browser", "Firefox", "Google-chrome", "Opera"]
-    shiftWorkspaceClassName2 = ["St", "st", "terminal", "st-256color"]
-    shiftWorkspaceClassName3 = ["ModernGL", "Emacs", "emacs", "neovide", "Code", "Code - Insiders"]
+    shiftWorkspaceClassName2 = ["St", "st", "terminal", "st-256color", "alacritty", "kitty"]
+    shiftWorkspaceClassName3 = ["ModernGL", "Emacs", "emacs", "neovide", "Code", "Code - Insiders", "opengl_testing"]
     shiftWorkspaceClassName4 = ["hakuneko-desktop", "Unity", "unityhub", "UnityHub", "zoom"]
-    shiftWorkspaceClassName5 = ["Spotify", "vlc"]
+    shiftWorkspaceClassName5 = ["Spotify", "spotify","vlc"]
     shiftWorkspaceClassName6 = ["Mail", "Thunderbird"]
     shiftWorkspaceClassName7 = ["riotclientux.exe", "leagueclient.exe", "Zenity", "zenity", "wineboot.exe", "Wine", "wine", "wine.exe", "explorer.exe", "Albion Online Launcher", "Albion Online", "Albion-Online", "riotclientservices.exe", "League of Legends"]
     shiftWorkspaceClassName8 = []
@@ -785,21 +669,20 @@ myLayout     = avoidStruts (smartBorders (tiled ||| Mirror tiled ||| noBorders F
 * Startup
 #+begin_src haskell
 myStartupHook = do
-  spawnOnce (wrapLog "randbg")
+  spawnOnce (wrapLog "lastbg")
 
-  spawn (wrapLogP "trayer" "~/dotfiles/config/xmobar/trayer")
-  spawn (wrapLogP "picom" "picom -b --experimental-backend")
-  spawn (wrapLog "deadd-notification-center")
-
-  spawn (wrapLogP "xflux" "xflux -l 0")
-
-  spawn (wrapLogP "eww" "eww daemon")
-
-  spawn (wrapLog "nm-applet")
+  spawn (wrapLogP "eww"       "eww       daemon")
   spawn (wrapLogP "greeeclip" "greenclip daemon")
-  spawn (wrapLog "flameshot")
+  spawn (wrapLogP "picom"     "picom     -b --experimental-backend")
+  spawn (wrapLogP "sxhkd"     "sxhkd     -c ~/.config/sxhkd/xmonad.sxhkdrc")
+  spawn (wrapLogP "trayer"    "~/dotfiles/config/xmobar/trayer")
+  spawn (wrapLogP "xflux"     "xflux     -l 0")
 
-  spawnOn (myWorkspaces !! 1) (wrapLog "st")
+  spawn (wrapLog "kdeconnect-indicator")
+  spawn (wrapLog "barrier")
+  spawn (wrapLog "nm-applet")
+
+  spawnOn (myWorkspaces !! 1) (wrapLog myTerminal)
 
   where
     wrapLog app = "pidof " ++ app ++ " > /dev/null && echo ''" ++ app ++ "' is already running.' || " ++ app ++ " &"
@@ -823,7 +706,7 @@ myLogHook = fadeInactiveLogHook fadeAmount
 myConfig                 =
   def
     { modMask            = myModMask,
-      --workspaces         = toWorkspaces myTreeWorkspaces
+ --workspaces         = toWorkspaces myTreeWorkspaces
       focusedBorderColor = myFocusedBorderColor,
       handleEventHook    = handleEventHook def <+> Hacks.windowedFullscreenFixEventHook <+> serverModeEventHook <+> serverModeEventHookCmd <+> serverModeEventHookF "XMONAD_PRINT" (io . putStrLn),
       layoutHook         = myLayout,
