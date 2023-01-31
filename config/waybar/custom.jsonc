@@ -7,7 +7,7 @@
 		"exec": "$HOME/.config/waybar/scripts/ping.sh 2> /dev/null" // Script in resources folder
 	},
 	"custom/menu": {
-		"format": "",
+		"format": " ",
 		"on-click": "~/dotfiles/PERSONAL_PATH/menu.sh"
 	},
 	"custom/media": {
