@@ -19,6 +19,7 @@ rm -fr ~/.config/bat \
 	~/.config/rofi \
 	~/.config/rustfmt \
 	~/.config/sway \
+	~/.config/sxhkd \
 	~/.config/waybar \
 	~/.config/xmoand \
 	~/.config/xmobar
@@ -42,6 +43,7 @@ ln -s ~/dotfiles/config/ranger ~/.config/ranger
 ln -s ~/dotfiles/config/rofi ~/.config/rofi
 ln -s ~/dotfiles/config/rustfmt ~/.config/rustfmt
 ln -s ~/dotfiles/config/sway ~/.config/sway
+ln -s ~/dotfiles/config/sxhkd ~/.config/sxhkd
 ln -s ~/dotfiles/config/waybar ~/.config/waybar
 ln -s ~/dotfiles/config/xmonad ~/.config/xmonad
 ln -s ~/dotfiles/config/xmobar ~/.config/xmobar
