@@ -9,24 +9,6 @@
 	// choose the order of the modules
 
 	"modules-left": ["custom/menu", "wlr/workspaces", "wlr/taskbar"],
-	"modules-center": ["custom/media"],
-	"modules-right": [
-		// "mpd",
-		"wlr/language",
-		"wlr/scratchpad",
-		"idle_inhibitor",
-		"pulseaudio",
-		"network",
-		"cpu",
-		"memory",
-		"temperature",
-		"backlight",
-		// "keyboard-state",
-		"battery",
-		// "battery#bat2",
-		"clock",
-		"tray"
-	],
 
 	"wlr/window": {
 		"format": "{}",
@@ -36,7 +18,6 @@
 		"format": "{}",
 		"separate-outputs": true
 	},
-
 	"wlr/workspaces": {
 		"disable-scroll": true,
 		"all-outputs": true,

@@ -6,53 +6,20 @@
 	"layer": "top",
 	"spacing": 1,
 
-	"modules-left": [
-		"custom/menu",
-		"wlr/workspaces",
-		"wlr/mode",
-		"wlr/taskbar"
-	],
-	"modules-center": ["custom/media"],
-	"modules-right": [
-		// "mpd",
-		"idle_inhibitor",
-		"pulseaudio",
-		"custom/ping",
-		"network",
-		"cpu",
-		"memory",
-		"temperature",
-		"backlight",
-		// "keyboard-state",
-		"battery",
-		// "battery#bat2",
-		"clock",
-		"tray"
-	],
+	"modules-left": ["custom/menu", "wlr/workspaces", "wlr/taskbar"],
 
-	"hyprland/window": {
-		"format": "{}",
-		"separate-outputs": true
+	"wlr/taskbar": {
+		"format": "{}"
 	},
-
-	"hyprland/workspaces": {
-		"disable-scroll": true,
-		"all-outputs": true,
-		"format": "{name} ",
+	"wlr/workspaces": {
+		"format": "{icon}",
 		"format-icons": {
 			"1": "",
 			"2": "",
 			"3": "",
 			"4": "",
 			"5": "",
-			"urgent": "",
-			"focused": "",
-			"default": ""
 		},
-		"tooltip": true,
-		"tooltip-format": "{icon}",
-		"on-click": "notify-send '{}'",
-		"on-scroll-up": "hyprctl dispatch workspace e+1",
-		"on-scroll-down": "hyprctl dispatch workspace e-1"
+		"sort-by-number": true
 	}
 }
