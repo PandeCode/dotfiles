@@ -4,7 +4,7 @@ pushd .
 
 rm -fr ~/.tmux.conf ~/.tmux
 
-ln -s ~/dotfiles/tmux-config/tmux.conf ~/.tmux.conf
+ln -s $DOTFILES/config/tmux/tmux.conf ~/.tmux.conf
 
 is_app_installed() {
   type "$1" &>/dev/null

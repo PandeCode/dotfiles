@@ -9,7 +9,7 @@ function getShaders {
 
 	for shader in $shaders
 	do
-		echo "		${shader::-5}	~/dotfiles/config/picom/setShader.sh $shaderDir/$shader"
+		echo "		${shader::-5}	$DOTFILES/config/picom/setShader.sh $shaderDir/$shader"
 	done
 }
 
@@ -28,17 +28,17 @@ Picom
 $(getShaders)
 	Off                                       	 killall -9 picom
 	On                                        	 picom --experimental-background -b 1>> ~/log/picom.log 2>> ~/log/picom.err.log
-	Rounded Corners                           	 ~/dotfiles/scripts/picom.sh rounded
-	Blur                                      	 ~/dotfiles/scripts/picom.sh blur
-	Animation                                 	 ~/dotfiles/scripts/picom.sh animation
+	Rounded Corners                           	 $DOTFILES/scripts/picom.sh rounded
+	Blur                                      	 $DOTFILES/scripts/picom.sh blur
+	Animation                                 	 $DOTFILES/scripts/picom.sh animation
 	
 Lang
-	Clipboard To English                      	 ~/dotfiles/scripts/lang/clipboardToEnglish
-	Clipboard To Speech                       	 ~/dotfiles/scripts/lang/clipboardToSpeech
-	Clipboard To Speech English               	 ~/dotfiles/scripts/lang/clipboardToSpeechEn
-	Picture To English                        	 ~/dotfiles/scripts/lang/pictureToEnglish
-	Picture To Clipboard                      	 ~/dotfiles/scripts/lang/pictureToClipboard
-	QR Code                                   	 ~/dotfiles/scripts/lang/qrCodeToClipboard
+	Clipboard To English                      	 $DOTFILES/scripts/lang/clipboardToEnglish
+	Clipboard To Speech                       	 $DOTFILES/scripts/lang/clipboardToSpeech
+	Clipboard To Speech English               	 $DOTFILES/scripts/lang/clipboardToSpeechEn
+	Picture To English                        	 $DOTFILES/scripts/lang/pictureToEnglish
+	Picture To Clipboard                      	 $DOTFILES/scripts/lang/pictureToClipboard
+	QR Code                                   	 $DOTFILES/scripts/lang/qrCodeToClipboard
 	
  Notifications
 	Notifications Center                      	 kill -s USR1 \$(pidof deadd-notification-center)
@@ -232,7 +232,7 @@ Lang
 
  System
 	Update
-		All                                   	 $TERMINAL -e sudo ~/dotfiles/scripts/updateAll.sh
+		All                                   	 $TERMINAL -e sudo $DOTFILES/scripts/updateAll.sh
 		pacman                                	 $TERMINAL -e sudo pacman -Syyuu --overwrite "*" --noconfirm
 		paru                                  	 $TERMINAL -e sudo clear; CXX=g++ CC=gcc paru -Syyuu --overwrite "*" --noconfirm
 		python3                               	 $TERMINAL -e python3 -m pip install --upgrade \$(python3 -m pip list --outdated | sed "1,2d;s/ .*//;")
@@ -243,7 +243,7 @@ Lang
 		npm                                   	 $TERMINAL -e sudo npm -g upgrade
 		yarn                                  	 $TERMINAL -e yarn global upgrade
 	Clean Cache
-		All                                   	 $TERMINAL -e sudo ~/dotfiles/scripts/cleanAll.sh
+		All                                   	 $TERMINAL -e sudo $DOTFILES/scripts/cleanAll.sh
 		Files                                 	 $TERMINAL -e sudo rm -fr ~/.npm ~/.lesshst ~/.cache/thumbnails ~/.local/share/baloo ~/.cache/cpython/
 		pacman|paru                           	 $TERMINAL -e sudo clear; paru -Scc --noconfirm & paru -R (paru -Qtdq) --noconfirm
 		python3                               	 $TERMINAL -e python3 -m pip cache purge

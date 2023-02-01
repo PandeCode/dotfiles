@@ -22,11 +22,11 @@ Config {
 	, sepChar  = "%"
 	, alignSep = "}{"
 
-	, template = "<action=`~/dotfiles/scripts/xmobar/menu.sh 1` button=1><action=`~/dotfiles/scripts/xmobar/menu.sh 2` button=2><action=`~/dotfiles/scripts/xmobar/menu.sh 3` button=3><action=`~/dotfiles/scripts/xmobar/menu.sh 4` button=4><action=`~/dotfiles/scripts/xmobar/menu.sh 5` button=5>  </action></action></action></action></action> | %UnsafeXMonadLog% |} %mymedia%{ | %myping% | %cpu% | %memory% %swap% | %volume% | %date% | %battery% %trayerpad%"
+	, template = "<action=`$DOTFILES/scripts/xmobar/menu.sh 1` button=1><action=`$DOTFILES/scripts/xmobar/menu.sh 2` button=2><action=`$DOTFILES/scripts/xmobar/menu.sh 3` button=3><action=`$DOTFILES/scripts/xmobar/menu.sh 4` button=4><action=`$DOTFILES/scripts/xmobar/menu.sh 5` button=5>  </action></action></action></action></action> | %UnsafeXMonadLog% |} %mymedia%{ | %myping% | %cpu% | %memory% %swap% | %volume% | %date% | %battery% %trayerpad%"
 
 	, commands = [
 		  Run Battery [
-				"-t", "<action=`~/dotfiles/scripts/xmobar/battery.sh 1` button=1><action=`~/dotfiles/scripts/xmobar/battery.sh 2` button=2><action=`~/dotfiles/scripts/xmobar/battery.sh 3` button=3><action=`~/dotfiles/scripts/xmobar/battery.sh 4` button=4><action=`~/dotfiles/scripts/xmobar/battery.sh 5` button=5><acstatus></action></action></action></action></action>"
+				"-t", "<action=`$DOTFILES/scripts/xmobar/battery.sh 1` button=1><action=`$DOTFILES/scripts/xmobar/battery.sh 2` button=2><action=`$DOTFILES/scripts/xmobar/battery.sh 3` button=3><action=`$DOTFILES/scripts/xmobar/battery.sh 4` button=4><action=`$DOTFILES/scripts/xmobar/battery.sh 5` button=5><acstatus></action></action></action></action></action>"
   				, "--Low",     "15"
   				, "--"
 				, "-O",        "\61926"
@@ -38,7 +38,7 @@ Config {
 			] 100
 
 		, Run Cpu [
-			"-t", "<action=`~/dotfiles/scripts/xmobar/cpu.sh 1` button=1><action=`~/dotfiles/scripts/xmobar/cpu.sh 2` button=2><action=`~/dotfiles/scripts/xmobar/cpu.sh 3` button=3><action=`~/dotfiles/scripts/xmobar/cpu.sh 4` button=4><action=`~/dotfiles/scripts/xmobar/cpu.sh 5` button=5><total>%</action></action></action></action></action>"
+			"-t", "<action=`$DOTFILES/scripts/xmobar/cpu.sh 1` button=1><action=`$DOTFILES/scripts/xmobar/cpu.sh 2` button=2><action=`$DOTFILES/scripts/xmobar/cpu.sh 3` button=3><action=`$DOTFILES/scripts/xmobar/cpu.sh 4` button=4><action=`$DOTFILES/scripts/xmobar/cpu.sh 5` button=5><total>%</action></action></action></action></action>"
 			, "-m", "3"
 			, "-L", "30"
 			, "-H", "70"
@@ -46,10 +46,10 @@ Config {
 			, "--normal", "#c3e88d"
 		] 100
 
-		, Run Com "sh" ["-c", "~/dotfiles/scripts/xmobar/vol.sh"] "volume" 5
+		, Run Com "sh" ["-c", "$DOTFILES/scripts/xmobar/vol.sh"] "volume" 5
 
 		, Run Memory [
-			"-t", "<action=`~/dotfiles/scripts/xmobar/mem.sh 1` button=1><action=`~/dotfiles/scripts/xmobar/mem.sh 2` button=2><action=`~/dotfiles/scripts/xmobar/mem.sh 3` button=3><action=`~/dotfiles/scripts/xmobar/mem.sh 4` button=4><action=`~/dotfiles/scripts/xmobar/mem.sh 5` button=5><usedratio>%</action></action></action></action></action>"
+			"-t", "<action=`$DOTFILES/scripts/xmobar/mem.sh 1` button=1><action=`$DOTFILES/scripts/xmobar/mem.sh 2` button=2><action=`$DOTFILES/scripts/xmobar/mem.sh 3` button=3><action=`$DOTFILES/scripts/xmobar/mem.sh 4` button=4><action=`$DOTFILES/scripts/xmobar/mem.sh 5` button=5><usedratio>%</action></action></action></action></action>"
 			, "-m", "3"
 			, "-L", "40"
 			, "-H", "80"
@@ -66,15 +66,15 @@ Config {
 			, "--normal", "#c3e88d"
 		] 10
 
-		, Run Date "<action=`~/dotfiles/scripts/xmobar/date.sh 1` button=1><action=`~/dotfiles/scripts/xmobar/date.sh 2` button=2><action=`~/dotfiles/scripts/xmobar/date.sh 3` button=3><action=`~/dotfiles/scripts/xmobar/date.sh 4` button=4><action=`~/dotfiles/scripts/xmobar/date.sh 5` button=5> %a %d/%m/%Y <fc=#8be9fd>%H:%M</fc></action></action></action></action></action> " "date" 10
+		, Run Date "<action=`$DOTFILES/scripts/xmobar/date.sh 1` button=1><action=`$DOTFILES/scripts/xmobar/date.sh 2` button=2><action=`$DOTFILES/scripts/xmobar/date.sh 3` button=3><action=`$DOTFILES/scripts/xmobar/date.sh 4` button=4><action=`$DOTFILES/scripts/xmobar/date.sh 5` button=5> %a %d/%m/%Y <fc=#8be9fd>%H:%M</fc></action></action></action></action></action> " "date" 10
 
 		-- , Run UnsafeStdinReader
 
 		, Run UnsafeXMonadLog
 		-- , Run XMonadLog
 
-		, Run Com "sh" ["-c", "~/dotfiles/scripts/xmobar/ping.sh"] "myping" 50
-		, Run Com "sh" ["-c", "~/dotfiles/scripts/xmobar/media.sh"] "mymedia" 10
+		, Run Com "sh" ["-c", "$DOTFILES/scripts/xmobar/ping.sh"] "myping" 50
+		, Run Com "sh" ["-c", "$DOTFILES/scripts/xmobar/media.sh"] "mymedia" 10
 		-- Script that dynamically adjusts xmobar padding depending on number of trayer icons.
 		, Run Com "sh" ["-c", "~/.config/xmobar/trayer-padding-icon.sh"] "trayerpad" 500
 
@@ -82,63 +82,63 @@ Config {
 	]
 }
 
--- <action=`~/dotfiles/scripts/xmobar/date.sh 1` button=1>
--- <action=`~/dotfiles/scripts/xmobar/date.sh 2` button=2>
--- <action=`~/dotfiles/scripts/xmobar/date.sh 3` button=3>
--- <action=`~/dotfiles/scripts/xmobar/date.sh 4` button=4>
--- <action=`~/dotfiles/scripts/xmobar/date.sh 5` button=5>
+-- <action=`$DOTFILES/scripts/xmobar/date.sh 1` button=1>
+-- <action=`$DOTFILES/scripts/xmobar/date.sh 2` button=2>
+-- <action=`$DOTFILES/scripts/xmobar/date.sh 3` button=3>
+-- <action=`$DOTFILES/scripts/xmobar/date.sh 4` button=4>
+-- <action=`$DOTFILES/scripts/xmobar/date.sh 5` button=5>
 -- %a %d/%m/%Y <fc=#8be9fd>%H:%M</fc>
 -- </action>
 -- </action>
 -- </action>
 -- </action>
 -- </action>
--- <action=`~/dotfiles/scripts/xmobar/date.sh 1` button=1><action=`~/dotfiles/scripts/xmobar/date.sh 2` button=2><action=`~/dotfiles/scripts/xmobar/date.sh 3` button=3><action=`~/dotfiles/scripts/xmobar/date.sh 4` button=4><action=`~/dotfiles/scripts/xmobar/date.sh 5` button=5> %a %d/%m/%Y <fc=#8be9fd>%H:%M</fc></action></action></action></action></action>
+-- <action=`$DOTFILES/scripts/xmobar/date.sh 1` button=1><action=`$DOTFILES/scripts/xmobar/date.sh 2` button=2><action=`$DOTFILES/scripts/xmobar/date.sh 3` button=3><action=`$DOTFILES/scripts/xmobar/date.sh 4` button=4><action=`$DOTFILES/scripts/xmobar/date.sh 5` button=5> %a %d/%m/%Y <fc=#8be9fd>%H:%M</fc></action></action></action></action></action>
 
--- <action=`~/dotfiles/scripts/xmobar/mem.sh 1` button=1>
--- <action=`~/dotfiles/scripts/xmobar/mem.sh 2` button=2>
--- <action=`~/dotfiles/scripts/xmobar/mem.sh 3` button=3>
--- <action=`~/dotfiles/scripts/xmobar/mem.sh 4` button=4>
--- <action=`~/dotfiles/scripts/xmobar/mem.sh 5` button=5>
+-- <action=`$DOTFILES/scripts/xmobar/mem.sh 1` button=1>
+-- <action=`$DOTFILES/scripts/xmobar/mem.sh 2` button=2>
+-- <action=`$DOTFILES/scripts/xmobar/mem.sh 3` button=3>
+-- <action=`$DOTFILES/scripts/xmobar/mem.sh 4` button=4>
+-- <action=`$DOTFILES/scripts/xmobar/mem.sh 5` button=5>
 -- :<usedratio>%
 -- </action>
 -- </action>
 -- </action>
 -- </action>
 -- </action>
--- <action=`~/dotfiles/scripts/xmobar/mem.sh 1` button=1><action=`~/dotfiles/scripts/xmobar/mem.sh 2` button=2><action=`~/dotfiles/scripts/xmobar/mem.sh 3` button=3><action=`~/dotfiles/scripts/xmobar/mem.sh 4` button=4><action=`~/dotfiles/scripts/xmobar/mem.sh 5` button=5> :<usedratio>% </action></action></action></action></action>
+-- <action=`$DOTFILES/scripts/xmobar/mem.sh 1` button=1><action=`$DOTFILES/scripts/xmobar/mem.sh 2` button=2><action=`$DOTFILES/scripts/xmobar/mem.sh 3` button=3><action=`$DOTFILES/scripts/xmobar/mem.sh 4` button=4><action=`$DOTFILES/scripts/xmobar/mem.sh 5` button=5> :<usedratio>% </action></action></action></action></action>
 
--- <action=`~/dotfiles/scripts/xmobar/vol.sh 1` button=1>
--- <action=`~/dotfiles/scripts/xmobar/vol.sh 2` button=2>
--- <action=`~/dotfiles/scripts/xmobar/vol.sh 3` button=3>
--- <action=`~/dotfiles/scripts/xmobar/vol.sh 4` button=4>
--- <action=`~/dotfiles/scripts/xmobar/vol.sh 5` button=5>
+-- <action=`$DOTFILES/scripts/xmobar/vol.sh 1` button=1>
+-- <action=`$DOTFILES/scripts/xmobar/vol.sh 2` button=2>
+-- <action=`$DOTFILES/scripts/xmobar/vol.sh 3` button=3>
+-- <action=`$DOTFILES/scripts/xmobar/vol.sh 4` button=4>
+-- <action=`$DOTFILES/scripts/xmobar/vol.sh 5` button=5>
 -- Vol: <volume>% <status>
 -- </action>
 -- </action>
 -- </action>
 -- </action>
 -- </action>
--- <action=`~/dotfiles/scripts/xmobar/vol.sh 1` button=1><action=`~/dotfiles/scripts/xmobar/vol.sh 2` button=2><action=`~/dotfiles/scripts/xmobar/vol.sh 3` button=3><action=`~/dotfiles/scripts/xmobar/vol.sh 4` button=4><action=`~/dotfiles/scripts/xmobar/vol.sh 5` button=5><volumestatus></action></action></action></action></action>
+-- <action=`$DOTFILES/scripts/xmobar/vol.sh 1` button=1><action=`$DOTFILES/scripts/xmobar/vol.sh 2` button=2><action=`$DOTFILES/scripts/xmobar/vol.sh 3` button=3><action=`$DOTFILES/scripts/xmobar/vol.sh 4` button=4><action=`$DOTFILES/scripts/xmobar/vol.sh 5` button=5><volumestatus></action></action></action></action></action>
 
--- <action=`~/dotfiles/scripts/xmobar/battery.sh 1` button=1>
--- <action=`~/dotfiles/scripts/xmobar/battery.sh 2` button=2>
--- <action=`~/dotfiles/scripts/xmobar/battery.sh 3` button=3>
--- <action=`~/dotfiles/scripts/xmobar/battery.sh 4` button=4>
--- <action=`~/dotfiles/scripts/xmobar/battery.sh 5` button=5>
+-- <action=`$DOTFILES/scripts/xmobar/battery.sh 1` button=1>
+-- <action=`$DOTFILES/scripts/xmobar/battery.sh 2` button=2>
+-- <action=`$DOTFILES/scripts/xmobar/battery.sh 3` button=3>
+-- <action=`$DOTFILES/scripts/xmobar/battery.sh 4` button=4>
+-- <action=`$DOTFILES/scripts/xmobar/battery.sh 5` button=5>
 -- <acstatus>
 -- </action>
 -- </action>
 -- </action>
 -- </action>
 -- </action>
--- <action=`~/dotfiles/scripts/xmobar/battery.sh 1` button=1><action=`~/dotfiles/scripts/xmobar/battery.sh 2` button=2><action=`~/dotfiles/scripts/xmobar/battery.sh 3` button=3><action=`~/dotfiles/scripts/xmobar/battery.sh 4` button=4><action=`~/dotfiles/scripts/xmobar/battery.sh 5` button=5><acstatus></action></action></action></action></action>
+-- <action=`$DOTFILES/scripts/xmobar/battery.sh 1` button=1><action=`$DOTFILES/scripts/xmobar/battery.sh 2` button=2><action=`$DOTFILES/scripts/xmobar/battery.sh 3` button=3><action=`$DOTFILES/scripts/xmobar/battery.sh 4` button=4><action=`$DOTFILES/scripts/xmobar/battery.sh 5` button=5><acstatus></action></action></action></action></action>
 
--- <action=`~/dotfiles/scripts/xmobar/cpu.sh 1` button=1>
--- <action=`~/dotfiles/scripts/xmobar/cpu.sh 2` button=2>
--- <action=`~/dotfiles/scripts/xmobar/cpu.sh 3` button=3>
--- <action=`~/dotfiles/scripts/xmobar/cpu.sh 4` button=4>
--- <action=`~/dotfiles/scripts/xmobar/cpu.sh 5` button=5>
+-- <action=`$DOTFILES/scripts/xmobar/cpu.sh 1` button=1>
+-- <action=`$DOTFILES/scripts/xmobar/cpu.sh 2` button=2>
+-- <action=`$DOTFILES/scripts/xmobar/cpu.sh 3` button=3>
+-- <action=`$DOTFILES/scripts/xmobar/cpu.sh 4` button=4>
+-- <action=`$DOTFILES/scripts/xmobar/cpu.sh 5` button=5>
 -- : <total>%
 -- </action>
 -- </action>
@@ -146,31 +146,31 @@ Config {
 -- </action>
 -- </action>
 
--- <action=`~/dotfiles/scripts/xmobar/cpu.sh 1` button=1>
--- <action=`~/dotfiles/scripts/xmobar/cpu.sh 2` button=2>
--- <action=`~/dotfiles/scripts/xmobar/cpu.sh 3` button=3>
--- <action=`~/dotfiles/scripts/xmobar/cpu.sh 4` button=4>
--- <action=`~/dotfiles/scripts/xmobar/cpu.sh 5` button=5>
+-- <action=`$DOTFILES/scripts/xmobar/cpu.sh 1` button=1>
+-- <action=`$DOTFILES/scripts/xmobar/cpu.sh 2` button=2>
+-- <action=`$DOTFILES/scripts/xmobar/cpu.sh 3` button=3>
+-- <action=`$DOTFILES/scripts/xmobar/cpu.sh 4` button=4>
+-- <action=`$DOTFILES/scripts/xmobar/cpu.sh 5` button=5>
 -- <artist> - [<composer>] <title>
 -- </action>
 -- </action>
 -- </action>
 -- </action>
 -- </action>
--- <action=`~/dotfiles/scripts/xmobar/media.sh 1` button=1><action=`~/dotfiles/scripts/xmobar/media.sh 2` button=2><action=`~/dotfiles/scripts/xmobar/media.sh 3` button=3><action=`~/dotfiles/scripts/xmobar/media.sh 4` button=4><action=`~/dotfiles/scripts/xmobar/media.sh 5` button=5><artist> - <title></action></action></action></action></action>
+-- <action=`$DOTFILES/scripts/xmobar/media.sh 1` button=1><action=`$DOTFILES/scripts/xmobar/media.sh 2` button=2><action=`$DOTFILES/scripts/xmobar/media.sh 3` button=3><action=`$DOTFILES/scripts/xmobar/media.sh 4` button=4><action=`$DOTFILES/scripts/xmobar/media.sh 5` button=5><artist> - <title></action></action></action></action></action>
 
--- <action=`~/dotfiles/scripts/xmobar/menu.sh 1` button=1>
--- <action=`~/dotfiles/scripts/xmobar/menu.sh 2` button=2>
--- <action=`~/dotfiles/scripts/xmobar/menu.sh 3` button=3>
--- <action=`~/dotfiles/scripts/xmobar/menu.sh 4` button=4>
--- <action=`~/dotfiles/scripts/xmobar/menu.sh 5` button=5>
+-- <action=`$DOTFILES/scripts/xmobar/menu.sh 1` button=1>
+-- <action=`$DOTFILES/scripts/xmobar/menu.sh 2` button=2>
+-- <action=`$DOTFILES/scripts/xmobar/menu.sh 3` button=3>
+-- <action=`$DOTFILES/scripts/xmobar/menu.sh 4` button=4>
+-- <action=`$DOTFILES/scripts/xmobar/menu.sh 5` button=5>
 --   
 -- </action>
 -- </action>
 -- </action>
 -- </action>
 -- </action>
--- <action=`~/dotfiles/scripts/xmobar/menu.sh 1` button=1><action=`~/dotfiles/scripts/xmobar/menu.sh 2` button=2><action=`~/dotfiles/scripts/xmobar/menu.sh 3` button=3><action=`~/dotfiles/scripts/xmobar/menu.sh 4` button=4><action=`~/dotfiles/scripts/xmobar/menu.sh 5` button=5>  </action></action></action></action></action>
+-- <action=`$DOTFILES/scripts/xmobar/menu.sh 1` button=1><action=`$DOTFILES/scripts/xmobar/menu.sh 2` button=2><action=`$DOTFILES/scripts/xmobar/menu.sh 3` button=3><action=`$DOTFILES/scripts/xmobar/menu.sh 4` button=4><action=`$DOTFILES/scripts/xmobar/menu.sh 5` button=5>  </action></action></action></action></action>
 
 -- <action=`playerctl previous`>  </action><action=`playerctl play`>  </action><action=`playerctl next`>  </action>
 

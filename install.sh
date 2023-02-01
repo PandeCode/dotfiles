@@ -7,9 +7,11 @@ git submodule add main
 cd main
 git submodule update --force --recursive --init --remote
 
-~/dotfiles.git/main/setup/system.sh
-~/dotfiles.git/main/setup/config.sh
-~/dotfiles.git/main/setup/spicetify.sh
-~/dotfiles.git/main/setup/services.sh
-~/dotfiles.git/main/setup/tmux.sh
-~/dotfiles.git/main/setup/chromedriver.sh
+DOTFILES=~/dotfiles.git/main
+
+$DOTFILES/setup/system.sh
+$DOTFILES/setup/config.sh
+$DOTFILES/setup/spicetify.sh
+$DOTFILES/setup/services.sh
+$DOTFILES/setup/tmux.sh
+$DOTFILES/setup/chromedriver.sh

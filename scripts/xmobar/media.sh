@@ -142,7 +142,7 @@ case $1 in
 		;;
 
 	2)
-		~/dotfiles/scripts/dwm/media.sh
+		$DOTFILES/scripts/dwm/media.sh
 		#spotymenu
 		exit 0
 		;;
@@ -240,10 +240,10 @@ function getAction() {
 	fi
 }
 
-echo -n '<action=`~/dotfiles/scripts/xmobar/media.sh 2` button=2>'
-echo -n '<action=`~/dotfiles/scripts/xmobar/media.sh 3` button=3>'
-echo -n '<action=`~/dotfiles/scripts/xmobar/media.sh 4` button=4>'
-echo -n '<action=`~/dotfiles/scripts/xmobar/media.sh 5` button=5>'
+echo -n '<action=`$DOTFILES/scripts/xmobar/media.sh 2` button=2>'
+echo -n '<action=`$DOTFILES/scripts/xmobar/media.sh 3` button=3>'
+echo -n '<action=`$DOTFILES/scripts/xmobar/media.sh 4` button=4>'
+echo -n '<action=`$DOTFILES/scripts/xmobar/media.sh 5` button=5>'
 
 iconText=''
 

@@ -32,7 +32,7 @@ export PYTHONPYCACHEPREFIX=$HOME/.cache/cpython/
 export PYTHONSTARTUP=$HOME/.pythonrc
 export PYTHON_PATH=$HOME/dev/python/PYTHON_PATH
 
-export DOTFIlES=$HOME/dotfiles
+export DOTFIlES=$HOME/dotfiles.git/main
 export PERSONAL_PATH=$HOME/dotfiles/PERSONAL_PATH
 
 export YARN_BIN=$HOME/.yarn/bin

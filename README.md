@@ -2,12 +2,11 @@
 
 Personal Backup of manjaro config files
 
-Always clone to "~/dotfiles" or things will break.
+Always clone bare to "~/dotfiles.git" or things will break.
+And add worktree main
 
 ```bash
-git clone --recurse-submodules  https://github.com/PandeCode/dotfiles ~/dotfiles
-cd ~/dotfiles
-./install.sh
+    curl -fsSL https://raw.githubusercontent.com/PandeCode/dotfiles/main/install.sh | sh
 ```
 
 ## Terminal Emulator

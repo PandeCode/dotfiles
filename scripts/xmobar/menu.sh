@@ -10,7 +10,7 @@ case $1 in
 		;;
 
 	3)
-		~/dotfiles/PERSONAL_PATH/menu.sh
+		$PERSONAL_PATH/menu.sh
 		;;
 
 	4) 

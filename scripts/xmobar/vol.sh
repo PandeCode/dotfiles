@@ -60,4 +60,4 @@ EOF
 		;;
 esac
 
-echo -n "<action=\`~/dotfiles/scripts/xmobar/vol.sh 1\` button=1><action=\`~/dotfiles/scripts/xmobar/vol.sh 2\` button=2><action=\`~/dotfiles/scripts/xmobar/vol.sh 3\` button=3><action=\`~/dotfiles/scripts/xmobar/vol.sh 4\` button=4><action=\`~/dotfiles/scripts/xmobar/vol.sh 5\` button=5>$(getVol) </action></action></action></action></action>"
+echo -n "<action=\`$DOTFILES/scripts/xmobar/vol.sh 1\` button=1><action=\`$DOTFILES/scripts/xmobar/vol.sh 2\` button=2><action=\`$DOTFILES/scripts/xmobar/vol.sh 3\` button=3><action=\`$DOTFILES/scripts/xmobar/vol.sh 4\` button=4><action=\`$DOTFILES/scripts/xmobar/vol.sh 5\` button=5>$(getVol) </action></action></action></action></action>"

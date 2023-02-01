@@ -8,7 +8,7 @@
 	},
 	"custom/menu": {
 		"format": " ",
-		"on-click": "~/dotfiles/PERSONAL_PATH/menu.sh"
+		"on-click": "$DOTFILES/PERSONAL_PATH/menu.sh"
 	},
 	"custom/media": {
 		"format": "{icon} {}",

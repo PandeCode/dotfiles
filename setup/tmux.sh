@@ -1,6 +1,6 @@
 #!/bin/sh
 
-rm -fr ~/tmux-config ~/.tmux ~/.tmux.conf
-ln -s ~/dotfiles/config/tmux/tmux.conf ~/.tmux.conf
+rm -fr ~/.tmux ~/.tmux.conf
+ln -s $DOTFILES/config/tmux/tmux.conf ~/.tmux.conf
 
-~/dotfiles/config/tmux/install.sh
+$DOTFILES/config/tmux/install.sh

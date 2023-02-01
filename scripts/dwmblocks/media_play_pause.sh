@@ -4,7 +4,7 @@ LC_ALL=en_US.UTF-8
 index=37 # 34+3
 killall -$index $(pidof dwmblocks)
 
-source ~/dotfiles/scripts/shared/media.sh
+source $DOTFILES/scripts/shared/media.sh
 
 case $BUTTON in
 	1)

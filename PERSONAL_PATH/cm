@@ -2,7 +2,7 @@
 SHELL=/bin/sh
 
 main() {
-	source ~/dotfiles/scripts/cmlib.sh
+	source $DOTFILES/scripts/cmlib.sh
 
 	echo 'Init
 Clean
@@ -30,8 +30,8 @@ GNU Build Debug
 GNU Build Release
 GNU Build RelWithDebInfo
 GNU Build MinSizeRel' |
-		fzf --preview "source ~/dotfiles/scripts/cmlib.sh;getPreview {}" \
-			--bind "enter:execute(source ~/dotfiles/scripts/cmlib.sh;runCommand {})"
+		fzf --preview "source $DOTFILES/scripts/cmlib.sh;getPreview {}" \
+			--bind "enter:execute(source $DOTFILES/scripts/cmlib.sh;runCommand {})"
 }
 
 main
