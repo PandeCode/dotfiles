@@ -1,6 +1,8 @@
 #!/bin/bash
 
-rm -fr ~/.config/bat \
+rm -fr \
+	~/.config/alacritty \
+	~/.config/awesome \
 	~/.config/clangd \
 	~/.config/conky \
 	~/.config/dunst \
@@ -24,6 +26,8 @@ rm -fr ~/.config/bat \
 	~/.config/xmonad \
 	~/.config/xmobar
 
+ln -s $DOTFILES/config/alacritty  ~/.config/alacritty
+ln -s $DOTFILES/config/awesome    ~/.config/awesome
 ln -s $DOTFILES/config/bat        ~/.config/bat
 ln -s $DOTFILES/config/clangd     ~/.config/clangd
 ln -s $DOTFILES/config/conky      ~/.config/conky
