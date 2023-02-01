@@ -21,29 +21,29 @@ rm -fr ~/.config/bat \
 	~/.config/sway \
 	~/.config/sxhkd \
 	~/.config/waybar \
-	~/.config/xmoand \
+	~/.config/xmonad \
 	~/.config/xmobar
 
-ln -s ~/dotfiles/config/bat ~/.config/bat
-ln -s ~/dotfiles/config/clangd ~/.config/clangd
-ln -s ~/dotfiles/config/conky ~/.config/conky
-ln -s ~/dotfiles/config/dunst ~/.config/dunst
-ln -s ~/dotfiles/config/fish ~/.config/fish
-ln -s ~/dotfiles/config/fontconfig ~/.config/fontconfig
-ln -s ~/dotfiles/config/gtk-2.0 ~/.config/gtk-2.0
-ln -s ~/dotfiles/config/gtk-3.0 ~/.config/gtk-3.0
-ln -s ~/dotfiles/config/gtk-4.0 ~/.config/gtk-4.0
-ln -s ~/dotfiles/config/hypr ~/.config/hypr
-ln -s ~/dotfiles/config/i3 ~/.config/i3
-ln -s ~/dotfiles/config/i3blocks ~/.config/i3blocks
-ln -s ~/dotfiles/config/kitty ~/.config/kitty
-ln -s ~/dotfiles/config/nvim ~/.config/nvim
-ln -s ~/dotfiles/config/picom ~/.config/picom
-ln -s ~/dotfiles/config/ranger ~/.config/ranger
-ln -s ~/dotfiles/config/rofi ~/.config/rofi
-ln -s ~/dotfiles/config/rustfmt ~/.config/rustfmt
-ln -s ~/dotfiles/config/sway ~/.config/sway
-ln -s ~/dotfiles/config/sxhkd ~/.config/sxhkd
-ln -s ~/dotfiles/config/waybar ~/.config/waybar
-ln -s ~/dotfiles/config/xmonad ~/.config/xmonad
-ln -s ~/dotfiles/config/xmobar ~/.config/xmobar
+ln -s ~/dotfiles.git/main/config/bat ~/.config/bat
+ln -s ~/dotfiles.git/main/config/clangd ~/.config/clangd
+ln -s ~/dotfiles.git/main/config/conky ~/.config/conky
+ln -s ~/dotfiles.git/main/config/dunst ~/.config/dunst
+ln -s ~/dotfiles.git/main/config/fish ~/.config/fish
+ln -s ~/dotfiles.git/main/config/fontconfig ~/.config/fontconfig
+ln -s ~/dotfiles.git/main/config/gtk-2.0 ~/.config/gtk-2.0
+ln -s ~/dotfiles.git/main/config/gtk-3.0 ~/.config/gtk-3.0
+ln -s ~/dotfiles.git/main/config/gtk-4.0 ~/.config/gtk-4.0
+ln -s ~/dotfiles.git/main/config/hypr ~/.config/hypr
+ln -s ~/dotfiles.git/main/config/i3 ~/.config/i3
+ln -s ~/dotfiles.git/main/config/i3blocks ~/.config/i3blocks
+ln -s ~/dotfiles.git/main/config/kitty ~/.config/kitty
+ln -s ~/dotfiles.git/main/config/nvim ~/.config/nvim
+ln -s ~/dotfiles.git/main/config/picom ~/.config/picom
+ln -s ~/dotfiles.git/main/config/ranger ~/.config/ranger
+ln -s ~/dotfiles.git/main/config/rofi ~/.config/rofi
+ln -s ~/dotfiles.git/main/config/rustfmt ~/.config/rustfmt
+ln -s ~/dotfiles.git/main/config/sway ~/.config/sway
+ln -s ~/dotfiles.git/main/config/sxhkd ~/.config/sxhkd
+ln -s ~/dotfiles.git/main/config/waybar ~/.config/waybar
+ln -s ~/dotfiles.git/main/config/xmonad ~/.config/xmonad
+ln -s ~/dotfiles.git/main/config/xmobar ~/.config/xmobar
