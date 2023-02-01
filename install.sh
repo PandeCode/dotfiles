@@ -1,7 +1,8 @@
 #!/bin/sh
 
-~/dotfiles/setup/systemFilesSetup.sh
-~/dotfiles/setup/getTheme.sh
-~/dotfiles/setup/tmuxSetup.sh
-~/dotfiles/setup/configSetup.sh
+~/dotfiles/setup/chromedriver.sh
+~/dotfiles/setup/config.sh
 ~/dotfiles/setup/services.sh
+~/dotfiles/setup/spicetify.sh
+~/dotfiles/setup/system.sh
+~/dotfiles/setup/tmux.sh
