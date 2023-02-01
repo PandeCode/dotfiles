@@ -1,8 +1,11 @@
 #!/bin/bash
 
-rm -fr \
+echo $DOTFILES
+
+rm -frd \
 	~/.config/alacritty \
 	~/.config/awesome \
+	~/.config/bat \
 	~/.config/clangd \
 	~/.config/conky \
 	~/.config/dunst \
