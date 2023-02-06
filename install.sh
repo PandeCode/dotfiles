@@ -2,7 +2,7 @@
 
 cd ~
 git clone https://github.com/PandeCode/dotfiles --bare
-cd dotfiles.git/main
+cd dotfiles.git
 git submodule add main
 cd main
 git submodule update --force --recursive --init --remote
