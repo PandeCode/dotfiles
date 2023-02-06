@@ -1,7 +1,7 @@
 #!/bin/sh
 
 cd ~
-git clone https://github.com/PandeCode/dotfiles/main --bare
+git clone https://github.com/PandeCode/dotfiles --bare
 cd dotfiles.git/main
 git submodule add main
 cd main
