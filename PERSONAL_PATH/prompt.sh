@@ -4,24 +4,10 @@
 # https://github.com/defCoding/rofi-dictionary
 # https://github.com/marvinkreis/rofi-json-dict
 
-function gen_help_str() {
-	echo -n "
-/ ==> help
-w ==> window
-r ==> run
-s ==> ssh
-n ==> notes
-o ==> org
-d ==> scripts_dir
-l ==> layout
-m ==> man
-t ==> terminal
-u ==> unicode
-x ==> hypr
-g ==> window_go
-b ==> window_bring
-"
-}
+if [ -z "$DOTFILES" ] ;then
+	DOTFILES=$HOME/dotfiles
+fi
+
 
 case "$1" in
 	"ssh") rofi -show ssh -show-icons ;;
@@ -41,13 +27,30 @@ case "$1" in
 	"scripts_dir") rofi ;;
 	"layout") rofi ;;
 	"man") man -k . | rofi -dmenu | awk '{  }' | xargs kitty -e man ;;
-	"terminal") rofi -show run -show-icons ;;
 	"unicode") rofi ;;
+	"emoji") rofi -show emoji;;
+	"translate") rofi_trans verbose;;
+	"power") rofi -show powermenu -modi powermenu:$DOTFILES/scripts/rofi/rofi-power-menu ;;
 	"wm") rofi ;;
 	"xmonad") rofi ;;
 	"dwm") rofi ;;
 	"sway") rofi ;;
 	"hypr") rofi ;;
+	"help") notify-send "Prompt.sh" "	/ ==> help
+	w ==> window
+	r ==> run
+	s ==> ssh
+	n ==> notes
+	o ==> org
+	d ==> scripts_dir
+	l ==> layout
+	m ==> man
+	u ==> unicode
+	e ==> emoji
+	t ==> translate
+	p ==> power
+	x ==> hypr
+	g ==> window_go
+	b ==> window_bring";;
 	*) notify-send "Prompt.sh" "invalid '$1'" ;;
-	"help") notify-send "Prompt.sh" $help_str ;;
 esac
