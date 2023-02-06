@@ -1,4 +1,4 @@
-command=~/dotfiles/scripts/i3blocks/$BLOCK_NAME
+command=$DOTFILES/scripts/i3blocks/$BLOCK_NAME
 separator_block_width=15
 markup=pango
 

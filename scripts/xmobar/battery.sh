@@ -35,14 +35,14 @@ EOF
 		;;
 	4)
 		if ! [ "100.00" = "$(light)" ]; then
-			~/dotfiles/scripts/dwm/light.sh up
+			$DOTFILES/scripts/dwm/light.sh up
 		fi
 		;;
 	5)
 		if [ "0.00" = "$(light)" ]; then
-			~/dotfiles/scripts/dwm/light.sh up
+			$DOTFILES/scripts/dwm/light.sh up
 		elif ! [ "5.00" = "$(light)" ]; then
-			~/dotfiles/scripts/dwm/light.sh down
+			$DOTFILES/scripts/dwm/light.sh down
 		fi
 		;;
 esac

@@ -382,7 +382,7 @@ myWorkspaces =
     makeFullAction "xdotool set_desktop 8" "9 2" " 9 3" "9 4" "9 5" " \61462 "
   ]
   where
-    wsScript = "~/dotfiles/scripts/xmobar/workspaces.sh "
+    wsScript = "$DOTFILES/scripts/xmobar/workspaces.sh "
     makeFullAction a1 a2 a3 a4 a5 t = "<action=`" ++ a1 ++ "` button=1>" ++ "<action=`" ++ wsScript ++ a2 ++ "` button=2>" ++ "<action=`" ++ wsScript ++ a3 ++ "` button=3>" ++ "<action=`" ++ wsScript ++ a4 ++ "` button=4>" ++ "<action=`" ++ wsScript ++ a5 ++ "` button=5>" ++ t ++ "</action></action></action></action></action>"
 myWorkspaces = ["\62056", "\61728", "\61729", "\61501", "\61884", "\61664", "\61723", "\61734", "\61462"]
 -}
@@ -425,11 +425,11 @@ myXmobarPP              =
       , ppUrgent          = red . wrap (yellow "!") (yellow "!")
       , ppOrder           = \[ws, l, _, wins] -> [ws, l, wins]
       , ppExtras          = [logTitles formatFocused formatUnfocused] -- for updates
-      , ppLayout          = wrap "<action=`~/dotfiles/scripts/xmonad/layout.sh 1` button=1><action=`~/dotfiles/scripts/xmonad/layout.sh 2` button=2><action=`~/dotfiles/scripts/xmonad/layout.sh 3` button=3><action=`~/dotfiles/scripts/xmonad/layout.sh 4` button=4><action=`~/dotfiles/scripts/xmonad/layout.sh 5` button=5>" ae
+      , ppLayout          = wrap "<action=`$DOTFILES/scripts/xmonad/layout.sh 1` button=1><action=`$DOTFILES/scripts/xmonad/layout.sh 2` button=2><action=`$DOTFILES/scripts/xmonad/layout.sh 3` button=3><action=`$DOTFILES/scripts/xmonad/layout.sh 4` button=4><action=`$DOTFILES/scripts/xmonad/layout.sh 5` button=5>" ae
     }
   where
     currentBorderColor = (fromMaybe "#8be9fd" (M.lookup "whiteBlackColor" myTheme))
-    wsScript = "~/dotfiles/scripts/xmobar/workspaces.sh "
+    wsScript = "$DOTFILES/scripts/xmobar/workspaces.sh "
     ae = "</action></action></action></action></action>"
     makeFullAction a1 a2 a3 a4 a5 t = "<action=`" ++ a1 ++ "` button=1>" ++ "<action=`" ++ wsScript ++ a2 ++ "` button=2>" ++ "<action=`" ++ wsScript ++ a3 ++ "` button=3>" ++ "<action=`" ++ wsScript ++ a4 ++ "` button=4>" ++ "<action=`" ++ wsScript ++ a5 ++ "` button=5>" ++ t ++ ae
     formatFocused       = wrap (white "[") (white "]") . green . ppWindow
@@ -489,8 +489,8 @@ myKeybinds = [
     , ("M-c 2", sendMessage $ JumpToLayout "Mirror Tall") -- Switch to "Mirror Tall" layout
     , ("M-c 3", sendMessage $ JumpToLayout "Full") -- Switch to "Full" layout
     , ("M-c 4", sendMessage $ JumpToLayout "Magnifier NoMaster ThreeCol") -- Switch to "Magnifier NoMaster ThreeCol" layout
-    , ("M-c n", spawn " ~/dotfiles/scripts/xmonad/xmonadctl.sh next-layout") -- Switch to Next layout
-    , ("M-c p", spawn " ~/dotfiles/scripts/xmonad/xmonadctl.sh default-layout") -- Switch to Default layout
+    , ("M-c n", spawn " $DOTFILES/scripts/xmonad/xmonadctl.sh next-layout") -- Switch to Next layout
+    , ("M-c p", spawn " $DOTFILES/scripts/xmonad/xmonadctl.sh default-layout") -- Switch to Default layout
 
     , ("M1-<F4>", kill) -- Alt F4, kill windwow
 
@@ -675,7 +675,7 @@ myStartupHook = do
   spawn (wrapLogP "greeeclip" "greenclip daemon")
   spawn (wrapLogP "picom"     "picom     -b --experimental-backend")
   spawn (wrapLogP "sxhkd"     "sxhkd     -c ~/.config/sxhkd/xmonad.sxhkdrc")
-  spawn (wrapLogP "trayer"    "~/dotfiles/config/xmobar/trayer")
+  spawn (wrapLogP "trayer"    "$DOTFILES/config/xmobar/trayer")
   spawn (wrapLogP "xflux"     "xflux     -l 0")
 
   spawn (wrapLog "kdeconnect-indicator")

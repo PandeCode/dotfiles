@@ -32,8 +32,8 @@ export PYTHONPYCACHEPREFIX=$HOME/.cache/cpython/
 export PYTHONSTARTUP=$HOME/.pythonrc
 export PYTHON_PATH=$HOME/dev/python/PYTHON_PATH
 
-export DOTFIlES=$HOME/dotfiles
-export PERSONAL_PATH=$HOME/dotfiles/PERSONAL_PATH
+export DOTFILES=$HOME/dotfiles.git/main
+export PERSONAL_PATH=$DOTFILES/PERSONAL_PATH
 
 export YARN_BIN=$HOME/.yarn/bin
 export RUBY_GEM_BIN_PATH=$HOME/.local/share/gem/ruby/3.0.0/bin

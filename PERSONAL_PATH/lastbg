@@ -1,6 +1,6 @@
 #!/bin/env sh
 
-source ~/dotfiles/scripts/lib/bg.sh
+source $DOTFILES/scripts/lib/bg.sh
 new_img=$(tail -n 2 $img_log_file | sed '2d')
 setbg $new_img
 

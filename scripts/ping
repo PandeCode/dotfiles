@@ -14,7 +14,7 @@ min() {
 	echo $(($1 > $2 ? $2 : $1))
 }
 
-ping_host="$(cat ~/dotfiles/extras/ping.host)"
+ping_host="$(cat $DOTFILES/extras/ping.host)"
 if [ -z "$ping_host" ]; then ping_host="9.9.9.9"; fi
 
 ping_count=3
@@ -120,11 +120,11 @@ main() {
 		echo "^c$(colorize_ping_value $ping_value)^$ping_result ms^c$DEFAULT_COLOR^"
 	elif [[ $SB == "2" ]]; then
 		echo -n "\
-<action=\`~/dotfiles/scripts/xmobar/ping.sh 1\` button=1>\
-<action=\`~/dotfiles/scripts/xmobar/ping.sh 2\` button=2>\
-<action=\`~/dotfiles/scripts/xmobar/ping.sh 3\` button=3>\
-<action=\`~/dotfiles/scripts/xmobar/ping.sh 4\` button=4>\
-<action=\`~/dotfiles/scripts/xmobar/ping.sh 5\` button=5>\
+<action=\`$DOTFILES/scripts/xmobar/ping.sh 1\` button=1>\
+<action=\`$DOTFILES/scripts/xmobar/ping.sh 2\` button=2>\
+<action=\`$DOTFILES/scripts/xmobar/ping.sh 3\` button=3>\
+<action=\`$DOTFILES/scripts/xmobar/ping.sh 4\` button=4>\
+<action=\`$DOTFILES/scripts/xmobar/ping.sh 5\` button=5>\
 <fc=$(colorize_ping_value $ping_value)>\
 $(addPadding $ping_value)$ping_result ms\
 </fc>\

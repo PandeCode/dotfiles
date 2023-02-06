@@ -1,9 +1,6 @@
-add picom controls (sed -i "" ~/dotfiles/config/picom/picom.conf) to main xmenu
+add picom controls (sed -i "" $DOTFILES/config/picom/picom.conf) to main xmenu
 
-fix >1k ping dwmstatus error
 tmux show-option -gqv "@barHidden"
-get linux-notification center to stop realigning cpu click and me click
-get linux-notification center to show progress bars for cpu click and me click
 
 bash wait for program to load shared libraries
 bash wait for program to show window&oq=bash wait for program to show window

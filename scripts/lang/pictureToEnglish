@@ -1,6 +1,6 @@
 #!/bin/env sh
 
-source ~/dotfiles/scripts/lang/check.sh
+source $DOTFILES/scripts/lang/check.sh
 
 check 'maim' 'maim'
 check 'xclip' 'xclip'

@@ -12,7 +12,7 @@ exec --no-startup-id DISPLAY=:0 picom -b --experimental-backend
 #exec --no-startup-id DISPLAY=:0 flashfocus
 exec —-no-startup-id DISPLAY=:0 xflux -l 0
 exec —-no-startup-id DISPLAY=:0 alttab
-exec --no-startup-id ~/dotfiles/PERSONAL_PATH/randbg
+exec --no-startup-id $PERSONAL_PATH/randbg
 
 exec --no-startup-id i3-msg "workspace $ws1; exec chrome"
 exec --no-startup-id i3-msg "workspace $ws2; exec st"

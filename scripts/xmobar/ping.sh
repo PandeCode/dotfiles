@@ -23,13 +23,13 @@ wirelessStrength() {
 	echo $(awk '/^\s*w/ { print "📶", int($3 * 100 / 70) "% " }' /proc/net/wireless)
 }
 host() {
-	echo $(cat ~/dotfiles/extras/ping.host)
+	echo $(cat $DOTFILES/extras/ping.host)
 }
 uploaded() {
-	echo Uploaded: "      <b>$(~/dotfiles/scripts/upload_bytes.sh)</b>"
+	echo Uploaded: "      <b>$($DOTFILES/scripts/upload_bytes.sh)</b>"
 }
 downloaded() {
-	echo Downloaded: "<b>$(~/dotfiles/scripts/download_bytes.sh)</b>"
+	echo Downloaded: "<b>$($DOTFILES/scripts/download_bytes.sh)</b>"
 }
 
 case $1 in
@@ -51,7 +51,7 @@ LOL EUW1	dynamodb.eu-west-2.amazonaws.com
 EOF
 		)"
 		if [ -z "$cmd" ]; then exit 0; fi
-		echo -n $cmd > ~/dotfiles/extras/ping.host
+		echo -n $cmd > $DOTFILES/extras/ping.host
 		killall -KILL $(pidof ping)
 		rm -fr /tmp/ping_result /tmp/ping.log /tmp/ping.pid
 
@@ -59,4 +59,4 @@ EOF
 		;;
 esac
 
-SB=2 ~/dotfiles/scripts/ping
+SB=2 $DOTFILES/scripts/ping

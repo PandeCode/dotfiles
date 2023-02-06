@@ -33,28 +33,28 @@ super + S + Print
 	 flameshot gui -p $HOME/Pictures/Screenshots
 
 super + s ; { slash,c,p,r,b,h,s }
-	{ notify-send "TODO", ~/dotfiles/PERSONAL_PATH/click4ever, pavucontrol, vokoscreenNG, $BROWSER, hakuneko-desktop, spotify}
+	{ notify-send "TODO", $DOTFILES/PERSONAL_PATH/click4ever, pavucontrol, vokoscreenNG, $BROWSER, hakuneko-desktop, spotify}
 
 XF86MonBrightness{Down,Up}
-	~/dotfiles/scripts/dwm/light.sh {down,up}
+	$DOTFILES/scripts/dwm/light.sh {down,up}
 XF86Audio{LowerVolume,RaiseVolume,Mute}
-	~/dotfiles/scripts/dwm/vol.sh {down,up,mute} # vol down
+	$DOTFILES/scripts/dwm/vol.sh {down,up,mute} # vol down
 XF86Audio{Play,Next,Prev}
-	~/dotfiles/scripts/dwm/media.sh {play-pause,next,previous} # media play-pause
+	$DOTFILES/scripts/dwm/media.sh {play-pause,next,previous} # media play-pause
 
 super + F2
-	~/dotfiles/scripts/dwm/light.sh down # light down
+	$DOTFILES/scripts/dwm/light.sh down # light down
 super + F3
-	~/dotfiles/scripts/dwm/light.sh up # light up
+	$DOTFILES/scripts/dwm/light.sh up # light up
 super + F7
-	~/dotfiles/scripts/dwm/vol.sh dowm # vol down
+	$DOTFILES/scripts/dwm/vol.sh dowm # vol down
 super + F8
-	~/dotfiles/scripts/dwm/vol.sh up # vol up
+	$DOTFILES/scripts/dwm/vol.sh up # vol up
 super + F6
-	~/dotfiles/scripts/dwm/vol.sh mute # vol mute
+	$DOTFILES/scripts/dwm/vol.sh mute # vol mute
 super + F10
-	~/dotfiles/scripts/dwm/media.sh play-pause # media play-pause
+	$DOTFILES/scripts/dwm/media.sh play-pause # media play-pause
 super + F11
-	~/dotfiles/scripts/dwm/media.sh next # media next
+	$DOTFILES/scripts/dwm/media.sh next # media next
 super + F9
-	~/dotfiles/scripts/dwm/media.sh previous # media previous
+	$DOTFILES/scripts/dwm/media.sh previous # media previous

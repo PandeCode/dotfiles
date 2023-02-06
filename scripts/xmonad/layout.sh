@@ -11,7 +11,7 @@ case $1 in
 		:
 		;;
 	4)
-		~/dotfiles/scripts/xmonad/xmonadctl.sh next-layout
+		$DOTFILES/scripts/xmonad/xmonadctl.sh next-layout
 		;;
 	5)
 		:

@@ -1,6 +1,6 @@
 #!/bin/bash
 
-source ~/dotfiles/scripts/lib/bg.sh
+source $DOTFILES/scripts/lib/bg.sh
 
 last_img=$(tail -n 1 $img_log_file)
 
