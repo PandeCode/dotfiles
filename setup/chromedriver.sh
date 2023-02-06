@@ -7,4 +7,5 @@ unzip chromedriver_*
 rm chromedriver_* LICENSE.chromedriver
 
 mkdir -p ~/.local/bin
+chmod +x chromedriver
 mv chromedriver ~/.local/bin
