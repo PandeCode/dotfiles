@@ -1,8 +1,8 @@
 #!/bin/sh
 
 cd ~
-git clone https://github.com/PandeCode/dotfiles/main --bare
-cd dotfiles.git/main
+git clone https://github.com/PandeCode/dotfiles --bare
+cd dotfiles.git
 git submodule add main
 cd main
 git submodule update --force --recursive --init --remote

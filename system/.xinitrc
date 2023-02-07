@@ -9,10 +9,10 @@ usermodmap=$HOME/.Xmodmap
 sysresources=/etc/X11/xinit/.Xresources
 sysmodmap=/etc/X11/xinit/.Xmodmap
 
-# DEFAULT_SESSION=~/dotfiles/PERSONAL_PATH/startdwm
+DEFAULT_SESSION=~/dotfiles/PERSONAL_PATH/startdwm
 # DEFAULT_SESSION=/usr/bin/awesome
 # DEFAULT_SESSION=~/dotfiles/PERSONAL_PATH/startxmonand
-DEFAULT_SESSION=/usr/bin/xmonad
+# DEFAULT_SESSION=/usr/bin/xmonad
 
 # merge in defaults and keymaps
 

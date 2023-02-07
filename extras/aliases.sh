@@ -22,3 +22,9 @@ alias weather='curl wttr.in && curl "wttr.in?format=1" && curl "wttr.in?format=2
 
 alias browsePackages="yay -Slq | fzf --preview 'yay -Si {}' --layout=reverse"
 alias browseInstalledPackages="yay -Qq | fzf --preview 'yay -Qil {}' --layout=reverse --bind 'enter:execute(yay -Qil {} | less)'"
+
+alias cp="cp -i"     # confirm before overwriting something
+alias df='df -h'     # human-readable sizes
+alias free='free -m' # show sizes in MB
+alias np='nano -w PKGBUILD'
+alias more=less
