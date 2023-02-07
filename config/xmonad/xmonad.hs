@@ -59,30 +59,6 @@ import XMonad.Layout.ToggleLayouts
 import XMonad.Layout.TwoPane
 import XMonad.Layout.WindowNavigation
 
-import XMonad.Prompt
-import XMonad.Prompt.AppLauncher
-import XMonad.Prompt.AppLauncher as AL
-import XMonad.Prompt.AppendFile
-import XMonad.Prompt.ConfirmPrompt
-import XMonad.Prompt.DirExec
-import XMonad.Prompt.Directory
-import XMonad.Prompt.Email
-import XMonad.Prompt.FuzzyMatch
-import XMonad.Prompt.Input
-import XMonad.Prompt.Layout
-import XMonad.Prompt.Man
-import XMonad.Prompt.OrgMode
-import XMonad.Prompt.Pass
-import XMonad.Prompt.RunOrRaise
-import XMonad.Prompt.Shell
-import XMonad.Prompt.Ssh
-import XMonad.Prompt.Theme
-import XMonad.Prompt.Unicode
-import XMonad.Prompt.Window
-import XMonad.Prompt.Workspace
-import XMonad.Prompt.XMonad
-import XMonad.Prompt.Zsh
-
 import XMonad.Util.ClickableWorkspaces
 import XMonad.Util.EZConfig
 import XMonad.Util.Font
@@ -232,22 +208,6 @@ myFocusedBorderColor :: [Char]
  --myFocusedBorderColor = "#ff0000" -- Solid red
 myFocusedBorderColor = fromMaybe "#ff0000" (M.lookup "selectionForeground" myTheme)
 
-myXPConfig            =
-  def
-    { searchPredicate = fuzzyMatch,
-      font            = myFont,
-      sorter          = fuzzySort,
-      position        = Top,
-      alwaysHighlight = True,
-      promptKeymap    = vimLikeXPKeymap,
-
-      bgColor     = fromMaybe "#0F111A"   (M.lookup "background"          myTheme),
-      fgColor     = fromMaybe "#8F93A2"   (M.lookup "foreground"          myTheme),
-      bgHLight    = fromMaybe "#717CB480" (M.lookup "selectionBackground" myTheme),
-      fgHLight    = fromMaybe "#FFFFFF"   (M.lookup "selectionForeground" myTheme),
-      borderColor = fromMaybe "#0F111A"   (M.lookup "border"              myTheme)
-    }
-
 myTreeConf            =
   TSConfig
     { ts_hidechildren = True,
@@ -382,9 +342,6 @@ myXmobarPP              =
 navWrapAround=False
 
 gridSelectSpawn = spawnSelected def ["virtualbox", "neovide", "kitty", "barrier", "kdeconnect-indicator", "emacsclient -c -a emacs", "chrome", "st", "spotify"]
-notesPromptFunc = do
-    spawn ("date>>"++"/home/shawn/dev/personal/NOTES")
-    appendFilePrompt myXPConfig "/home/shawn/dev/personal/NOTES"
 
 toggleFullScreen = do
     sendMessage (JumpToLayout ("Full"))
