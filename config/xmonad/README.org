@@ -428,7 +428,7 @@ myEasyMotionConfig =  def {
 
 myKeybinds = [
  -- SHOWKEYS START
-    ("M-/",     spawn "/home/shawn/dotfiles/scripts/xmonad/help.sh") -- Help
+     ("M-/",     spawn "/home/shawn/dotfiles/scripts/xmonad/help.sh") -- Help
 
     , ("M-x",  myTree) -- Open Tree
     , ("M-S-x",myTreeWorkspaces) -- Open Tree workspaces
@@ -484,6 +484,20 @@ myKeybinds = [
     , ("M-C-<U>", withFocused (keysResizeWindow (0,20) (0,1))) --expand float at top
     , ("M-C-<D>", withFocused (keysResizeWindow (0,-20) (0,1))) --shrink float at top
 
+    , ("M-p /", spawn "prompt.sh help") -- help
+    , ("M-p n", spawn "prompt.sh notes") -- notes
+    , ("M-p s", spawn "prompt.sh ssh") -- ssh
+    , ("M-p c", spawn "prompt.sh calc") -- calc
+    , ("M-p l", spawn "prompt.sh layout") -- layout
+    , ("M-p m", spawn "prompt.sh man") -- man
+    , ("M-p r", spawn "prompt.sh run") -- run
+    , ("M-p u", spawn "prompt.sh unicode") -- unicode
+    , ("M-p g", spawn "prompt.sh window_go") -- window_go
+    , ("M-p b", spawn "prompt.sh window_bring") -- window_bring
+    , ("M-p p", spawn "prompt.sh power") -- power
+    , ("M-p e", spawn "prompt.sh emoji") -- emoji
+    , ("M-p t", spawn "prompt.sh translate") -- translate
+
  -- SHOWKEYS END
 
  -- ,   ("M-j", windowGo D navWrapAround) -- Focus Window Down
@@ -519,7 +533,6 @@ myKeybinds = [
  -- , ("M-f k", withFocused (keysMoveWindow (0,-10))) -- Move Window 10 px to up
  -- , ("M-f j", withFocused (keysMoveWindow (0,10))) -- Move Window 10 px to down
  ]
-
 
 myMouseBindings = [
  --     ((myModMask,               button1), (\w -> focus w >> mouseMoveWindow w >> ifClick (snapMagicMove (Just 50) (Just 50) w)))
