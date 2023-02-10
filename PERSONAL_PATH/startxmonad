@@ -1,5 +1,7 @@
 #!/bin/env bash
 
+echo "$$" > /tmp/startxmonad.pid
+
 while true; do
 	echo "================$(date)=================" >> ~/log/xmonad.log
 	echo "================$(date)=================" >> ~/log/xmonad.err.log
