@@ -599,7 +599,7 @@ myManageHook      =
     netIconName              = stringProperty "_NET_WM_ICON_NAME"
     localeName               = stringProperty "WM_LOCALE_NAME"
 
-    centerFloatClassName     = ["opengl_testing", "Vimb", "Xmessage", "Gimp", "Open File", "leagueclientux.exe", "riotclientux.exe", "riotclientservices.exe", "League of Legends"]
+    centerFloatClassName     = ["opengl_testing", "Vimb", "Xmessage", "Gimp", "Open File", "leagueclientux.exe", "riotclientux.exe", "riotclientservices.exe", "League of Legends", "Xephyr"]
 
     floatClassName           = []
 
@@ -610,7 +610,7 @@ myManageHook      =
 
     shiftWorkspaceClassName1 = ["Browser", "Firefox", "Google-chrome", "Opera"]
     shiftWorkspaceClassName2 = ["St", "st", "terminal", "st-256color", "alacritty", "kitty"]
-    shiftWorkspaceClassName3 = ["ModernGL", "Emacs", "emacs", "neovide", "Code", "Code - Insiders", "opengl_testing"]
+    shiftWorkspaceClassName3 = ["ModernGL", "Emacs", "emacs", "neovide", "Code", "Code - Insiders", "opengl_testing", "Xephyr"]
     shiftWorkspaceClassName4 = ["hakuneko-desktop", "Unity", "unityhub", "UnityHub", "zoom"]
     shiftWorkspaceClassName5 = ["Spotify", "spotify","vlc"]
     shiftWorkspaceClassName6 = ["Mail", "Thunderbird"]
