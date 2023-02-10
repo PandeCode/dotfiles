@@ -21,7 +21,6 @@ function setbg (){
 		notify-send "Image file does not exist '$img'"
 		echo "Image file does not exist '$img'" &1>2
 	fi
-
 	if [[ "$XDG_SESSION_TYPE" == "x11" ]]; then
 		feh --bg-fill $img
 		echo "$img"
