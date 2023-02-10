@@ -1,5 +1,7 @@
 #!/bin/env bash
 
+echo "$$" > /tmp/startxmonad_nonrec.pid
+
 echo "================$(date)=================" >> ~/log/xmonad.log
 echo "================$(date)=================" >> ~/log/xmonad.err.log
 xmonad $@ 1>> ~/log/xmonad.log 2>> ~/log/xmonad.err.log

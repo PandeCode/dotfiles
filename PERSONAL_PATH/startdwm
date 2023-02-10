@@ -1,5 +1,7 @@
 #!/bin/env bash
 
+echo "$$" > /tmp/startdwm.pid
+
 while true; do
 	echo "================$(date)=================" >> ~/log/dwm.log
 	echo "================$(date)=================" >> ~/log/dwm.err.log
