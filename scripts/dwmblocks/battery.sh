@@ -2,21 +2,38 @@
 
 index=44 # 34+10
 
+get_ac() {
+	for i in {/sys/class/power_supply/ACAD/online,/sys/class/power_supply/AC/online}; do
+		if [ -f "$i" ]; then
+			echo "$i"
+			return
+		fi
+	done
+}
+get_bat() {
+	for i in {/sys/class/power_supply/BAT1/capacity,/sys/class/power_supply/BAT0/capacity}; do
+		if [ -f "$i" ]; then
+			echo "$i"
+			return
+		fi
+	done
+}
+
 case $BUTTON in
 	1)
 		notify-send "BAT" "$(acpi)"
-		killall -$index $(pidof dwmblocks)
+		killall -$index "$(pidof dwmblocks)"
 		exit 0
 		;;
 
 	2)
 		st -e htop
-		killall -$index $(pidof dwmblocks)
+		killall -$index "$(pidof dwmblocks)"
 		exit 0
 		;;
 
 	3)
-		killall -$index $(pidof dwmblocks)
+		killall -$index "$(pidof dwmblocks)"
 		cmd="$(
 			cat << EOF | xmenu
 Light UP	light -S 100
@@ -33,7 +50,7 @@ EOF
 		;;
 esac
 
-cat /sys/class/power_supply/ACAD/online /sys/class/power_supply/BAT1/capacity |
+cat "$(get_ac)" "$(get_bat)" |
 	tr '\n' ' ' |
 	awk '{
 		if($1) printf(" ");
@@ -55,6 +72,4 @@ cat /sys/class/power_supply/ACAD/online /sys/class/power_supply/BAT1/capacity |
 
 		print ($2 "%^c#8F93A2^")
 }'
-
-
 

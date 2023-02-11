@@ -15,8 +15,6 @@ case $BUTTON in
 
 	2)
 		killall -$index $(pidof dwmblocks)
-
-
 		exit 0
 		;;
 
