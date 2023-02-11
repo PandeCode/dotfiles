@@ -1,0 +1,60 @@
+super + p ; {slash,n,s,c,l,m,r,u,g,b,p,e,t}
+	prompt.sh {help,notes,ssh,calc,layout,man,run,unicode,window_go,window_bring,power,emoji,translate} # Help Prompt
+
+super + i ; {slash,p ,b,d,c,r}
+	info.sh {help,ping,battery,date,cpu,memory}
+
+super + m ; {slash,p ,b,d,c,r,m}
+	menu.sh {help,ping,battery,date,cpu,memory,main}
+
+super + w ; { slash ,w,r,p,l,n}
+	{notify-send "TODO",randbg,randbg,prevbg,lastbg,nextbg}
+
+super + v
+	rofi -modi 'clipboard:greenclip print' -show clipboard -run-command '{cmd}' # Select from Green Clip and set as current clipboard value
+super + shift + v
+	rofi -modi 'clipboard:greenclip print' -show clipboard -run-command '{cmd}' ; sleep 0.5; xdotool type $(xclip -o -selection clipboard) # Select from Green Clip and paste
+super + ctrl + shift + v
+	pkill greenclip && greenclip clear && greenclip daemon & notify-send 'System' 'Greenclip Cleared' # Clear Green Clip
+
+super + shift + l
+	betterlockscreen -lock
+alt + F2
+	dmenu_run  -f -i -l 10 -p 'sh -c'
+
+super + z
+	eww open --toggle sidebar
+super + shift + z
+	eww open --toggle dubs
+
+super + Print
+	 flameshot full -p $HOME/Pictures/Screenshots
+super + S + Print
+	 flameshot gui -p $HOME/Pictures/Screenshots
+
+super + s ; { slash,c,p,r,b,h,s }
+	{ notify-send "TODO", $DOTFILES/PERSONAL_PATH/click4ever, pavucontrol, vokoscreenNG, $BROWSER, hakuneko-desktop, spotify}
+
+XF86MonBrightness{Down,Up}
+	$DOTFILES/scripts/dwm/light.sh {down,up}
+XF86Audio{LowerVolume,RaiseVolume,Mute}
+	$DOTFILES/scripts/dwm/vol.sh {down,up,mute} # vol down
+XF86Audio{Play,Next,Prev}
+	$DOTFILES/scripts/dwm/media.sh {play-pause,next,previous} # media play-pause
+
+super + F2
+	$DOTFILES/scripts/dwm/light.sh down # light down
+super + F3
+	$DOTFILES/scripts/dwm/light.sh up # light up
+super + F7
+	$DOTFILES/scripts/dwm/vol.sh dowm # vol down
+super + F8
+	$DOTFILES/scripts/dwm/vol.sh up # vol up
+super + F6
+	$DOTFILES/scripts/dwm/vol.sh mute # vol mute
+super + F10
+	$DOTFILES/scripts/dwm/media.sh play-pause # media play-pause
+super + F11
+	$DOTFILES/scripts/dwm/media.sh next # media next
+super + F9
+	$DOTFILES/scripts/dwm/media.sh previous # media previous
