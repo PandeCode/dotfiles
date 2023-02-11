@@ -7,15 +7,3 @@
 [submodule "config/rofi"]
 	path = config/rofi
 	url = https://github.com/PandeCode/rofi
-[submodule "compiled/dwmblocks"]
-	path = compiled/dwmblocks
-	url = https://github.com/PandeCode/dwmblocks
-[submodule "compiled/dwm-flexipatch"]
-	path = compiled/dwm-flexipatch
-	url = https://github.com/PandeCode/dwm-flexipatch
-[submodule "compiled/st-flexipatch"]
-	path = compiled/st-flexipatch
-	url = https://github.com/PandeCode/st-flexipatch
-[submodule "compiled/xmenu"]
-	path = compiled/xmenu
-	url = https://github.com/PandeCode/xmenu
