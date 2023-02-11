@@ -1,45 +1,21 @@
-[submodule "tmux-config"]
-	path = tmux-config
-	url = https://github.com/PandeCode/tmux-config/
-[submodule "config/nvim"]
-	path = config/nvim
-	url = https://github.com/PandeCode/nvim-config/
-[submodule "dwm"]
-	path = dwm
-	url = https://github.com/PandeCode/dwm
-[submodule "dwmblocks"]
-	path = dwmblocks
-	url = https://github.com/PandeCode/dwmblocks
-[submodule "dwm-flexipatch"]
-	path = dwm-flexipatch
-	url = https://github.com/PandeCode/dwm-flexipatch/
-[submodule "st"]
-	path = st
-	url = https://github.com/PandeCode/st
-[submodule "st-flexipatch"]
-	path = st-flexipatch
-	url = https://github.com/PandeCode/st-flexipatch/
-[submodule "config/rofi"]
-	path = config/rofi
-	url = https://github.com/PandeCode/rofi
-[submodule "dsblocks"]
-	path = dsblocks
-	url = https://github.com/PandeCode/dsblocks/
-[submodule "xmenu"]
-	path = xmenu
-	url = https://github.com/PandeCode/xmenu
-[submodule "build/dwmblocks"]
-	path = build/dwmblocks
-	url = https://github.com/PandeCode/dwmblocks
-[submodule "build/dwm-flexipatch"]
-	path = build/dwm-flexipatch
-	url = https://github.com/PandeCode/dwm-flexipatch
-[submodule "build/st-flexipatch"]
-	path = build/st-flexipatch
-	url = https://github.com/PandeCode/st-flexipatch
-[submodule "build/xmenu"]
-	path = build/xmenu
-	url = https://github.com/PandeCode/xmenu
 [submodule "config/awesome"]
 	path = config/awesome
 	url = https://github.com/PandeCode/awesome
+[submodule "config/nvim"]
+	path = config/nvim
+	url = https://github.com/PandeCode/nvim-config/
+[submodule "config/rofi"]
+	path = config/rofi
+	url = https://github.com/PandeCode/rofi
+[submodule "compiled/dwmblocks"]
+	path = compiled/dwmblocks
+	url = https://github.com/PandeCode/dwmblocks
+[submodule "compiled/dwm-flexipatch"]
+	path = compiled/dwm-flexipatch
+	url = https://github.com/PandeCode/dwm-flexipatch
+[submodule "compiled/st-flexipatch"]
+	path = compiled/st-flexipatch
+	url = https://github.com/PandeCode/st-flexipatch
+[submodule "compiled/xmenu"]
+	path = compiled/xmenu
+	url = https://github.com/PandeCode/xmenu
