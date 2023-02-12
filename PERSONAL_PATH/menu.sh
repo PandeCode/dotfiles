@@ -4,7 +4,7 @@ CONFIGDIR=$HOME/dotfiles/dotfiles/config/
 TERMINAL=kitty
 
 function getShaders {
-	shaderDir="$HOME/dotfiles/config/picom/shaders"
+	shaderDir="$DOTFILES/config/picom/shaders"
 	shaders=`ls $shaderDir`
 
 	for shader in $shaders
@@ -13,19 +13,23 @@ function getShaders {
 	done
 }
 
-
 cat << EOF | xmenu -i -p 0x25:1 | sh &
 Background
 	Random                                    	 randbg
 	Previous                                  	 prevbg
+	Next                                     	 nextbg
+	Last                                     	 lastbg
 	
 Media
 	Play                                      	 playerctl play
 	Pause                                     	 playerctl pause
 	
-Picom
+Rendering
 	Shaders
 $(getShaders)
+	Bluelight Filter
+		On                                     	 killall -9 xflux ; xflux -l 0 ; killall -9 xflux
+		Off                                   	 xflux -l 0 
 	Off                                       	 killall -9 picom
 	On                                        	 picom --experimental-background -b 1>> ~/log/picom.log 2>> ~/log/picom.err.log
 	Rounded Corners                           	 $DOTFILES/scripts/picom.sh rounded
@@ -245,7 +249,7 @@ Lang
 	Clean Cache
 		All                                   	 $TERMINAL -e sudo $DOTFILES/scripts/cleanAll.sh
 		Files                                 	 $TERMINAL -e sudo rm -fr ~/.npm ~/.lesshst ~/.cache/thumbnails ~/.local/share/baloo ~/.cache/cpython/
-		pacman|paru                           	 $TERMINAL -e sudo clear; paru -Scc --noconfirm & paru -R (paru -Qtdq) --noconfirm
+		pacman|paru                           	 $TERMINAL -e sudo clear; paru -Scc --noconfirm & paru -R $(paru -Qtdq) --noconfirm
 		python3                               	 $TERMINAL -e python3 -m pip cache purge
 		python2                               	 $TERMINAL -e python2 -m pip cache purge
 		npm                                   	 $TERMINAL -e npm cache clean --force
@@ -256,6 +260,7 @@ Lang
 	 Refresh dwmblocks                       	 pkill -9 dwmblocks
 	
 	 Logout                                  	 pkill -9 bash
+	 Suspend                                  	 systemctl suspend
 	 Shutdown                                	 poweroff
 	 Reboot                                  	 reboot
 EOF
