@@ -1,21 +1,43 @@
 defaultPlayer=spotify
 currentPlayerFile=/tmp/currentPlayerFile
-isMutedDueToAdFile=/tmp/isMutedDueToAdFile
+pictureCacheDir=~/.cache/spotifyPictureCache
+imageSize=16x16
+
+function getAlbmuArt() {
+	artUrl=$(playerctl metadata -p spotify --format "{{ mpris:artUrl }}")
+	fileName=$(echo "$artUrl" | grep -Po '.*/\K.*')
+	fileNameXpm="$fileName.xpm"
+	fileNameAbs="$pictureCacheDir/$fileName"
+	fileNameAbsXpm="$pictureCacheDir/$fileName.xpm"
+
+	if ! [ -f "$fileNameAbs" ]; then
+		safeCd "$pictureCacheDir"
+		wget -O "$fileNameAbs" "$artUrl"
+		convert "$fileName" -resize $imageSize "$fileNameXpm"
+	fi
+	if ! [ -f "$fileNameXpm" ]; then
+		safeCd $pictureCacheDir
+		convert "$fileName" -resize $imageSize "$fileNameXpm"
+	fi
+
+	echo "$fileNameAbsXpm"
+}
+
 
 function getNewCurrentPlayer() {
 	players=$(playerctl -l)
 
 	for p in $players; do
 		if [ "$defaultPlayer" = "$p" ]; then
-			echo -n $p > $currentPlayerFile
-			echo -n $p
+			echo -n "$p" > $currentPlayerFile
+			echo -n "$p"
 			return
 		fi
 	done
 
 	for p in $players; do
-		echo -n $p > $currentPlayerFile
-		echo -n $p
+		echo -n "$p" > $currentPlayerFile
+		echo -n "$p"
 		return
 	done
 }

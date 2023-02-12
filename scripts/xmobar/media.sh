@@ -212,24 +212,28 @@ EOF
 
 esac
 
+function saveCd() {
+	cd "$1" || mkdir -p "$1" && cd cd "$1" && cd "$1" || exit
+}
+
 function getAlbmuArt() {
 	artUrl=$(playerctl metadata -p spotify --format "{{ mpris:artUrl }}")
-	fileName=$(echo $artUrl | grep -Po '.*/\K.*')
-	fileNameXpm="$(echo $fileName).xpm"
+	fileName=$(echo "$artUrl" | grep -Po '.*/\K.*')
+	fileNameXpm="$fileName.xpm"
+	fileNameAbs="$pictureCacheDir/$fileName"
+	fileNameAbsXpm="$pictureCacheDir/$fileName.xpm"
 
-	if ! [ -f $pictureCacheDir/$fileName ]; then
-		wget -O $pictureCacheDir/$fileName $artUrl
-
-		cd $pictureCacheDir
-		convert $fileName -resize $imageSize $fileNameXpm
+	if ! [ -f "$fileNameAbs" ]; then
+		safeCd "$pictureCacheDir"
+		wget -O "$fileNameAbs" "$artUrl"
+		convert "$fileName" -resize $imageSize "$fileNameXpm"
+	fi
+	if ! [ -f "$fileNameXpm" ]; then
+		safeCd $pictureCacheDir
+		convert "$fileName" -resize $imageSize "$fileNameXpm"
 	fi
 
-	if ! [ -f $fileNameXpm ]; then
-		cd $pictureCacheDir
-		convert $fileName -resize $imageSize $fileNameXpm
-	fi
-
-	echo $pictureCacheDir/$fileNameXpm
+	echo "$fileNameAbsXpm"
 }
 
 function getAction() {
