@@ -1,5 +1,5 @@
-super + p ; {slash,n,s,c,l,m,r,t,u,g,b,p,e,t}
-	prompt.sh {help,notes,ssh,calc,layout,man,run,unicode,window_go,window_bring,power,emoji,translate} # Help Prompt
+super + p ; {slash,  n,     s,   c,    l,      m,   r,   u,       g,         b,            p,     e,     t}
+	prompt.sh {help, notes, ssh, calc, layout, man, run, unicode, window_go, window_bring, power, emoji, translate} # Help Prompt
 
 super + i ; {slash,p ,b,d,c,r}
 	info.sh {help,ping,battery,date,cpu,memory}
