@@ -11,7 +11,6 @@ progressWidth=2
 progressPosition=Bottom # Top | Bottom
 progressColor="#84ffff"
 
-
 DELIMITER_1="🗘" # It is there just not rendered easily
 
 function makeSafeForSed (){
@@ -214,36 +213,38 @@ esac
 
 function getAlbmuArt() {
 	artUrl=$(playerctl metadata -p spotify --format "{{ mpris:artUrl }}")
-	fileName=$(echo $artUrl | grep -Po '.*/\K.*')
-	fileNameXpm="$(echo $fileName).xpm"
+	fileName=$(echo "$artUrl" | grep -Po '.*/\K.*')
+	fileNameXpm="$fileName.xpm"
+	fileNameAbs="$pictureCacheDir/$fileName"
+	fileNameAbsXpm="$pictureCacheDir/$fileName.xpm"
 
-	if ! [ -f $pictureCacheDir/$fileName ]; then
-		wget -O $pictureCacheDir/$fileName $artUrl
-
+	if ! [ -f "$fileNameAbs" ]; then
+		cd "$pictureCacheDir"
+		wget -O "$fileNameAbs" "$artUrl"
+		convert "$fileName" -resize $imageSize "$fileNameXpm"
+	fi
+	if ! [ -f "$fileNameXpm" ]; then
 		cd $pictureCacheDir
-		convert $fileName -resize $imageSize $fileNameXpm
+		convert "$fileName" -resize $imageSize "$fileNameXpm"
 	fi
 
-	if ! [ -f $fileNameXpm ]; then
-		cd $pictureCacheDir
-		convert $fileName -resize $imageSize $fileNameXpm
-	fi
-
-	echo $pictureCacheDir/$fileNameXpm
+	echo "$fileNameAbsXpm"
 }
 
 function getAction() {
 	if [ "$(playerctl status -p $currentPlayer)" == "Playing" ]; then
-		echo "<action=\`playerctl pause -p $currentPlayer\`>"
+		echo -n pause
 	else
-		echo "<action=\`playerctl play -p $currentPlayer\`>"
+		echo -n play
 	fi
 }
 
-echo -n '<action=`$DOTFILES/scripts/xmobar/media.sh 2` button=2>'
-echo -n '<action=`$DOTFILES/scripts/xmobar/media.sh 3` button=3>'
-echo -n '<action=`$DOTFILES/scripts/xmobar/media.sh 4` button=4>'
-echo -n '<action=`$DOTFILES/scripts/xmobar/media.sh 5` button=5>'
+echo "<action=\`playerctl $(getAction) -p $currentPlayer\`>\
+<action=\`$DOTFILES/scripts/xmobar/media.sh 2\` button=2> \
+<action=\`$DOTFILES/scripts/xmobar/media.sh 3\` button=3> \
+<action=\`$DOTFILES/scripts/xmobar/media.sh 4\` button=4> \
+<action=\`$DOTFILES/scripts/xmobar/media.sh 5\` button=5> \
+"
 
 iconText=''
 

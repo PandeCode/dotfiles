@@ -1,11 +1,11 @@
-super + i ; {slash,p ,b,d,c,r}
-	info.sh {help,ping,battery,date,cpu,memory}
+super + i ; {slash, p,    b,       d,    c,   r}
+	info.sh {help,  ping, battery, date, cpu, memory}
 
-super + m ; {slash,p ,b,d,c,r,m}
-	menu.sh {help,ping,battery,date,cpu,memory,main}
+super + m ; {slash, p,    b,       d,    c,   r,      m}
+	menu.sh {help,  ping, battery, date, cpu, memory, main}
 
-super + w ; { slash ,w,r,p,l,n}
-	{notify-send "TODO",randbg,randbg,prevbg,lastbg,nextbg}
+super + w ; { slash,     w,      r,      p,      l,      n}
+	{notify-send "TODO", randbg, randbg, prevbg, lastbg, nextbg}
 
 super + v
 	rofi -modi 'clipboard:greenclip print' -show clipboard -run-command '{cmd}' # Select from Green Clip and set as current clipboard value
@@ -29,15 +29,17 @@ super + Print
 super + S + Print
 	 flameshot gui -p $HOME/Pictures/Screenshots
 
-super + s ; { slash,c,p,r,b,h,s }
+super + s ; { slash,      c,                                  p,           r,            b,        h,                s }
 	{ notify-send "TODO", $DOTFILES/PERSONAL_PATH/click4ever, pavucontrol, vokoscreenNG, $BROWSER, hakuneko-desktop, spotify}
 
-XF86MonBrightness{Down,Up}
-	$DOTFILES/scripts/dwm/light.sh {down,up}
-XF86Audio{LowerVolume,RaiseVolume,Mute}
-	$DOTFILES/scripts/dwm/vol.sh {down,up,mute} # vol down
-XF86Audio{Play,Next,Prev}
-	$DOTFILES/scripts/dwm/media.sh {play-pause,next,previous} # media play-pause
+XF86MonBrightness{Down,                   Up}
+	$DOTFILES/scripts/dwm/light.sh {down, up}
+
+XF86Audio{LowerVolume,                  RaiseVolume, Mute}
+	$DOTFILES/scripts/dwm/vol.sh {down, up,          mute} # vol down
+
+XF86Audio{Play,                                 Next, Prev}
+	$DOTFILES/scripts/dwm/media.sh {play-pause, next, previous} # media play-pause
 
 super + F2
 	$DOTFILES/scripts/dwm/light.sh down # light down

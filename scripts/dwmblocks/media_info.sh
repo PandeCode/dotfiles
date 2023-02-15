@@ -8,19 +8,19 @@ source $DOTFILES/scripts/shared/media.sh
 LC_ALL=en_US.UTF-8
 case $BUTTON in
 	1)
-		killall -$index $(pidof dwmblocks)
+		pkill -$index dwmblocks
 		playerctlCommandCurrentPlayerOrDefault play-pause
 		exit 0
 		;;
 
 	2)
-		killall -$index $(pidof dwmblocks)
+		pkill -$index dwmblocks
 		exit 0
 		;;
 
 	3)
-		killall -$index $(pidof dwmblocks)
-		notify-send "$(echo media)" "$(echo $BUTTON)"
+		pkill -$index dwmblocks
+		notify-send "Media" "$BUTTON"
 		cmd="$(
 			cat << EOF | xmenu
 Media
@@ -29,10 +29,10 @@ EOF
 
 		case $cmd in
 			"Media") 
-		notify-send "$(echo media)" "$(echo $BUTTON)"
+		notify-send "Media" "$BUTTON"
 				;;
 			*)
-		notify-send "$(echo media)" "$(echo $BUTTON)"
+		notify-send "Media" "Button: $BUTTON"
 				;;
 		esac
 
@@ -41,4 +41,4 @@ EOF
 
 esac
 
-echo $currentSong
+echo "^c#55cdfc^^r10,3,3,14,14^^f20^$currentSong"
