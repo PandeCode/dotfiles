@@ -11,7 +11,6 @@ progressWidth=2
 progressPosition=Bottom # Top | Bottom
 progressColor="#84ffff"
 
-
 DELIMITER_1="🗘" # It is there just not rendered easily
 
 function makeSafeForSed (){
@@ -240,10 +239,7 @@ function getAction() {
 	fi
 }
 
-echo -n '<action=`$DOTFILES/scripts/xmobar/media.sh 2` button=2>'
-echo -n '<action=`$DOTFILES/scripts/xmobar/media.sh 3` button=3>'
-echo -n '<action=`$DOTFILES/scripts/xmobar/media.sh 4` button=4>'
-echo -n '<action=`$DOTFILES/scripts/xmobar/media.sh 5` button=5>'
+echo -n '<action=`$DOTFILES/scripts/xmobar/media.sh 2` button=2><action=`$DOTFILES/scripts/xmobar/media.sh 3` button=3><action=`$DOTFILES/scripts/xmobar/media.sh 4` button=4><action=`$DOTFILES/scripts/xmobar/media.sh 5` button=5>'
 
 iconText=''
 
