@@ -1,20 +1,17 @@
-thefuck --alias | source
 starship init fish | source
-
-complete -f -c dotnet -a "(dotnet complete)"
-
-if test -f /home/shawn/.autojump/share/autojump/autojump.fish
-    . /home/shawn/.autojump/share/autojump/autojump.fish
-end
+thefuck --alias | source
 
 set -g fish_emoji_width 1
 set -g fish_ambiguous_width 1
-
 set -gx GPG_TTY (tty)
 
 [ -f /usr/share/autojump/autojump.fish ]; and source /usr/share/autojump/autojump.fish
 
-if type -q fizzygit
-    fizzygit
+if test -f /home/shawn/.autojump/share/autojump/autojump.fish
+    . /home/shawn/.autojump/share/autojump/autojump.fish
 end
-fish_add_path /home/shawn/.spicetify
+if status is-interactive
+    # Commands to run in interactive sessions can go here
+end
+
+
