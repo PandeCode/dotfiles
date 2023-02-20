@@ -213,38 +213,33 @@ esac
 
 function getAlbmuArt() {
 	artUrl=$(playerctl metadata -p spotify --format "{{ mpris:artUrl }}")
-	fileName=$(echo "$artUrl" | grep -Po '.*/\K.*')
-	fileNameXpm="$fileName.xpm"
-	fileNameAbs="$pictureCacheDir/$fileName"
-	fileNameAbsXpm="$pictureCacheDir/$fileName.xpm"
+	fileName=$(echo $artUrl | grep -Po '.*/\K.*')
+	fileNameXpm="$(echo $fileName).xpm"
 
-	if ! [ -f "$fileNameAbs" ]; then
-		cd "$pictureCacheDir"
-		wget -O "$fileNameAbs" "$artUrl"
-		convert "$fileName" -resize $imageSize "$fileNameXpm"
-	fi
-	if ! [ -f "$fileNameXpm" ]; then
+	if ! [ -f $pictureCacheDir/$fileName ]; then
+		wget -O $pictureCacheDir/$fileName $artUrl
+
 		cd $pictureCacheDir
-		convert "$fileName" -resize $imageSize "$fileNameXpm"
+		convert $fileName -resize $imageSize $fileNameXpm
 	fi
 
-	echo "$fileNameAbsXpm"
+	if ! [ -f $fileNameXpm ]; then
+		cd $pictureCacheDir
+		convert $fileName -resize $imageSize $fileNameXpm
+	fi
+
+	echo $pictureCacheDir/$fileNameXpm
 }
 
 function getAction() {
 	if [ "$(playerctl status -p $currentPlayer)" == "Playing" ]; then
-		echo -n pause
+		echo "<action=\`playerctl pause -p $currentPlayer\`>"
 	else
-		echo -n play
+		echo "<action=\`playerctl play -p $currentPlayer\`>"
 	fi
 }
 
-echo "<action=\`playerctl $(getAction) -p $currentPlayer\`>\
-<action=\`$DOTFILES/scripts/xmobar/media.sh 2\` button=2> \
-<action=\`$DOTFILES/scripts/xmobar/media.sh 3\` button=3> \
-<action=\`$DOTFILES/scripts/xmobar/media.sh 4\` button=4> \
-<action=\`$DOTFILES/scripts/xmobar/media.sh 5\` button=5> \
-"
+echo -n '<action=`$DOTFILES/scripts/xmobar/media.sh 2` button=2><action=`$DOTFILES/scripts/xmobar/media.sh 3` button=3><action=`$DOTFILES/scripts/xmobar/media.sh 4` button=4><action=`$DOTFILES/scripts/xmobar/media.sh 5` button=5>'
 
 iconText=''
 

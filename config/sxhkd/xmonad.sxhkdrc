@@ -4,9 +4,6 @@ super + i ; {slash, p,    b,       d,    c,   r}
 super + m ; {slash, p,    b,       d,    c,   r,      m}
 	menu.sh {help,  ping, battery, date, cpu, memory, main}
 
-super + w ; { slash,     w,      r,      p,      l,      n}
-	{notify-send "TODO", randbg, randbg, prevbg, lastbg, nextbg}
-
 super + v
 	rofi -modi 'clipboard:greenclip print' -show clipboard -run-command '{cmd}' # Select from Green Clip and set as current clipboard value
 super + shift + v

@@ -1,0 +1,39 @@
+1 - view"\185 \62056 "
+2 - shift"\185 \62056 "
+3 - view"\178 \61728 "
+4 - shift"\178 \61728 "
+5 - view"\179 \61729 "
+6 - shift"\179 \61729 "
+7 - view"\8308 \61501 "
+8 - shift"\8308 \61501 "
+9 - view"\8309 \61884 "
+10 - shift"\8309 \61884 "
+11 - view"\8310 \61664 "
+12 - shift"\8310 \61664 "
+13 - view"\8311 \61723 "
+14 - shift"\8311 \61723 "
+15 - view"\8312 \61734 "
+16 - shift"\8312 \61734 "
+17 - view"\8313 \61462"
+18 - shift"\8313 \61462"
+19 - screen0
+20 - screen-to-0
+21 - screen1
+22 - screen-to-1
+23 - shrink
+24 - expand
+25 - next-layout
+26 - default-layout
+27 - restart-wm
+28 - restart-wm-no-resume
+29 - xterm
+30 - run
+31 - kill
+32 - refresh
+33 - focus-up
+34 - focus-down
+35 - swap-up
+36 - swap-down
+37 - swap-master
+38 - sink
+39 - quit-wm

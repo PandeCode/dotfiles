@@ -432,6 +432,12 @@ myKeybinds = [
     , ("M-p e", spawn "prompt.sh emoji") -- emoji
     , ("M-p t", spawn "prompt.sh translate") -- translate
 
+    , ("M-w w", spawn "randbg") -- randbg
+    , ("M-w r", spawn "randbg") -- randbg
+    , ("M-w p", spawn "prevbg") -- prevbg
+    , ("M-w l", spawn "lastbg") -- lastbg
+    , ("M-w n", spawn "nextbg") -- randbg
+
  -- SHOWKEYS END
 
  -- ,   ("M-j", windowGo D navWrapAround) -- Focus Window Down
