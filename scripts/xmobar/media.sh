@@ -240,6 +240,9 @@ function getAction() {
 }
 
 echo -n '<action=`$DOTFILES/scripts/xmobar/media.sh 2` button=2><action=`$DOTFILES/scripts/xmobar/media.sh 3` button=3><action=`$DOTFILES/scripts/xmobar/media.sh 4` button=4><action=`$DOTFILES/scripts/xmobar/media.sh 5` button=5>'
+echo -n "<action=\`playerctl previous -p $currentPlayer\`>  </action>\
+$(getAction)</action>\
+<action=\`playerctl next -p $currentPlayer\`>  </action>"
 
 iconText=''
 
@@ -267,9 +270,6 @@ progressedInfo=$(applyProgress "$DELIMITER_1$finalInfo")
 echo -n "$progressedInfo" | sed "s/$DELIMITER_1/$(makeSafeForSed $iconText)/"
 
 echo -n "\
-<action=\`playerctl previous -p $currentPlayer\`>  </action>\
-$(getAction)</action>\
-<action=\`playerctl next -p $currentPlayer\`>  </action>\
 </action>\
 </action>\
 </action>\
