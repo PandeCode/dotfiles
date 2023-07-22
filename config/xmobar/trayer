@@ -10,4 +10,4 @@ trayer \
 	--width 7 \
 	--transparent false \
 	--tint 0x0F111A \
-	--height 20
+	--height 16

@@ -1,5 +1,6 @@
 Config {
 	  font  = "xft:iosevka:wegiht=bold:pixelsize=12"
+	, dpi = 70
 	, additionalFonts  = [
  		"xft:FontAwesome:pixelsize=13",
  		"xft:Fira Code Nerd Font:pixelsize=12:antialias=true:autohint=true",

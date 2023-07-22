@@ -1,5 +1,16 @@
 HOME=/home/shawn
 
+export ANDROID=$HOME/Android/Sdk
+export PATH=$ANDROID/cmdline-tools/lastest/tools:$PATH
+export PATH=$ANDROID/cmdline-tools/lastest/tools/bin:$PATH
+export PATH=$ANDROID/platform-tools:$PATH
+# Android SDK
+export ANDROID_SDK=$ANDROID
+export PATH=$ANDROID_SDK:$PATH
+# Flutter
+export FLUTTER=/opt/flutter
+export PATH=$FLUTTER/bin:$PATH
+
 export GRIM_DEFAULT_DIR=$HOME/Pictures/Screenshots
 
 export XKB_DEFAULT_OPTIONS=ctrl:nocaps
@@ -12,7 +23,7 @@ export _JAVA_AWT_WM_NONREPARENTING=1
 export TERMINAL=/usr/bin/alacritty
 export CC=/usr/bin/clang
 export CXX=/usr/bin/clang++
-export SHELL=/bin/bash
+export SHELL=/bin/fish
 export EDITOR=/usr/bin/nvim
 export BROWSER=/usr/bin/google-chrome-stable
 export RUST_BACKTRACE=1

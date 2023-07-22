@@ -48,6 +48,7 @@ case $1 in
 9.9.9.9	9.9.9.9
 8.8.8.8	8.8.8.8
 LOL EUW1	dynamodb.eu-west-2.amazonaws.com
+Genshin EU	8.209.112.253
 EOF
 		)"
 		if [ -z "$cmd" ]; then exit 0; fi
